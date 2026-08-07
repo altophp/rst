@@ -1,0 +1,28 @@
+<document source="<stdin>">
+    <table>
+        <tgroup cols="2">
+            <colspec colwidth="5">
+            <colspec colwidth="5">
+            <thead>
+                <row>
+                    <entry>
+                        <paragraph>
+                            Alpha
+                    <entry>
+                        <paragraph>
+                            Beta
+            <tbody>
+                <row>
+                    <entry>
+                        <paragraph>
+                            one
+                    <entry>
+                        <paragraph>
+                            two
+                <row>
+                    <entry>
+                        <paragraph>
+                            three
+                    <entry>
+                        <paragraph>
+                            four

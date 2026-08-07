@@ -1,0 +1,11 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <reference name="mixed heading" refid="mixed-heading">
+            mixed heading
+        .
+    <section ids="mixed-heading" names="mixed\ heading">
+        <title>
+            Mixed Heading
+        <paragraph>
+            Body.

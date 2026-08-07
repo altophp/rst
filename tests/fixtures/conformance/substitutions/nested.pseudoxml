@@ -1,0 +1,13 @@
+<document source="<stdin>">
+    <substitution_definition names="outer">
+        Before 
+        middle
+         after
+    <substitution_definition names="inner">
+        middle
+    <paragraph>
+        See 
+        Before 
+        middle
+         after
+        .

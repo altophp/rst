@@ -1,0 +1,14 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <reference name="topic" refid="topic-1">
+            topic
+        .
+    <section dupnames="topic" ids="topic">
+        <title>
+            Topic
+        <paragraph>
+            Section.
+        <target refid="topic-1">
+        <paragraph ids="topic-1" names="topic">
+            Explicit destination.

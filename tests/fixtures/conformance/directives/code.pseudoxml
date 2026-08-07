@@ -1,0 +1,3 @@
+<document source="<stdin>">
+    <literal_block classes="code" xml:space="preserve">
+        print("hi")

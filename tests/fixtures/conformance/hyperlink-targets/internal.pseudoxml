@@ -1,0 +1,4 @@
+<document source="<stdin>">
+    <target refid="target">
+    <paragraph ids="target" names="target">
+        Paragraph after target.

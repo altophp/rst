@@ -1,0 +1,12 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <problematic ids="citation-reference-1" refid="system-message-1">
+            [CIT]_
+        .
+    <section classes="system-messages">
+        <title>
+            Docutils System Messages
+        <system_message backrefs="citation-reference-1" ids="system-message-1" level="3" line="1" source="<stdin>" type="ERROR">
+            <paragraph>
+                Unknown target name: "cit".

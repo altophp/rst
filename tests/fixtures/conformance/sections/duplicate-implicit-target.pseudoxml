@@ -1,0 +1,22 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <problematic ids="problematic-1" refid="system-message-1">
+            topic_
+        .
+    <section dupnames="topic" ids="topic">
+        <title>
+            Topic
+        <paragraph>
+            One.
+    <section dupnames="topic" ids="topic-1">
+        <title>
+            Topic
+        <paragraph>
+            Two.
+    <section classes="system-messages">
+        <title>
+            Docutils System Messages
+        <system_message backrefs="problematic-1" ids="system-message-1" level="3" line="1" source="<stdin>" type="ERROR">
+            <paragraph>
+                Duplicate target name, cannot be used as a unique reference: "topic".

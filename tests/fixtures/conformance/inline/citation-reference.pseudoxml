@@ -1,0 +1,11 @@
+<document source="<stdin>">
+    <paragraph>
+        As shown in 
+        <citation_reference ids="citation-reference-1" refid="cit2002">
+            CIT2002
+         the approach holds.
+    <citation backrefs="citation-reference-1" ids="cit2002" names="cit2002">
+        <label>
+            CIT2002
+        <paragraph>
+            A citation.

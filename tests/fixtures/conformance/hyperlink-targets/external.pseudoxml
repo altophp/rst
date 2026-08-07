@@ -1,0 +1,7 @@
+<document source="<stdin>">
+    <target ids="docutils" names="docutils" refuri="https://docutils.sourceforge.io/">
+    <paragraph>
+        See 
+        <reference name="docutils" refuri="https://docutils.sourceforge.io/">
+            docutils
+        .

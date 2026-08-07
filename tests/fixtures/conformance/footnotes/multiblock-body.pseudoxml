@@ -1,0 +1,16 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <footnote_reference ids="footnote-reference-1" refid="footnote-1">
+            1
+        .
+    <footnote backrefs="footnote-reference-1" ids="footnote-1" names="1">
+        <label>
+            1
+        <paragraph>
+            First paragraph.
+        <paragraph>
+            Second paragraph with 
+            <literal>
+                literal text
+            .

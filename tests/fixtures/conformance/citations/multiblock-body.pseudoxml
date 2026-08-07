@@ -1,0 +1,16 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <citation_reference ids="citation-reference-1" refid="long">
+            LONG
+        .
+    <citation backrefs="citation-reference-1" ids="long" names="long">
+        <label>
+            LONG
+        <paragraph>
+            First paragraph.
+        <paragraph>
+            Second paragraph with 
+            <emphasis>
+                emphasis
+            .

@@ -1,0 +1,7 @@
+<document source="<stdin>">
+    <paragraph>
+        See the 
+        <reference name="page" refuri="https://example.com/">
+            page
+        <target ids="page" names="page" refuri="https://example.com/">
+         now.

@@ -1,0 +1,8 @@
+<document source="<stdin>">
+    <system_message level="3" line="1" source="<stdin>" type="ERROR">
+        <paragraph>
+            Unknown directive type "not-a-directive".
+        <literal_block xml:space="preserve">
+            .. not-a-directive:: argument
+            
+               Body content.

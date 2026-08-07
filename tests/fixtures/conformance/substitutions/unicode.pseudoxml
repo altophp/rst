@@ -1,0 +1,9 @@
+<document source="<stdin>">
+    <substitution_definition names="symbols">
+        ©
+        €
+    <paragraph>
+        See 
+        ©
+        €
+        .

@@ -1,0 +1,9 @@
+<document source="<stdin>">
+    <note classes="first">
+        <field_list>
+            <field>
+                <field_name>
+                    class
+                <field_body>
+                    <paragraph>
+                        body-field

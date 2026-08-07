@@ -1,0 +1,6 @@
+<document source="<stdin>">
+    <paragraph>
+        Before.
+    <transition>
+    <paragraph>
+        After.

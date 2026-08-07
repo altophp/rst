@@ -1,0 +1,19 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <citation_reference ids="citation-reference-1" refid="one">
+            ONE
+         and 
+        <citation_reference ids="citation-reference-2" refid="two">
+            two
+        .
+    <citation backrefs="citation-reference-1" ids="one" names="one">
+        <label>
+            ONE
+        <paragraph>
+            First citation.
+    <citation backrefs="citation-reference-2" ids="two" names="two">
+        <label>
+            two
+        <paragraph>
+            Second citation.

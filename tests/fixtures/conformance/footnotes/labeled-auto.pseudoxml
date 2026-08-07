@@ -1,0 +1,14 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <footnote_reference auto="1" ids="footnote-reference-1" refid="named">
+            1
+         twice 
+        <footnote_reference auto="1" ids="footnote-reference-2" refid="named">
+            1
+        .
+    <footnote auto="1" backrefs="footnote-reference-1 footnote-reference-2" ids="named" names="named">
+        <label>
+            1
+        <paragraph>
+            Named auto.

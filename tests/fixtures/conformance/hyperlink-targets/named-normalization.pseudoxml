@@ -1,0 +1,10 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <reference name="mixed case" refuri="https://example.com/">
+            mixed case
+         and 
+        <reference name="MIXED CASE" refuri="https://example.com/">
+            MIXED   CASE
+        .
+    <target ids="mixed-case" names="mixed\ case" refuri="https://example.com/">

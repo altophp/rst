@@ -1,0 +1,3 @@
+<document source="<stdin>">
+    <paragraph>
+        An escaped *asterisk* stays literal.

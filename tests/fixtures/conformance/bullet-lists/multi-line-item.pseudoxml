@@ -1,0 +1,9 @@
+<document source="<stdin>">
+    <bullet_list bullet="-">
+        <list_item>
+            <paragraph>
+                An item whose text
+                continues on a second line.
+        <list_item>
+            <paragraph>
+                A short item.

@@ -1,0 +1,7 @@
+<document source="<stdin>">
+    <paragraph>
+        See the 
+        <reference name="example site" refuri="https://example.com/">
+            example site
+         for details.
+    <target ids="example-site" names="example\ site" refuri="https://example.com/">

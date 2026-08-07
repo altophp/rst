@@ -1,0 +1,35 @@
+<document source="<stdin>">
+    <table>
+        <tgroup cols="3">
+            <colspec colwidth="5">
+            <colspec colwidth="5">
+            <colspec colwidth="6">
+            <thead>
+                <row>
+                    <entry morecols="1">
+                        <paragraph>
+                            Name
+                    <entry>
+                        <paragraph>
+                            Value
+                <row>
+                    <entry>
+                        <paragraph>
+                            First
+                    <entry>
+                        <paragraph>
+                            Last
+                    <entry>
+                        <paragraph>
+                            Number
+            <tbody>
+                <row>
+                    <entry>
+                        <paragraph>
+                            Ada
+                    <entry>
+                        <paragraph>
+                            Byron
+                    <entry>
+                        <paragraph>
+                            1815

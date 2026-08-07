@@ -1,0 +1,21 @@
+<document source="<stdin>">
+    <table>
+        <tgroup cols="2">
+            <colspec colwidth="7">
+            <colspec colwidth="7">
+            <thead>
+                <row>
+                    <entry>
+                        <paragraph>
+                            Alpha
+                    <entry>
+                        <paragraph>
+                            Beta
+            <tbody>
+                <row>
+                    <entry>
+                        <paragraph>
+                            one
+                    <entry>
+                        <paragraph>
+                            two

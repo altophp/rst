@@ -1,0 +1,15 @@
+<document source="<stdin>">
+    <table>
+        <tgroup cols="1">
+            <colspec colwidth="5">
+            <thead>
+                <row>
+                    <entry>
+                        <paragraph>
+                            A
+            <tbody>
+                <row>
+                    <entry>
+                        <paragraph>
+                            one
+                            x

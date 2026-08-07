@@ -1,0 +1,8 @@
+<document source="<stdin>">
+    <paragraph>
+        <reference anonymous="1" name="Jump" refid="target-1">
+            Jump
+         now.
+    <target anonymous="1" refid="target-1">
+    <paragraph ids="target-1">
+        Destination paragraph.

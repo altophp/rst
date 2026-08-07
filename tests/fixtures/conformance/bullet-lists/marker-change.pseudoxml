@@ -1,0 +1,9 @@
+<document source="<stdin>">
+    <bullet_list bullet="-">
+        <list_item>
+            <paragraph>
+                first list item
+    <bullet_list bullet="*">
+        <list_item>
+            <paragraph>
+                second list item

@@ -1,0 +1,19 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <footnote_reference auto="*" ids="footnote-reference-1" refid="footnote-1">
+            *
+         then 
+        <footnote_reference auto="*" ids="footnote-reference-2" refid="footnote-2">
+            †
+        .
+    <footnote auto="*" backrefs="footnote-reference-1" ids="footnote-1">
+        <label>
+            *
+        <paragraph>
+            First symbol.
+    <footnote auto="*" backrefs="footnote-reference-2" ids="footnote-2">
+        <label>
+            †
+        <paragraph>
+            Second symbol.

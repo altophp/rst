@@ -1,0 +1,7 @@
+<document source="<stdin>">
+    <transition>
+    <system_message level="2" line="1" source="<stdin>" type="WARNING">
+        <paragraph>
+            Transition at the start of the document.
+    <paragraph>
+        After.

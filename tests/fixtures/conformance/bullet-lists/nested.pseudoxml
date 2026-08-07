@@ -1,0 +1,15 @@
+<document source="<stdin>">
+    <bullet_list bullet="-">
+        <list_item>
+            <paragraph>
+                outer one
+            <bullet_list bullet="-">
+                <list_item>
+                    <paragraph>
+                        inner one
+                <list_item>
+                    <paragraph>
+                        inner two
+        <list_item>
+            <paragraph>
+                outer two

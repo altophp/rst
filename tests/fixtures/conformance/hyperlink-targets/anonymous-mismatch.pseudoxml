@@ -1,0 +1,16 @@
+<document source="<stdin>">
+    <paragraph>
+        <problematic ids="problematic-1" refid="system-message-1">
+            First__
+         then 
+        <problematic ids="problematic-2" refid="system-message-1">
+            second__
+        .
+    <target anonymous="1" ids="target-1" refuri="https://example.com/one">
+    <section classes="system-messages">
+        <title>
+            Docutils System Messages
+        <system_message backrefs="problematic-1 problematic-2" ids="system-message-1" level="3" source="<stdin>" type="ERROR">
+            <paragraph>
+                Anonymous hyperlink mismatch: 2 references but 1 targets.
+                See "backrefs" attribute for IDs.

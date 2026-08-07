@@ -1,0 +1,7 @@
+<document source="<stdin>">
+    <substitution_definition names="logo">
+        <image alt="Project logo" uri="logo.png">
+    <paragraph>
+        See 
+        <image alt="Project logo" uri="logo.png">
+        .

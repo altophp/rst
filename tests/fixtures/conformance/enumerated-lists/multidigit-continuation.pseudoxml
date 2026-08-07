@@ -1,0 +1,15 @@
+<document source="<stdin>">
+    <enumerated_list enumtype="arabic" prefix="" start="10" suffix=".">
+        <list_item>
+            <paragraph>
+                first line
+                aligned continuation
+            <system_message level="3" line="3" source="<stdin>" type="ERROR">
+                <paragraph>
+                    Unexpected indentation.
+            <block_quote>
+                <paragraph>
+                    unexpected indentation
+        <list_item>
+            <paragraph>
+                next

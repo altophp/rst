@@ -1,0 +1,30 @@
+<document source="<stdin>">
+    <table>
+        <tgroup cols="2">
+            <colspec colwidth="5">
+            <colspec colwidth="12">
+            <thead>
+                <row>
+                    <entry>
+                        <paragraph>
+                            Key
+                    <entry>
+                        <paragraph>
+                            Description
+            <tbody>
+                <row>
+                    <entry>
+                        <paragraph>
+                            first
+                    <entry>
+                        <paragraph>
+                            a value that
+                            wraps onto a
+                            second line
+                <row>
+                    <entry>
+                        <paragraph>
+                            last
+                    <entry>
+                        <paragraph>
+                            short

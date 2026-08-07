@@ -1,0 +1,8 @@
+<document source="<stdin>">
+    <target ids="one" names="one" refuri="https://example.com/">
+    <target ids="two" names="two" refuri="https://example.com/">
+    <paragraph>
+        See 
+        <reference name="one" refuri="https://example.com/">
+            one
+        .

@@ -1,0 +1,13 @@
+<document source="<stdin>">
+    <target ids="alias" names="alias" refname="missing">
+    <paragraph>
+        See 
+        <problematic ids="problematic-1" refid="system-message-1">
+            alias_
+        .
+    <section classes="system-messages">
+        <title>
+            Docutils System Messages
+        <system_message backrefs="problematic-1" ids="system-message-1" level="3" line="1" source="<stdin>" type="ERROR">
+            <paragraph>
+                Indirect hyperlink target "alias" (id="alias") refers to target "missing", which does not exist.

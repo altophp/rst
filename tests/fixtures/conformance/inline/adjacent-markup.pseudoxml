@@ -1,0 +1,20 @@
+<document source="<stdin>">
+    <paragraph>
+        Text with 
+        <emphasis>
+            emphasis
+        , 
+        <strong>
+            strong
+        , and 
+        <literal>
+            literal
+         adjacent to punctuation.
+    <paragraph>
+        Quoted "
+        <emphasis>
+            emphasis
+        " and (
+        <strong>
+            strong
+        ) forms.

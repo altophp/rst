@@ -1,0 +1,12 @@
+<document source="<stdin>">
+    <substitution_definition dupnames="name">
+        first
+    <system_message level="3" line="2" source="<stdin>" type="ERROR">
+        <paragraph>
+            Duplicate substitution definition name: "name".
+    <substitution_definition names="name">
+        second
+    <paragraph>
+        See 
+        second
+        .

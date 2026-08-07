@@ -1,0 +1,10 @@
+<document source="<stdin>">
+    <paragraph>
+        Paragraph:
+    <literal_block xml:space="preserve">
+        > quoted literal
+    <system_message level="3" line="4" source="<stdin>" type="ERROR">
+        <paragraph>
+            Inconsistent literal block quoting.
+    <paragraph>
+        ! punctuation prose

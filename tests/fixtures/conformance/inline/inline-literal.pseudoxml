@@ -1,0 +1,6 @@
+<document source="<stdin>">
+    <paragraph>
+        Text with 
+        <literal>
+            literal
+         inside.

@@ -1,0 +1,10 @@
+<document source="<stdin>">
+    <table>
+        <tgroup cols="2">
+            <colspec colwidth="3">
+            <colspec colwidth="3">
+            <tbody>
+                <row>
+                    <entry morecols="1">
+                        <paragraph>
+                            span

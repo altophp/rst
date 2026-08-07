@@ -1,0 +1,14 @@
+<document source="<stdin>">
+    <paragraph>
+        A 
+        <title_reference>
+            Book Title
+         and a 
+        <title_reference>
+            default role
+        .
+    <paragraph>
+        Suffix form: 
+        <title_reference>
+            text
+         stays interpreted.

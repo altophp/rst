@@ -1,0 +1,19 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <footnote_reference auto="1" ids="footnote-reference-1" refid="footnote-1">
+            1
+         then 
+        <footnote_reference auto="1" ids="footnote-reference-2" refid="footnote-2">
+            2
+        .
+    <footnote auto="1" backrefs="footnote-reference-1" ids="footnote-1" names="1">
+        <label>
+            1
+        <paragraph>
+            First auto.
+    <footnote auto="1" backrefs="footnote-reference-2" ids="footnote-2" names="2">
+        <label>
+            2
+        <paragraph>
+            Second auto.

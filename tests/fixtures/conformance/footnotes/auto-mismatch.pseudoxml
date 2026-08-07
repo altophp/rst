@@ -1,0 +1,20 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <footnote_reference auto="1" ids="footnote-reference-1" refid="footnote-1">
+            1
+         then 
+        <problematic ids="problematic-1 footnote-reference-2" refid="system-message-1">
+            [#]_
+        .
+    <footnote auto="1" backrefs="footnote-reference-1" ids="footnote-1" names="1">
+        <label>
+            1
+        <paragraph>
+            Only auto.
+    <section classes="system-messages">
+        <title>
+            Docutils System Messages
+        <system_message backrefs="problematic-1" ids="system-message-1" level="3" line="1" source="<stdin>" type="ERROR">
+            <paragraph>
+                Too many autonumbered footnote references: only 1 corresponding footnote available.

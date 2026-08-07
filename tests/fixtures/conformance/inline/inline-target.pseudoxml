@@ -1,0 +1,6 @@
+<document source="<stdin>">
+    <paragraph>
+        An 
+        <target ids="inline-target" names="inline\ target">
+            inline target
+         inside a paragraph.

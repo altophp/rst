@@ -1,0 +1,6 @@
+<document source="<stdin>">
+    <paragraph>
+        Paragraph:
+    <literal_block xml:space="preserve">
+        > quoted literal
+        > second line

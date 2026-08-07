@@ -1,0 +1,14 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <citation_reference ids="citation-reference-1" refid="cit2002">
+            CIT2002
+         and 
+        <citation_reference ids="citation-reference-2" refid="cit2002">
+            cit2002
+        .
+    <citation backrefs="citation-reference-1 citation-reference-2" ids="cit2002" names="cit2002">
+        <label>
+            Cit2002
+        <paragraph>
+            Citation body.

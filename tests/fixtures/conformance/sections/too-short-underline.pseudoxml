@@ -1,0 +1,12 @@
+<document source="<stdin>">
+    <section ids="long-title" names="long\ title">
+        <title>
+            Long Title
+        <system_message level="2" line="2" source="<stdin>" type="WARNING">
+            <paragraph>
+                Title underline too short.
+            <literal_block xml:space="preserve">
+                Long Title
+                ====
+        <paragraph>
+            Paragraph.

@@ -1,0 +1,5 @@
+<document source="<stdin>">
+    <paragraph>
+        Paragraph before.
+    <literal_block xml:space="preserve">
+        literal line

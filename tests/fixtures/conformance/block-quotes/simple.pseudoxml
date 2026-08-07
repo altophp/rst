@@ -1,0 +1,6 @@
+<document source="<stdin>">
+    <paragraph>
+        Paragraph.
+    <block_quote>
+        <paragraph>
+            Quoted paragraph.

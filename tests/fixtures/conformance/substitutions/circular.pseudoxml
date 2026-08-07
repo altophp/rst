@@ -1,0 +1,22 @@
+<document source="<stdin>">
+    <system_message level="3" line="1" names="one" source="<stdin>" type="ERROR">
+        <paragraph>
+            Circular substitution definition detected:
+        <literal_block xml:space="preserve">
+            .. |one| replace:: |two|
+    <system_message level="3" line="2" names="two" source="<stdin>" type="ERROR">
+        <paragraph>
+            Circular substitution definition detected:
+        <literal_block xml:space="preserve">
+            .. |two| replace:: |one|
+    <paragraph>
+        See 
+        <problematic ids="problematic-1" refid="system-message-1">
+            |one|
+        .
+    <section classes="system-messages">
+        <title>
+            Docutils System Messages
+        <system_message backrefs="problematic-1" ids="system-message-1" level="3" line="4" source="<stdin>" type="ERROR">
+            <paragraph>
+                Circular substitution definition referenced: "one".

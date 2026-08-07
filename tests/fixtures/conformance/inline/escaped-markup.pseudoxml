@@ -1,0 +1,5 @@
+<document source="<stdin>">
+    <paragraph>
+        Not *emphasis* and not ``literal``.
+    <paragraph>
+        A backslash before a space vanishes.

@@ -1,0 +1,11 @@
+<document source="<stdin>">
+    <enumerated_list enumtype="arabic" prefix="" start="3" suffix=".">
+        <list_item>
+            <paragraph>
+                three
+        <list_item>
+            <paragraph>
+                four
+        <list_item>
+            <paragraph>
+                five

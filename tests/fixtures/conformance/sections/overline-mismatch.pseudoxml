@@ -1,0 +1,10 @@
+<document source="<stdin>">
+    <system_message level="3" line="1" source="<stdin>" type="ERROR">
+        <paragraph>
+            Title overline & underline mismatch.
+        <literal_block xml:space="preserve">
+            ====
+            Title
+            ----
+    <paragraph>
+        Body.

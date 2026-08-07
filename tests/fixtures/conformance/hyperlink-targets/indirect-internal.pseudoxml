@@ -1,0 +1,12 @@
+<document source="<stdin>">
+    <target ids="alias" names="alias" refid="final-target">
+    <paragraph>
+        See 
+        <reference name="alias" refid="final-target">
+            alias
+        .
+    <section ids="final-target" names="final\ target">
+        <title>
+            Final Target
+        <paragraph>
+            Destination.

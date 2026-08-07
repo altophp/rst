@@ -1,0 +1,7 @@
+<document source="<stdin>">
+    <paragraph>
+        See 
+        <reference anonymous="1" name="anonymous link" refuri="https://example.com/">
+            anonymous link
+         here.
+    <target anonymous="1" ids="target-1" refuri="https://example.com/">

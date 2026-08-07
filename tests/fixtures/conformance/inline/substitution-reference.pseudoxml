@@ -1,0 +1,7 @@
+<document source="<stdin>">
+    <substitution_definition names="name">
+        Alto Rst
+    <paragraph>
+        The engine 
+        Alto Rst
+         parses reStructuredText.

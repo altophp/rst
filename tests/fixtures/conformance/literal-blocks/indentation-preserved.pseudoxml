@@ -1,0 +1,6 @@
+<document source="<stdin>">
+    <paragraph>
+        Code:
+    <literal_block xml:space="preserve">
+        if true:
+            nested

@@ -1,0 +1,10 @@
+<document source="<stdin>">
+    <paragraph>
+        <reference anonymous="1" name="First" refuri="https://example.com/one">
+            First
+         then 
+        <reference anonymous="1" name="second" refuri="https://example.com/two">
+            second
+        .
+    <target anonymous="1" ids="target-1" refuri="https://example.com/one">
+    <target anonymous="1" ids="target-2" refuri="https://example.com/two">

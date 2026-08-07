@@ -1,0 +1,9 @@
+<document source="<stdin>">
+    <system_message level="3" line="1" source="<stdin>" type="ERROR">
+        <paragraph>
+            Missing matching underline for section title overline.
+        <literal_block xml:space="preserve">
+            ====
+            Title
+    <paragraph>
+        Body.

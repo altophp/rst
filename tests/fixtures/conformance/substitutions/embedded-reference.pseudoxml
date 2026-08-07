@@ -1,0 +1,10 @@
+<document source="<stdin>">
+    <substitution_definition names="site">
+        <reference name="Example" refuri="https://example.com/">
+            Example
+    <target ids="example" names="example" refuri="https://example.com/">
+    <paragraph>
+        Visit 
+        <reference name="Example" refuri="https://example.com/">
+            Example
+        .

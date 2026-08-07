@@ -1,0 +1,15 @@
+<document source="<stdin>">
+    <target ids="one" names="one" refid="one">
+    <problematic ids="problematic-1 two" names="two" refid="system-message-1">
+        .. _two: one_
+    <paragraph>
+        See 
+        <problematic ids="problematic-2" refid="system-message-1">
+            one_
+        .
+    <section classes="system-messages">
+        <title>
+            Docutils System Messages
+        <system_message backrefs="problematic-1 problematic-2" ids="system-message-1" level="3" line="1" source="<stdin>" type="ERROR">
+            <paragraph>
+                Indirect hyperlink target "one" (id="one") refers to target "two", forming a circular reference.

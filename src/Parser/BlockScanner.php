@@ -107,8 +107,7 @@ final class BlockScanner
         private readonly Source $source,
         private readonly ProblemCollector $problems,
         private readonly Profile $profile,
-    ) {
-    }
+    ) {}
 
     public function parseDocument(): Document
     {
@@ -291,7 +290,7 @@ final class BlockScanner
         $cursor->advance();
         $cursor->advance();
 
-        $resolution = $this->resolveSectionLevel('u:'.$underline[0], $depth, $this->spanOf($line0, $line1));
+        $resolution = $this->resolveSectionLevel('u:' . $underline[0], $depth, $this->spanOf($line0, $line1));
 
         return new SectionFrame(
             $resolution['level'],
@@ -344,7 +343,7 @@ final class BlockScanner
         $cursor->advance();
         $cursor->advance();
 
-        $resolution = $this->resolveSectionLevel('o:'.$adornment, $depth, $this->spanOf($line0, $line2));
+        $resolution = $this->resolveSectionLevel('o:' . $adornment, $depth, $this->spanOf($line0, $line2));
 
         return new SectionFrame(
             $resolution['level'],
@@ -533,7 +532,7 @@ final class BlockScanner
                 return [new Transition(ByteSpan::between($line->spanStart, $line->end()))];
             }
 
-        // shorter runs and adornments followed by text are ordinary text
+            // shorter runs and adornments followed by text are ordinary text
         } elseif (null !== ($shape = self::unsupportedShape($content))) {
             $this->report(
                 ProblemSeverity::Info,
@@ -633,7 +632,7 @@ final class BlockScanner
 
             if ($literal && null === $markerLine) {
                 $stripped = substr($keptContent, 0, -2);
-                $keptContent = rtrim($stripped) !== $stripped ? rtrim($stripped) : $stripped.':';
+                $keptContent = rtrim($stripped) !== $stripped ? rtrim($stripped) : $stripped . ':';
             }
 
             $textSpan = ByteSpan::between($first->contentStart, $keptLast->contentStart + \strlen($keptContent));
@@ -1166,7 +1165,7 @@ final class BlockScanner
             ByteSpan::between($top->spanStart, $block[$lastIndex]->end()),
             \array_slice($nodes, 0, $firstBody),
             $body,
-            array_map(static fn (array $column): int => $column[1] - $column[0], $columns),
+            array_map(static fn(array $column): int => $column[1] - $column[0], $columns),
             TableStyle::Simple,
         )];
     }
@@ -1252,7 +1251,7 @@ final class BlockScanner
         }
 
         $firstBody = self::firstBodyRow($rows, $headSeparator);
-        $nodes = array_map(static fn (array $row): TableRow => $row[0], $rows);
+        $nodes = array_map(static fn(array $row): TableRow => $row[0], $rows);
         $body = \array_slice($nodes, $firstBody);
 
         if ([] === $body) {
@@ -2184,7 +2183,7 @@ final class BlockScanner
 
             while ($index < $count && !$run[$index]->blank && $run[$index]->indentWidth > $line->indentWidth) {
                 $continuation = rtrim($this->content($run[$index]));
-                $value = '' === $value ? $continuation : $value."\n".$continuation;
+                $value = '' === $value ? $continuation : $value . "\n" . $continuation;
                 ++$index;
             }
 
@@ -2323,9 +2322,9 @@ final class BlockScanner
 
         $valuePattern = '(#|\d{1,4}|[a-z]|[A-Z]|[ivxlcdm]+|[IVXLCDM]+)';
 
-        if (1 === preg_match('/^\('.$valuePattern.'\)/', $content, $matches)) {
+        if (1 === preg_match('/^\(' . $valuePattern . '\)/', $content, $matches)) {
             $format = 'parens';
-        } elseif (1 === preg_match('/^'.$valuePattern.'([.)])/', $content, $matches)) {
+        } elseif (1 === preg_match('/^' . $valuePattern . '([.)])/', $content, $matches)) {
             $format = '.' === $matches[2] ? 'period' : 'paren';
         } else {
             return null;

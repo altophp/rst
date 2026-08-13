@@ -73,10 +73,10 @@ final class SectionParsingTest extends ParserTestCase
     {
         $result = self::parseRst(
             "Top\n===\n\n"
-            ."Sub\n---\n\n"
-            ."Deep\n~~~~\n\n"
-            ."Top two\n=======\n\n"
-            ."Deep again\n~~~~~~~~~~\n",
+            . "Sub\n---\n\n"
+            . "Deep\n~~~~\n\n"
+            . "Top two\n=======\n\n"
+            . "Deep again\n~~~~~~~~~~\n",
         );
 
         self::assertSame(['section/inconsistent-style'], self::problemCodes($result));
@@ -174,14 +174,14 @@ final class SectionParsingTest extends ParserTestCase
     public function testRejectedStyleDoesNotReserveALevelForTheNextStyle(): void
     {
         $rst = "Level 1\n=======\n\n"
-            ."Level 2\n-------\n\n"
-            ."Level 3\n.......\n\n"
-            ."Level 4\n\"\"\"\"\"\"\"\n\n"
-            ."Level 3 again\n.............\n\n"
-            ."Rejected once\n'''''''''''''\n\nBody one.\n\n"
-            ."Rejected twice\n''''''''''''''\n\nBody two.\n\n"
-            ."Level 4 again\n\"\"\"\"\"\"\"\"\"\"\"\"\"\n\n"
-            ."Level 5\n^^^^^^^\n";
+            . "Level 2\n-------\n\n"
+            . "Level 3\n.......\n\n"
+            . "Level 4\n\"\"\"\"\"\"\"\n\n"
+            . "Level 3 again\n.............\n\n"
+            . "Rejected once\n'''''''''''''\n\nBody one.\n\n"
+            . "Rejected twice\n''''''''''''''\n\nBody two.\n\n"
+            . "Level 4 again\n\"\"\"\"\"\"\"\"\"\"\"\"\"\n\n"
+            . "Level 5\n^^^^^^^\n";
         $result = self::parseRst($rst);
 
         $problems = $result->problems()->problems();
@@ -191,7 +191,7 @@ final class SectionParsingTest extends ParserTestCase
         );
         self::assertSame(
             [strpos($rst, 'Rejected once'), strpos($rst, 'Rejected twice')],
-            array_map(static fn ($problem): ?int => $problem->span?->start, $problems),
+            array_map(static fn($problem): ?int => $problem->span?->start, $problems),
         );
 
         $level1 = $result->document()->children()[0];
@@ -226,16 +226,16 @@ final class SectionParsingTest extends ParserTestCase
     public function testEveryRejectedLevelJumpRemainsReportedDuringRecovery(): void
     {
         $rst = "Level 1\n=======\n\n"
-            ."Level 2\n-------\n\n"
-            ."Level 3\n.......\n\n"
-            ."Level 4\n\"\"\"\"\"\"\"\n\n"
-            ."Level 3 again\n.............\n\n";
+            . "Level 2\n-------\n\n"
+            . "Level 3\n.......\n\n"
+            . "Level 4\n\"\"\"\"\"\"\"\n\n"
+            . "Level 3 again\n.............\n\n";
         $expectedStarts = [];
 
         for ($i = 1; $i <= 7; ++$i) {
-            $title = 'Rejected '.$i;
+            $title = 'Rejected ' . $i;
             $expectedStarts[] = \strlen($rst);
-            $rst .= $title."\n".str_repeat("'", \strlen($title))."\n\n";
+            $rst .= $title . "\n" . str_repeat("'", \strlen($title)) . "\n\n";
         }
 
         $rst .= "Level 4 again\n\"\"\"\"\"\"\"\"\"\"\"\"\"\n";
@@ -245,7 +245,7 @@ final class SectionParsingTest extends ParserTestCase
         self::assertSame(array_fill(0, 7, 'section/inconsistent-style'), self::problemCodes($result));
         self::assertSame(
             $expectedStarts,
-            array_map(static fn ($problem): ?int => $problem->span?->start, $problems),
+            array_map(static fn($problem): ?int => $problem->span?->start, $problems),
         );
 
         $level1 = $result->document()->children()[0];

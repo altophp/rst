@@ -68,10 +68,10 @@ final class MarkdownReaderMalformedInputTest extends MarkdownReaderTestCase
         yield 'unterminated table header only' => ["| a | b\n"];
         yield 'unterminated table delimiter only' => ["| a | b |\n| - | -\n"];
         yield 'trailing backslash' => ['trailing\\'];
-        yield 'long delimiter run' => [str_repeat('*', 500)."\n"];
-        yield 'long backtick run' => [str_repeat('`', 500)."\n"];
-        yield 'deeply nested blockquotes' => [str_repeat('> ', 200)."deep\n"];
-        yield 'deeply nested emphasis' => [str_repeat('*', 40).'x'.str_repeat('*', 40)."\n"];
+        yield 'long delimiter run' => [str_repeat('*', 500) . "\n"];
+        yield 'long backtick run' => [str_repeat('`', 500) . "\n"];
+        yield 'deeply nested blockquotes' => [str_repeat('> ', 200) . "deep\n"];
+        yield 'deeply nested emphasis' => [str_repeat('*', 40) . 'x' . str_repeat('*', 40) . "\n"];
         yield 'null byte in content' => ["a\0b\n"];
         yield 'invalid utf-8 byte' => ["a\xffb\n"];
         yield 'crlf line endings' => ["# Heading\r\n\r\nParagraph.\r\n"];

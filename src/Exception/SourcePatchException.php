@@ -18,6 +18,4 @@ namespace Alto\Rst\Exception;
  *
  * @author Simon André <smn.andre@gmail.com>
  */
-final class SourcePatchException extends \InvalidArgumentException implements RstExceptionInterface
-{
-}
+final class SourcePatchException extends \InvalidArgumentException implements RstExceptionInterface {}

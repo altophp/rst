@@ -37,8 +37,8 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::sphinx(
             "See alias_.\n\n"
-            .".. _alias:\n"
-            .".. _final: https://example.com/final\n",
+            . ".. _alias:\n"
+            . ".. _final: https://example.com/final\n",
         );
         $reference = $graph->references()[0];
 
@@ -50,8 +50,8 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             "`Jump`__\n\n"
-            .".. __:\n\n"
-            ."Destination paragraph.\n",
+            . ".. __:\n\n"
+            . "Destination paragraph.\n",
         );
         $reference = $graph->references()[0];
 
@@ -65,8 +65,8 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             "`Jump`__\n\n"
-            .".. __:\n"
-            .".. __: https://example.com/final\n",
+            . ".. __:\n"
+            . ".. __: https://example.com/final\n",
         );
         $reference = $graph->references()[0];
 
@@ -78,17 +78,17 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             "* list-target_\n\n"
-            ."Term term-target_ : classifier classifier-target_\n"
-            ."    Definition definition-target_.\n\n"
-            .".. _list-target: https://example.com/list\n"
-            .".. _term-target: https://example.com/term\n"
-            .".. _classifier-target: https://example.com/classifier\n"
-            .".. _definition-target: https://example.com/definition\n",
+            . "Term term-target_ : classifier classifier-target_\n"
+            . "    Definition definition-target_.\n\n"
+            . ".. _list-target: https://example.com/list\n"
+            . ".. _term-target: https://example.com/term\n"
+            . ".. _classifier-target: https://example.com/classifier\n"
+            . ".. _definition-target: https://example.com/definition\n",
         );
 
         self::assertSame(
             ['list-target', 'term-target', 'classifier-target', 'definition-target'],
-            array_map(static fn ($reference): string => $reference->label, $graph->references()),
+            array_map(static fn($reference): string => $reference->label, $graph->references()),
         );
         self::assertSame([], $graph->unresolved());
     }
@@ -97,9 +97,9 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             "+---+------------+\n"
-            ."| A | - target_  |\n"
-            ."+---+------------+\n\n"
-            .".. _target: https://example.com\n",
+            . "| A | - target_  |\n"
+            . "+---+------------+\n\n"
+            . ".. _target: https://example.com\n",
         );
 
         self::assertSame(ReferenceStatus::Resolved, $graph->references()[0]->status);
@@ -118,9 +118,9 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             ".. |product| replace:: Alto\n\n"
-            ."See `|product|`_.\n\n"
-            ."|product|\n"
-            ."=========\n",
+            . "See `|product|`_.\n\n"
+            . "|product|\n"
+            . "=========\n",
         );
         $reference = $graph->references(ReferenceType::Hyperlink)[0];
 
@@ -131,13 +131,13 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     public function testTargetTitlesFlattenEveryReaderVisibleInlineForm(): void
     {
         $title = '*Em* **Strong** ``code`` `Link <https://e.test>`_ '
-            .'https://x.test _`spot` [1]_ [CIT]_ |brand|';
+            . 'https://x.test _`spot` [1]_ [CIT]_ |brand|';
         $graph = self::docutils(
             ".. |brand| replace:: Alto\n\n"
-            .$title."\n"
-            .str_repeat('=', \strlen($title))."\n\n"
-            .".. [1] Note.\n"
-            .".. [CIT] Citation.\n",
+            . $title . "\n"
+            . str_repeat('=', \strlen($title)) . "\n\n"
+            . ".. [1] Note.\n"
+            . ".. [CIT] Citation.\n",
         );
         $definition = $graph->definitions(DefinitionKind::Section)[0];
 
@@ -167,8 +167,8 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             "Missing [#]_, [*]_, and ambiguous [CIT]_.\n\n"
-            .".. [CIT] First.\n"
-            .".. [cit] Second.\n",
+            . ".. [CIT] First.\n"
+            . ".. [cit] Second.\n",
         );
         $references = $graph->references();
 
@@ -181,11 +181,11 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             ".. |outer| replace:: Before |missing| after\n\n"
-            ."Use |outer|.\n",
+            . "Use |outer|.\n",
         );
         $outer = array_values(array_filter(
             $graph->references(ReferenceType::Substitution),
-            static fn ($reference): bool => 'outer' === $reference->label,
+            static fn($reference): bool => 'outer' === $reference->label,
         ))[0];
 
         self::assertSame(ReferenceStatus::Unresolved, $outer->status);
@@ -196,8 +196,8 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             ".. |label| replace:: **Link**\n\n"
-            ."Use |label|__.\n\n"
-            .".. __: https://example.com\n",
+            . "Use |label|__.\n\n"
+            . ".. __: https://example.com\n",
         );
 
         self::assertSame(ReferenceStatus::Resolved, $graph->references(ReferenceType::Substitution)[0]->status);
@@ -208,13 +208,13 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             ".. |inner| replace:: destination\n"
-            .".. |outer| replace:: **Before |inner|_ after**\n\n"
-            ."Use |outer|.\n\n"
-            .".. _destination: https://example.com\n",
+            . ".. |outer| replace:: **Before |inner|_ after**\n\n"
+            . "Use |outer|.\n\n"
+            . ".. _destination: https://example.com\n",
         );
         $outer = array_values(array_filter(
             $graph->references(ReferenceType::Substitution),
-            static fn ($reference): bool => 'outer' === $reference->label,
+            static fn($reference): bool => 'outer' === $reference->label,
         ))[0];
 
         self::assertSame('**Before destination_ after**', $outer->target?->destination);
@@ -224,8 +224,8 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             ".. |message| replace:: first\n"
-            ."   second\n\n"
-            ."Use |message|.\n",
+            . "   second\n\n"
+            . "Use |message|.\n",
         );
         $definition = $graph->definitions(DefinitionKind::Substitution)[0];
 
@@ -244,12 +244,12 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $graph = self::docutils(
             ".. |left| unicode:: 0x20 0xA9\n"
-            ."   :ltrim:\n"
-            .".. |right| unicode:: 0xA9 0x20\n"
-            ."   :rtrim:\n"
-            .".. |logo| image:: logo.svg\n"
-            ."   :alt: Project logo\n\n"
-            ."Use |left| |right| |logo|.\n",
+            . "   :ltrim:\n"
+            . ".. |right| unicode:: 0xA9 0x20\n"
+            . "   :rtrim:\n"
+            . ".. |logo| image:: logo.svg\n"
+            . "   :alt: Project logo\n\n"
+            . "Use |left| |right| |logo|.\n",
         );
         $definitions = $graph->definitions(DefinitionKind::Substitution);
 
@@ -263,8 +263,8 @@ final class ReferenceGraphEdgeCaseTest extends TestCase
     {
         $replacement = str_repeat('x', 1_048_577);
         $graph = self::docutils(
-            '.. |huge| replace:: '.$replacement."\n\n"
-            ."Use |huge|.\n",
+            '.. |huge| replace:: ' . $replacement . "\n\n"
+            . "Use |huge|.\n",
         );
         $reference = $graph->references(ReferenceType::Substitution)[0];
 

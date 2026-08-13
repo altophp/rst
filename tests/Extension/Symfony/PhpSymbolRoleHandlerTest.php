@@ -52,13 +52,13 @@ final class PhpSymbolRoleHandlerTest extends TestCase
         $rst = sprintf(':%s:`%s`', $role, $sourceText);
 
         self::assertSame(
-            '<p><code>'.htmlspecialchars($visibleText, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')."</code></p>\n",
+            '<p><code>' . htmlspecialchars($visibleText, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</code></p>\n",
             self::renderHtml($rst, Profile::symfony()),
         );
 
         $conversion = self::convert($rst, Profile::symfony());
 
-        self::assertSame('`'.$visibleText."`\n", $conversion->output);
+        self::assertSame('`' . $visibleText . "`\n", $conversion->output);
         self::assertTrue($conversion->report->isEmpty());
     }
 
@@ -83,17 +83,17 @@ final class PhpSymbolRoleHandlerTest extends TestCase
         $rst = sprintf(':%s:`%s <%s>`', $role, $title, $target);
 
         self::assertSame(
-            '<p><code>'.$title."</code></p>\n",
+            '<p><code>' . $title . "</code></p>\n",
             self::renderHtml($rst, Profile::symfony()),
         );
 
         $conversion = self::convert($rst, Profile::symfony());
         $issues = $conversion->report->issues;
 
-        self::assertSame('`'.$title."`\n", $conversion->output);
+        self::assertSame('`' . $title . "`\n", $conversion->output);
         self::assertCount(1, $issues);
         self::assertSame(IssueKind::Lossy, $issues[0]->kind);
-        self::assertSame('role:'.$role, $issues[0]->construct);
+        self::assertSame('role:' . $role, $issues[0]->construct);
         self::assertStringContainsString(str_replace('\\\\', '\\', $target), $issues[0]->message);
         self::assertStringContainsString($title, $issues[0]->message);
         self::assertNotNull($issues[0]->span);
@@ -138,7 +138,7 @@ final class PhpSymbolRoleHandlerTest extends TestCase
     public function testHtmlEscapesSymbolContent(): void
     {
         self::assertSame(
-            '<p><code>Foo&lt;&amp;&gt;</code></p>'."\n",
+            '<p><code>Foo&lt;&amp;&gt;</code></p>' . "\n",
             self::renderHtml(':phpclass:`Foo<&>`', Profile::symfony()),
         );
     }

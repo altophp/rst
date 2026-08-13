@@ -33,7 +33,7 @@ abstract class ParserTestCase extends TestCase
     protected static function problemCodes(ParseResult $result): array
     {
         return array_map(
-            static fn (Problem $problem): string => $problem->code,
+            static fn(Problem $problem): string => $problem->code,
             $result->problems()->problems(),
         );
     }

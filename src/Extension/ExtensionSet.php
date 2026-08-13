@@ -38,8 +38,7 @@ final readonly class ExtensionSet
         private array $fixPasses = [],
         private array $formatterPasses = [],
         private array $statisticsProviders = [],
-    ) {
-    }
+    ) {}
 
     public static function empty(): self
     {

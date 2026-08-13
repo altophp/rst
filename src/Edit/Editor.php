@@ -98,7 +98,7 @@ final class Editor
         $headerEnd = $this->sectionHeaderEnd($section);
         $span = ByteSpan::between($headerEnd, $section->span()->end());
         $body = $this->normalizeFragment($rst, $this->sectionEol($section));
-        $replacement = '' === $body ? '' : $this->sectionEol($section).$this->sectionEol($section).$body;
+        $replacement = '' === $body ? '' : $this->sectionEol($section) . $this->sectionEol($section) . $body;
 
         $this->record(new SourcePatch($span, $replacement));
 
@@ -112,7 +112,7 @@ final class Editor
         $fields = $this->directiveOptionFields($directive);
         $matches = array_values(array_filter(
             $fields,
-            static fn (array $field): bool => strtolower($field['name']) === strtolower($name),
+            static fn(array $field): bool => strtolower($field['name']) === strtolower($name),
         ));
 
         if (\count($matches) > 1) {
@@ -147,7 +147,7 @@ final class Editor
         $name = $this->validOptionName($name);
         $matches = array_values(array_filter(
             $this->directiveOptionFields($directive),
-            static fn (array $field): bool => strtolower($field['name']) === strtolower($name),
+            static fn(array $field): bool => strtolower($field['name']) === strtolower($name),
         ));
 
         if ([] === $matches) {
@@ -186,7 +186,7 @@ final class Editor
 
         $definitions = array_values(array_filter(
             $graph->definitions(DefinitionKind::Hyperlink),
-            static fn (ReferenceDefinition $definition): bool => $definition->node === $target,
+            static fn(ReferenceDefinition $definition): bool => $definition->node === $target,
         ));
 
         if (1 !== \count($definitions)) {
@@ -252,13 +252,13 @@ final class Editor
         } elseif ($endsWithEol) {
             $prefix = $eol;
         } else {
-            $prefix = $eol.$eol;
+            $prefix = $eol . $eol;
         }
 
         $suffix = $endsWithEol ? $eol : '';
         $this->record(new SourcePatch(
             ByteSpan::of(\strlen($bytes), 0),
-            $prefix.$fragment.$suffix,
+            $prefix . $fragment . $suffix,
         ));
 
         return $this;
@@ -447,7 +447,7 @@ final class Editor
             $rawName = $matches[1];
             $name = trim(preg_replace('/\\\\(.)/', '$1', $rawName) ?? $rawName);
             $lastLine = $line;
-            $continuationIndent = $this->source->slice(ByteSpan::between($line->span->start, $line->contentSpan()->start)).'   ';
+            $continuationIndent = $this->source->slice(ByteSpan::between($line->span->start, $line->contentSpan()->start)) . '   ';
             ++$index;
 
             while (
@@ -497,7 +497,7 @@ final class Editor
 
         if ([] === $fields) {
             $anchor = $firstLine;
-            $indent = $this->source->slice(ByteSpan::between($firstLine->span->start, $firstLine->contentSpan()->start)).'   ';
+            $indent = $this->source->slice(ByteSpan::between($firstLine->span->start, $firstLine->contentSpan()->start)) . '   ';
         } else {
             $last = $fields[\count($fields) - 1];
             $anchor = $last['lastLine'];
@@ -505,14 +505,14 @@ final class Editor
         }
 
         $eol = $this->lineEol($anchor);
-        $field = $this->optionFieldBytes($indent, $name, $value, $eol, $indent.'   ');
+        $field = $this->optionFieldBytes($indent, $name, $value, $eol, $indent . '   ');
 
         if ('' === $anchor->terminator) {
             $offset = $anchor->span->end();
-            $replacement = $eol.$field;
+            $replacement = $eol . $field;
         } else {
             $offset = $anchor->spanWithTerminator()->end();
-            $replacement = $field.$eol;
+            $replacement = $field . $eol;
         }
 
         $this->record(new SourcePatch(ByteSpan::of($offset, 0), $replacement));
@@ -530,16 +530,16 @@ final class Editor
     ): string {
         $value = $this->normalizeFragment($value, $eol);
         $lines = '' === $value ? [] : explode($eol, $value);
-        $field = $indent.':'.$rawName.':';
+        $field = $indent . ':' . $rawName . ':';
 
         if ([] === $lines) {
             return $field;
         }
 
-        $field .= ' '.array_shift($lines);
+        $field .= ' ' . array_shift($lines);
 
         foreach ($lines as $line) {
-            $field .= $eol.$continuationIndent.$line;
+            $field .= $eol . $continuationIndent . $line;
         }
 
         return $field;
@@ -653,7 +653,7 @@ final class Editor
                 $line->span->start + $bomOffset + $destinationStart,
                 \strlen($target->target),
             ),
-            $this->targetToken($newName).'_',
+            $this->targetToken($newName) . '_',
         );
     }
 
@@ -682,7 +682,7 @@ final class Editor
             return $name;
         }
 
-        return '`'.$name.'`';
+        return '`' . $name . '`';
     }
 
     private function referenceRenamePatch(ReferenceOccurrence $reference, string $newName): SourcePatch
@@ -702,7 +702,7 @@ final class Editor
         if (1 === preg_match('/^[0-9A-Za-z\x80-\xff]+(?:[-._+:][0-9A-Za-z\x80-\xff]+)*_$/', $raw)) {
             $token = $this->targetToken($newName);
 
-            return str_starts_with($token, '`') ? $token.'_' : $token.'_';
+            return str_starts_with($token, '`') ? $token . '_' : $token . '_';
         }
 
         if (1 === preg_match('/^(.*<)[ \t]*([^<>]+)_([ \t]*>)`_$/s', $raw, $matches)) {
@@ -710,11 +710,11 @@ final class Editor
                 throw new InvalidArgumentException('Embedded hyperlink aliases cannot safely target a phrase name.');
             }
 
-            return $matches[1].$newName.'_'.$matches[3].'`_';
+            return $matches[1] . $newName . '_' . $matches[3] . '`_';
         }
 
         if (1 === preg_match('/^`[^`]+`_$/s', $raw)) {
-            return '`'.$newName.'`_';
+            return '`' . $newName . '`_';
         }
 
         throw new InvalidArgumentException(\sprintf('Hyperlink reference "%s" cannot be renamed safely.', $raw));
@@ -736,12 +736,12 @@ final class Editor
                 throw new InvalidArgumentException('Sphinx reference title source cannot be rewritten safely.');
             }
 
-            $content = $matches[1].$newName.$matches[2];
+            $content = $matches[1] . $newName . $matches[2];
         } else {
             $content = $newName;
         }
 
-        return substr($raw, 0, $open + 1).$content.substr($raw, $close);
+        return substr($raw, 0, $open + 1) . $content . substr($raw, $close);
     }
 
     private function record(SourcePatch $patch): void

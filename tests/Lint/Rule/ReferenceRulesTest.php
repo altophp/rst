@@ -70,10 +70,10 @@ final class ReferenceRulesTest extends TestCase
     public function testOnlyUnusedExternalLinkDefinitionsAreReported(): void
     {
         $rst = ".. _anchor:\n\n"
-            ."Heading\n=======\n\n"
-            ."Use used_.\n\n"
-            .".. _used: https://used.test/\n"
-            .".. _unused: https://unused.test/\n";
+            . "Heading\n=======\n\n"
+            . "Use used_.\n\n"
+            . ".. _used: https://used.test/\n"
+            . ".. _unused: https://unused.test/\n";
         $problems = self::problems(
             $rst,
             Rst::docutils(),
@@ -88,8 +88,8 @@ final class ReferenceRulesTest extends TestCase
     public function testSimpleAdmonitionBodiesAreCoveredByReferenceRules(): void
     {
         $rst = ".. note::\n\n"
-            ."    See used_ and `bad <javascript:go>`_.\n\n"
-            .".. _used: https://ok.test\n";
+            . "    See used_ and `bad <javascript:go>`_.\n\n"
+            . ".. _used: https://ok.test\n";
 
         self::assertSame(
             [],
@@ -108,9 +108,9 @@ final class ReferenceRulesTest extends TestCase
     public function testUniformlyIndentedMultilineAdmonitionsAreCoveredByReferenceRules(): void
     {
         $rst = ".. note::\n\n"
-            ."    First line.\n"
-            ."    See used_ and `bad <javascript:go>`_.\n\n"
-            .".. _used: https://ok.test\n";
+            . "    First line.\n"
+            . "    See used_ and `bad <javascript:go>`_.\n\n"
+            . ".. _used: https://ok.test\n";
 
         self::assertSame(
             [],
@@ -129,8 +129,8 @@ final class ReferenceRulesTest extends TestCase
     public function testOpaqueDirectiveBodySuppressesUnusedConclusion(): void
     {
         $rst = ".. raw:: text\n\n"
-            ."    See used_.\n\n"
-            .".. _used: https://ok.test\n";
+            . "    See used_.\n\n"
+            . ".. _used: https://ok.test\n";
 
         self::assertSame(
             [],
@@ -141,7 +141,7 @@ final class ReferenceRulesTest extends TestCase
     public function testForbiddenSchemesAreCheckedForDefinitionsAndEmbeddedLinks(): void
     {
         $rst = "Visit `inline <javascript:alert(1)>`_.\n\n"
-            .".. _defined: data:text/html,test\n";
+            . ".. _defined: data:text/html,test\n";
         $problems = self::problems(
             $rst,
             Rst::docutils(),
@@ -156,7 +156,7 @@ final class ReferenceRulesTest extends TestCase
     #[DataProvider('invalidUrls')]
     public function testInvalidUrlsAreRejectedLocally(string $url): void
     {
-        $rst = '.. _link: '.$url."\n";
+        $rst = '.. _link: ' . $url . "\n";
 
         self::assertCount(
             1,
@@ -178,9 +178,9 @@ final class ReferenceRulesTest extends TestCase
     public function testValidUrlsNeedNoNetworkAccess(): void
     {
         $rst = ".. _absolute: https://host-that-does-not-exist.invalid/path?q=1#part\n"
-            .".. _relative: ../guide/page.html#part\n"
-            .".. _fragment: #part\n"
-            .".. _mail: mailto:team@example.test\n";
+            . ".. _relative: ../guide/page.html#part\n"
+            . ".. _fragment: #part\n"
+            . ".. _mail: mailto:team@example.test\n";
 
         self::assertSame(
             [],
@@ -191,10 +191,10 @@ final class ReferenceRulesTest extends TestCase
     public function testBlankLineIsRequiredAfterInternalAnchorOnly(): void
     {
         $rst = ".. _anchor:\n"
-            ."Heading\n"
-            ."=======\n\n"
-            .".. _one: https://one.test/\n"
-            .".. _two: https://two.test/\n";
+            . "Heading\n"
+            . "=======\n\n"
+            . ".. _one: https://one.test/\n"
+            . ".. _two: https://two.test/\n";
         $problems = self::problems($rst, Rst::docutils(), 'lint/blank-line-after-anchor');
 
         self::assertCount(1, $problems);
@@ -210,7 +210,7 @@ final class ReferenceRulesTest extends TestCase
             [],
             array_values(array_filter(
                 $report->problems(),
-                static fn (Problem $problem): bool => 'lint/unresolved-reference' === $problem->code,
+                static fn(Problem $problem): bool => 'lint/unresolved-reference' === $problem->code,
             )),
         );
     }
@@ -239,7 +239,7 @@ final class ReferenceRulesTest extends TestCase
     {
         return array_values(array_filter(
             $report->problems(),
-            static fn (Problem $problem): bool => $code === $problem->code,
+            static fn(Problem $problem): bool => $code === $problem->code,
         ));
     }
 }

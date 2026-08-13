@@ -25,10 +25,14 @@ namespace Alto\Rst\Convert;
  */
 enum AdmonitionStyle: string
 {
-    /** "> **Note**" followed by the body. */
+    /**
+     * "> **Note**" followed by the body.
+     */
     case Blockquote = 'blockquote';
 
-    /** "> [!NOTE]" followed by the body: rendered specially by GitHub. */
+    /**
+     * "> [!NOTE]" followed by the body: rendered specially by GitHub.
+     */
     case GithubAlert = 'github-alert';
 
     /**

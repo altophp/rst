@@ -28,8 +28,8 @@ final class ReferenceGraphAnonymousTest extends TestCase
     {
         $graph = self::graph(
             "`one`__ and `two`__.\n\n"
-            .".. __: https://one.test\n"
-            .".. __: https://two.test\n",
+            . ".. __: https://one.test\n"
+            . ".. __: https://two.test\n",
         );
         $references = $graph->references();
 
@@ -41,12 +41,12 @@ final class ReferenceGraphAnonymousTest extends TestCase
     {
         $graph = self::graph(
             "`one`__ and `two`__.\n\n"
-            .".. __: https://one.test\n",
+            . ".. __: https://one.test\n",
         );
 
         self::assertSame(
             [ReferenceStatus::Unresolved, ReferenceStatus::Unresolved],
-            array_map(static fn ($reference): ReferenceStatus => $reference->status, $graph->references()),
+            array_map(static fn($reference): ReferenceStatus => $reference->status, $graph->references()),
         );
         self::assertSame('reference/anonymous-mismatch', $graph->problems()->problems()[0]->code);
     }

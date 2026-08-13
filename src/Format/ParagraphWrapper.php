@@ -256,7 +256,7 @@ final readonly class ParagraphWrapper
 
         $outsidePrefix = $source->slice(ByteSpan::between($first->span->start, $paragraph->span()->start));
         $insidePrefix = $source->slice(ByteSpan::between($paragraph->span()->start, $textStart));
-        $firstPrefix = $outsidePrefix.$insidePrefix;
+        $firstPrefix = $outsidePrefix . $insidePrefix;
 
         if (str_contains($firstPrefix, "\t")) {
             return null;
@@ -528,7 +528,7 @@ final readonly class ParagraphWrapper
         $lines[] = $current;
 
         foreach ($lines as $index => &$line) {
-            $line = (0 === $index ? $firstPrefix : $continuationIndent).$line;
+            $line = (0 === $index ? $firstPrefix : $continuationIndent) . $line;
         }
         unset($line);
 
@@ -540,7 +540,7 @@ final readonly class ParagraphWrapper
         $dedented = '';
 
         foreach ($source->lines() as $line) {
-            $dedented .= $source->slice($line->contentSpan()).$line->terminator;
+            $dedented .= $source->slice($line->contentSpan()) . $line->terminator;
         }
 
         return $dedented;
@@ -552,7 +552,7 @@ final readonly class ParagraphWrapper
         $indented = '';
 
         foreach ($source->lines() as $line) {
-            $indented .= $indent.$source->slice($line->span).$line->terminator;
+            $indented .= $indent . $source->slice($line->span) . $line->terminator;
         }
 
         return $indented;

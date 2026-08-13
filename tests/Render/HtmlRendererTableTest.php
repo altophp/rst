@@ -33,9 +33,9 @@ final class HtmlRendererTableTest extends TestCase
     public function testHeadRowsUseTableHeaderCells(): void
     {
         $expected = "<table>\n"
-            ."<thead>\n<tr>\n<th>\n<p>Alpha</p>\n</th>\n<th>\n<p>Beta</p>\n</th>\n</tr>\n</thead>\n"
-            ."<tbody>\n<tr>\n<td>\n<p>one</p>\n</td>\n<td>\n<p>two</p>\n</td>\n</tr>\n</tbody>\n"
-            ."</table>\n";
+            . "<thead>\n<tr>\n<th>\n<p>Alpha</p>\n</th>\n<th>\n<p>Beta</p>\n</th>\n</tr>\n</thead>\n"
+            . "<tbody>\n<tr>\n<td>\n<p>one</p>\n</td>\n<td>\n<p>two</p>\n</td>\n</tr>\n</tbody>\n"
+            . "</table>\n";
 
         self::assertSame($expected, self::renderRst("=====  =====\nAlpha  Beta\n=====  =====\none    two\n=====  =====\n"));
     }
@@ -43,8 +43,8 @@ final class HtmlRendererTableTest extends TestCase
     public function testTableWithoutHeadOmitsTheHeadSection(): void
     {
         $expected = "<table>\n"
-            ."<tbody>\n<tr>\n<td>\n<p>one</p>\n</td>\n<td>\n<p>two</p>\n</td>\n</tr>\n</tbody>\n"
-            ."</table>\n";
+            . "<tbody>\n<tr>\n<td>\n<p>one</p>\n</td>\n<td>\n<p>two</p>\n</td>\n</tr>\n</tbody>\n"
+            . "</table>\n";
 
         self::assertSame($expected, self::renderRst("=====  =====\none    two\n=====  =====\n"));
     }
@@ -58,7 +58,7 @@ final class HtmlRendererTableTest extends TestCase
     {
         $html = self::renderRst(
             "=====  =====  ======\nName          Value\n------------  ------\n"
-            ."First  Last   Number\n=====  =====  ======\nAda    Byron  1815\n=====  =====  ======\n",
+            . "First  Last   Number\n=====  =====  ======\nAda    Byron  1815\n=====  =====  ======\n",
         );
 
         self::assertStringContainsString("<th colspan=\"2\">\n<p>Name</p>\n</th>", $html);

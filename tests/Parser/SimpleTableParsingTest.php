@@ -57,7 +57,7 @@ final class SimpleTableParsingTest extends ParserTestCase
     public function testColumnSpanUnderlineJoinsCells(): void
     {
         $rst = "=====  =====  ======\nName          Value\n------------  ------\n"
-            ."First  Last   Number\n=====  =====  ======\nAda    Byron  1815\n=====  =====  ======\n";
+            . "First  Last   Number\n=====  =====  ======\nAda    Byron  1815\n=====  =====  ======\n";
         $result = self::parseRst($rst);
         $table = self::tableOf($result);
 
@@ -73,7 +73,7 @@ final class SimpleTableParsingTest extends ParserTestCase
     public function testMultiLineCellYieldsOneParagraph(): void
     {
         $rst = "=====  ===========\nKey    Description\n=====  ===========\n"
-            ."first  a value that\n       wraps onto a\n       second line\nlast   short\n=====  ===========\n";
+            . "first  a value that\n       wraps onto a\n       second line\nlast   short\n=====  ===========\n";
         $result = self::parseRst($rst);
         $table = self::tableOf($result);
 
@@ -320,7 +320,7 @@ final class SimpleTableParsingTest extends ParserTestCase
 
     public function testConformanceTableFixturesParseWithoutProblems(): void
     {
-        $files = glob(__DIR__.'/../fixtures/conformance/tables/*.rst');
+        $files = glob(__DIR__ . '/../fixtures/conformance/tables/*.rst');
         self::assertIsArray($files);
         self::assertNotSame([], $files);
 
@@ -345,7 +345,7 @@ final class SimpleTableParsingTest extends ParserTestCase
      */
     public function testWellFormedTablesHaveNoOverlappingSiblingSpans(): void
     {
-        $files = glob(__DIR__.'/../fixtures/conformance/tables/*.rst');
+        $files = glob(__DIR__ . '/../fixtures/conformance/tables/*.rst');
         self::assertIsArray($files);
         self::assertNotSame([], $files);
 
@@ -389,8 +389,12 @@ final class SimpleTableParsingTest extends ParserTestCase
                 if (0 !== $a->length && 0 !== $b->length && $a->end() > $b->start && $b->end() > $a->start) {
                     $overlaps[] = \sprintf(
                         '%s[%d,%d) overlaps %s[%d,%d)',
-                        self::shortName($first), $a->start, $a->end(),
-                        self::shortName($second), $b->start, $b->end(),
+                        self::shortName($first),
+                        $a->start,
+                        $a->end(),
+                        self::shortName($second),
+                        $b->start,
+                        $b->end(),
                     );
                 }
             }
@@ -448,7 +452,7 @@ final class SimpleTableParsingTest extends ParserTestCase
      */
     private static function colspansOf(TableRow $row): array
     {
-        return array_map(static fn (TableCell $cell): int => $cell->colspan, $row->children());
+        return array_map(static fn(TableCell $cell): int => $cell->colspan, $row->children());
     }
 
     private static function textOf(Node $node): string

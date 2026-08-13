@@ -30,8 +30,7 @@ final readonly class FileAccessPolicy
     private function __construct(
         public string $root,
         public int $maxIncludeDepth,
-    ) {
-    }
+    ) {}
 
     public static function rootedAt(string $root, int $maxIncludeDepth = 32): self
     {
@@ -55,8 +54,8 @@ final readonly class FileAccessPolicy
         $logicalPath = $this->logicalPath($path, $sourcePath);
         $prefix = \DIRECTORY_SEPARATOR === $this->root
             ? \DIRECTORY_SEPARATOR
-            : $this->root.\DIRECTORY_SEPARATOR;
-        $candidate = $prefix.str_replace('/', \DIRECTORY_SEPARATOR, $logicalPath);
+            : $this->root . \DIRECTORY_SEPARATOR;
+        $candidate = $prefix . str_replace('/', \DIRECTORY_SEPARATOR, $logicalPath);
         $resolved = realpath($candidate);
 
         if (
@@ -95,7 +94,7 @@ final readonly class FileAccessPolicy
             $sourceDirectory = null === $sourcePath ? '' : dirname(str_replace('\\', '/', $sourcePath));
             $combined = ('.' === $sourceDirectory || '' === $sourceDirectory)
                 ? $path
-                : $sourceDirectory.'/'.$path;
+                : $sourceDirectory . '/' . $path;
         }
 
         $parts = [];

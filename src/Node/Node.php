@@ -28,8 +28,7 @@ abstract readonly class Node
 {
     protected function __construct(
         private ByteSpan $span,
-    ) {
-    }
+    ) {}
 
     final public function span(): ByteSpan
     {

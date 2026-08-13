@@ -39,21 +39,21 @@ final class SimpleTableAlignerTest extends TestCase
     #[DataProvider('lineEndings')]
     public function testAlignsAStableTableAndPreservesLineEndings(string $eol): void
     {
-        $source = '==========  ===================='.$eol
-            .'Name        Value'.$eol
-            .'==========  ===================='.$eol
-            .'A           One'.$eol
-            .'Long        Two'.$eol
-            .'==========  ===================='.$eol;
+        $source = '==========  ====================' . $eol
+            . 'Name        Value' . $eol
+            . '==========  ====================' . $eol
+            . 'A           One' . $eol
+            . 'Long        Two' . $eol
+            . '==========  ====================' . $eol;
         $formatted = self::apply($source);
 
         self::assertSame(
-            '====  ====='.$eol
-            .'Name  Value'.$eol
-            .'====  ====='.$eol
-            .'A     One'.$eol
-            .'Long  Two'.$eol
-            .'====  ====='.$eol,
+            '====  =====' . $eol
+            . 'Name  Value' . $eol
+            . '====  =====' . $eol
+            . 'A     One' . $eol
+            . 'Long  Two' . $eol
+            . '====  =====' . $eol,
             $formatted,
         );
         self::assertFalse(Rst::docutils()->parse($formatted)->problems()->hasProblems());
@@ -105,9 +105,9 @@ final class SimpleTableAlignerTest extends TestCase
 
         self::assertStringContainsString(
             "  ======  ===\n"
-            ."  first   one\n"
-            ."  longer  two\n"
-            .'  ======  ===',
+            . "  first   one\n"
+            . "  longer  two\n"
+            . '  ======  ===',
             $formatted,
         );
         self::assertFalse(Rst::docutils()->parse($formatted)->problems()->hasProblems());
@@ -131,7 +131,7 @@ final class SimpleTableAlignerTest extends TestCase
         }
 
         $source = "==========  ==========\n文档          Value\n==========  ==========\nRésumé      one\n==========  ==========\n\n"
-            ."==========  ==========\nfirst       one\nlonger      two\n==========  ==========\n";
+            . "==========  ==========\nfirst       one\nlonger      two\n==========  ==========\n";
         $formatted = self::apply($source);
 
         self::assertStringStartsWith("==========  ==========\n文档", $formatted);
@@ -151,11 +151,11 @@ final class SimpleTableAlignerTest extends TestCase
     {
         yield 'multi-line cell' => [
             "=====  ===========\nKey    Description\n=====  ===========\n"
-            ."first  a value that\n       wraps again\n=====  ===========\n",
+            . "first  a value that\n       wraps again\n=====  ===========\n",
         ];
         yield 'column span' => [
             "=====  =====  ======\nName          Value\n------------  ------\n"
-            ."First  Last   Number\n=====  =====  ======\nAda    Byron  1815\n=====  =====  ======\n",
+            . "First  Last   Number\n=====  =====  ======\nAda    Byron  1815\n=====  =====  ======\n",
         ];
         yield 'grid table' => [
             "+------+------+\n| one  | two  |\n+------+------+\n",

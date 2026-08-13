@@ -100,10 +100,10 @@ final class DirectiveParsingTest extends ParserTestCase
     {
         $result = self::parseRst(
             ".. note::\n"
-            ."   :class: special\n"
-            ."\n"
-            ."\n"
-            ."   body\n",
+            . "   :class: special\n"
+            . "\n"
+            . "\n"
+            . "   body\n",
         );
         $directive = $result->document()->children()[0];
 
@@ -134,9 +134,9 @@ final class DirectiveParsingTest extends ParserTestCase
     public function testStructuredBodyKeepsNestedBlockNodesAndOriginalSpans(): void
     {
         $input = ".. note::\n\n"
-            ."   First paragraph.\n\n"
-            ."   - one\n"
-            ."   - two\n";
+            . "   First paragraph.\n\n"
+            . "   - one\n"
+            . "   - two\n";
         $result = self::parseRst($input);
         $directive = $result->document()->children()[0];
 

@@ -45,11 +45,11 @@ final class ReferenceGraphHyperlinkTest extends TestCase
         $targets = '';
 
         for ($index = 1; $index <= 12; ++$index) {
-            $next = 12 === $index ? 'https://example.com/final' : 'target'.($index + 1).'_';
+            $next = 12 === $index ? 'https://example.com/final' : 'target' . ($index + 1) . '_';
             $targets .= sprintf(".. _target%d: %s\n", $index, $next);
         }
 
-        $reference = self::graph("See target1_.\n\n".$targets)->references()[0];
+        $reference = self::graph("See target1_.\n\n" . $targets)->references()[0];
 
         self::assertSame(ReferenceStatus::Resolved, $reference->status);
         self::assertSame('https://example.com/final', $reference->target?->destination);
@@ -64,7 +64,7 @@ final class ReferenceGraphHyperlinkTest extends TestCase
         self::assertNull($reference->target);
         self::assertSame(
             ['reference/circular-indirect-target', 'reference/circular-indirect-target', 'reference/circular-target'],
-            array_map(static fn ($problem): string => $problem->code, $graph->problems()->problems()),
+            array_map(static fn($problem): string => $problem->code, $graph->problems()->problems()),
         );
     }
 
@@ -77,7 +77,7 @@ final class ReferenceGraphHyperlinkTest extends TestCase
         self::assertNull($graph->target('a'));
         self::assertSame(
             ['reference/duplicate-explicit-target', 'reference/ambiguous-target'],
-            array_map(static fn ($problem): string => $problem->code, $graph->problems()->problems()),
+            array_map(static fn($problem): string => $problem->code, $graph->problems()->problems()),
         );
     }
 
@@ -108,8 +108,8 @@ final class ReferenceGraphHyperlinkTest extends TestCase
     {
         $reference = self::graph(
             "See a_.\n\n"
-            .".. _a: `RFC: 1`_\n"
-            .".. _`RFC: 1`: https://example.com/final\n",
+            . ".. _a: `RFC: 1`_\n"
+            . ".. _`RFC: 1`: https://example.com/final\n",
         )->references()[0];
 
         self::assertSame('https://example.com/final', $reference->target?->destination);

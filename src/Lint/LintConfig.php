@@ -46,8 +46,7 @@ final readonly class LintConfig
      */
     private function __construct(
         private array $rules,
-    ) {
-    }
+    ) {}
 
     /**
      * The built-in rule set, tree rules and source rules alike.

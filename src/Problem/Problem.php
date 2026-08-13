@@ -31,6 +31,5 @@ final readonly class Problem
         public string $code,
         public string $message,
         public ?ByteSpan $span = null,
-    ) {
-    }
+    ) {}
 }

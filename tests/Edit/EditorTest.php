@@ -630,9 +630,9 @@ final class EditorTest extends TestCase
     public function testRenamesBacktickAndIndirectTargetsAlongsideExternalTargets(): void
     {
         $rst = "`old phrase`_. `alias name`_.\n\n"
-            .".. _`alias name`: `old phrase`_\n"
-            .".. _external: https://example.com/\n"
-            .".. _`old phrase`:\n";
+            . ".. _`alias name`: `old phrase`_\n"
+            . ".. _external: https://example.com/\n"
+            . ".. _`old phrase`:\n";
         [$source, $result] = self::parse($rst);
 
         $edited = new Editor($source, $result)
@@ -641,9 +641,9 @@ final class EditorTest extends TestCase
 
         self::assertSame(
             "`new`_. `alias name`_.\n\n"
-            .".. _`alias name`: new_\n"
-            .".. _external: https://example.com/\n"
-            .".. _new:\n",
+            . ".. _`alias name`: new_\n"
+            . ".. _external: https://example.com/\n"
+            . ".. _new:\n",
             $edited,
         );
     }

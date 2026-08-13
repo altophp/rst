@@ -20,9 +20,13 @@ namespace Alto\Rst\Convert\Markdown;
  */
 enum MdHeadingStyle
 {
-    /** "# Heading" */
+    /**
+     * "# Heading"
+     */
     case Atx;
 
-    /** "Heading" underlined with "=" (level 1) or "-" (level 2). */
+    /**
+     * "Heading" underlined with "=" (level 1) or "-" (level 2).
+     */
     case Setext;
 }

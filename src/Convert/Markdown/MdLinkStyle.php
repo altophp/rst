@@ -20,9 +20,13 @@ namespace Alto\Rst\Convert\Markdown;
  */
 enum MdLinkStyle
 {
-    /** "[text](url \"title\")" */
+    /**
+     * "[text](url \"title\")"
+     */
     case Inline;
 
-    /** "[text][label]", resolved through a link reference definition. */
+    /**
+     * "[text][label]", resolved through a link reference definition.
+     */
     case Reference;
 }

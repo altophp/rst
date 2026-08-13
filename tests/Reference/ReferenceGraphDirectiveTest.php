@@ -34,8 +34,8 @@ final class ReferenceGraphDirectiveTest extends TestCase
     public function testSimpleAdmonitionBodyContributesReferences(): void
     {
         $source = ".. note::\n\n"
-            ."    See used_ and `bad <javascript:go>`_.\n\n"
-            .".. _used: https://ok.test\n";
+            . "    See used_ and `bad <javascript:go>`_.\n\n"
+            . ".. _used: https://ok.test\n";
         $result = Rst::docutils()->parse($source);
         $graph = $result->references();
 
@@ -60,7 +60,7 @@ final class ReferenceGraphDirectiveTest extends TestCase
             HyperlinkReference::class,
             array_values(array_filter(
                 $graph->inlineNodes($paragraph->text, false) ?? [],
-                static fn ($node): bool => $node instanceof HyperlinkReference,
+                static fn($node): bool => $node instanceof HyperlinkReference,
             )),
         );
         self::assertNull($graph->directiveInlineNodes($directive));
@@ -69,9 +69,9 @@ final class ReferenceGraphDirectiveTest extends TestCase
     public function testUniformlyIndentedMultilineAdmonitionBodyContributesReferences(): void
     {
         $source = ".. note::\n\n"
-            ."    First line.\n"
-            ."    See used_ and `bad <javascript:go>`_.\n\n"
-            .".. _used: https://ok.test\n";
+            . "    First line.\n"
+            . "    See used_ and `bad <javascript:go>`_.\n\n"
+            . ".. _used: https://ok.test\n";
         $graph = Rst::docutils()->parse($source)->references();
         $byLabel = [];
 
@@ -89,7 +89,7 @@ final class ReferenceGraphDirectiveTest extends TestCase
     public function testOpaqueDirectiveDoesNotProduceFalseReferences(string $name): void
     {
         $source = \sprintf(".. %s:: text\n\n", $name)
-            ."    See fake_ and `bad <javascript:go>`_.\n";
+            . "    See fake_ and `bad <javascript:go>`_.\n";
         $graph = Rst::docutils()->parse($source)->references();
 
         self::assertFalse($graph->isCoverageComplete());
@@ -111,9 +111,9 @@ final class ReferenceGraphDirectiveTest extends TestCase
     public function testNestedStructuredDirectiveBodyContributesReferences(): void
     {
         $source = ".. note::\n\n"
-            ."    .. warning::\n\n"
-            ."        See nested_.\n\n"
-            .".. _nested: https://example.com\n";
+            . "    .. warning::\n\n"
+            . "        See nested_.\n\n"
+            . ".. _nested: https://example.com\n";
         $result = Rst::docutils()->parse($source);
         $graph = $result->references();
 
@@ -162,8 +162,8 @@ final class ReferenceGraphDirectiveTest extends TestCase
     public function testDirectiveReferenceSpansUseOriginalUtf8ByteOffsets(): void
     {
         $source = ".. note::\n\n"
-            ."    Échec used_ and `bad <javascript:go>`_.\n\n"
-            .".. _used: https://ok.test\n";
+            . "    Échec used_ and `bad <javascript:go>`_.\n\n"
+            . ".. _used: https://ok.test\n";
         $references = Rst::docutils()->parse($source)->references()->references();
         $byLabel = [];
 

@@ -40,8 +40,7 @@ final class MarkdownInlineItem
         public bool $canClose,
         public int $start,
         public int $end,
-    ) {
-    }
+    ) {}
 
     public static function ofText(string $text, int $start, int $end): self
     {

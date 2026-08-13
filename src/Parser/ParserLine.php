@@ -41,8 +41,7 @@ final class ParserLine
         public readonly int $spanStart,
         public readonly int $contentStart,
         public readonly bool $blank,
-    ) {
-    }
+    ) {}
 
     public static function fromLine(Line $line): self
     {

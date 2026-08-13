@@ -26,11 +26,11 @@ final class ReferenceGraphTableTest extends TestCase
     public function testGridTableLineSeparatorsAreNotParsedAsSubstitutionMarkup(): void
     {
         $source = "+-----+-----+\n"
-            ."| A   | B   |\n"
-            ."+=====+=====+\n"
-            ."| one | two |\n"
-            ."| x   | y   |\n"
-            ."+-----+-----+\n";
+            . "| A   | B   |\n"
+            . "+=====+=====+\n"
+            . "| one | two |\n"
+            . "| x   | y   |\n"
+            . "+-----+-----+\n";
 
         self::assertSame([], Rst::docutils()->parse($source)->references()->problems()->problems());
     }
@@ -38,11 +38,11 @@ final class ReferenceGraphTableTest extends TestCase
     public function testUnclosedSubstitutionInsideGridTableCellIsStillReported(): void
     {
         $source = "+----------+-----+\n"
-            ."| A        | B   |\n"
-            ."+==========+=====+\n"
-            ."| x        | two |\n"
-            ."| |missing | y   |\n"
-            ."+----------+-----+\n";
+            . "| A        | B   |\n"
+            . "+==========+=====+\n"
+            . "| x        | two |\n"
+            . "| |missing | y   |\n"
+            . "+----------+-----+\n";
         $problems = Rst::docutils()->parse($source)->references()->problems()->problems();
 
         self::assertCount(1, $problems);
@@ -54,11 +54,11 @@ final class ReferenceGraphTableTest extends TestCase
     public function testReferenceMarkupNeverMatchesAcrossTableCellLineSegments(): void
     {
         $source = "========  ==========\n"
-            ."col       text\n"
-            ."========  ==========\n"
-            ."first     `target\n"
-            ."          link`_\n"
-            ."========  ==========\n";
+            . "col       text\n"
+            . "========  ==========\n"
+            . "first     `target\n"
+            . "          link`_\n"
+            . "========  ==========\n";
 
         self::assertSame([], Rst::docutils()->parse($source)->references()->references());
     }
@@ -66,11 +66,11 @@ final class ReferenceGraphTableTest extends TestCase
     public function testCompleteReferencesInsideSegmentsKeepTheirOriginalSpans(): void
     {
         $source = "========  ==========\n"
-            ."col       text\n"
-            ."========  ==========\n"
-            ."first     one_\n"
-            ."          two_\n"
-            ."========  ==========\n";
+            . "col       text\n"
+            . "========  ==========\n"
+            . "first     one_\n"
+            . "          two_\n"
+            . "========  ==========\n";
         $references = Rst::docutils()->parse($source)->references()->references();
 
         self::assertCount(2, $references);
@@ -81,11 +81,11 @@ final class ReferenceGraphTableTest extends TestCase
     public function testGridTableReferencesKeepTheirPhysicalSourceSpans(): void
     {
         $source = "+--------+--------+\n"
-            ."| A      | B      |\n"
-            ."+========+========+\n"
-            ."| same_  | same_  |\n"
-            ."| same_  | same_  |\n"
-            ."+--------+--------+\n";
+            . "| A      | B      |\n"
+            . "+========+========+\n"
+            . "| same_  | same_  |\n"
+            . "| same_  | same_  |\n"
+            . "+--------+--------+\n";
         $references = Rst::docutils()->parse($source)->references()->references();
         $offsets = [];
         $offset = 0;
@@ -98,7 +98,7 @@ final class ReferenceGraphTableTest extends TestCase
         self::assertCount(4, $references);
         self::assertSame(
             [$offsets[0], $offsets[2], $offsets[1], $offsets[3]],
-            array_map(static fn ($reference): int => $reference->span->start, $references),
+            array_map(static fn($reference): int => $reference->span->start, $references),
         );
     }
 }

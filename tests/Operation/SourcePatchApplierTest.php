@@ -105,7 +105,7 @@ final class SourcePatchApplierTest extends TestCase
 
     public function testRejectsAnOffsetThatOverflowsTheIntegerRange(): void
     {
-        $error = $this->captureException(static fn (): PatchResult => new SourcePatchApplier()->apply('', [
+        $error = $this->captureException(static fn(): PatchResult => new SourcePatchApplier()->apply('', [
             new SourcePatch(ByteSpan::of(PHP_INT_MAX, 1), ''),
         ]));
 
@@ -152,7 +152,7 @@ final class SourcePatchApplierTest extends TestCase
     #[DataProvider('overlapProvider')]
     public function testRejectsOverlappingPatches(SourcePatch $left, SourcePatch $right): void
     {
-        $error = $this->captureException(static fn (): PatchResult => new SourcePatchApplier()->apply(
+        $error = $this->captureException(static fn(): PatchResult => new SourcePatchApplier()->apply(
             'abcdef',
             [$right, $left],
         ));

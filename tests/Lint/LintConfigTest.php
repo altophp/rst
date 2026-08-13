@@ -56,7 +56,7 @@ final class LintConfigTest extends TestCase
     public function testRecommendedContainsTheBuiltInRules(): void
     {
         $codes = array_map(
-            static fn (ContextRule|DocumentRule|SourceRule $rule): string => $rule->code(),
+            static fn(ContextRule|DocumentRule|SourceRule $rule): string => $rule->code(),
             LintConfig::recommended()->rules(),
         );
 
@@ -77,9 +77,9 @@ final class LintConfigTest extends TestCase
     {
         $rules = LintConfig::recommended()->rules();
 
-        self::assertNotEmpty(array_filter($rules, static fn (ContextRule|DocumentRule|SourceRule $rule): bool => $rule instanceof DocumentRule));
-        self::assertNotEmpty(array_filter($rules, static fn (ContextRule|DocumentRule|SourceRule $rule): bool => $rule instanceof SourceRule));
-        self::assertNotEmpty(array_filter($rules, static fn (ContextRule|DocumentRule|SourceRule $rule): bool => $rule instanceof ContextRule));
+        self::assertNotEmpty(array_filter($rules, static fn(ContextRule|DocumentRule|SourceRule $rule): bool => $rule instanceof DocumentRule));
+        self::assertNotEmpty(array_filter($rules, static fn(ContextRule|DocumentRule|SourceRule $rule): bool => $rule instanceof SourceRule));
+        self::assertNotEmpty(array_filter($rules, static fn(ContextRule|DocumentRule|SourceRule $rule): bool => $rule instanceof ContextRule));
     }
 
     public function testWithoutRuleRemovesByCode(): void
@@ -87,7 +87,7 @@ final class LintConfigTest extends TestCase
         $config = LintConfig::recommended()->withoutRule('lint/empty-section');
 
         $codes = array_map(
-            static fn (ContextRule|DocumentRule|SourceRule $rule): string => $rule->code(),
+            static fn(ContextRule|DocumentRule|SourceRule $rule): string => $rule->code(),
             $config->rules(),
         );
 
@@ -140,39 +140,33 @@ final class LintConfigTest extends TestCase
 
     private static function customRule(string $code): DocumentRule
     {
-        return new readonly class($code) implements DocumentRule {
+        return new readonly class ($code) implements DocumentRule {
             public function __construct(
                 private string $code,
-            ) {
-            }
+            ) {}
 
             public function code(): string
             {
                 return $this->code;
             }
 
-            public function check(Document $document, ProblemCollector $problems): void
-            {
-            }
+            public function check(Document $document, ProblemCollector $problems): void {}
         };
     }
 
     private static function customSourceRule(string $code): SourceRule
     {
-        return new readonly class($code) implements SourceRule {
+        return new readonly class ($code) implements SourceRule {
             public function __construct(
                 private string $code,
-            ) {
-            }
+            ) {}
 
             public function code(): string
             {
                 return $this->code;
             }
 
-            public function check(Document $document, Source $source, ProblemCollector $problems): void
-            {
-            }
+            public function check(Document $document, Source $source, ProblemCollector $problems): void {}
         };
     }
 }

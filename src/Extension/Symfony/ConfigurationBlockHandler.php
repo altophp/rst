@@ -55,7 +55,7 @@ final readonly class ConfigurationBlockHandler implements DirectiveHandler
             ? $context->renderBody($directive)
             : $this->renderLegacyBody($directive, $source, $profile, $htmlPolicy);
 
-        return "<div class=\"configuration-block\">\n".$body."</div>\n";
+        return "<div class=\"configuration-block\">\n" . $body . "</div>\n";
     }
 
     public function convertToMarkdown(

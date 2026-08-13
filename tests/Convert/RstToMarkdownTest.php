@@ -721,11 +721,11 @@ final class RstToMarkdownTest extends TestCase
     public function testMultiLineGridCellsDoNotImportNeighbouringCellText(): void
     {
         $rst = "+-----+-----+\n"
-            ."| A   | B   |\n"
-            ."+=====+=====+\n"
-            ."| one | two |\n"
-            ."| x   | y   |\n"
-            ."+-----+-----+\n";
+            . "| A   | B   |\n"
+            . "+=====+=====+\n"
+            . "| one | two |\n"
+            . "| x   | y   |\n"
+            . "+-----+-----+\n";
 
         $result = $this->convert($rst);
 
@@ -800,7 +800,7 @@ final class RstToMarkdownTest extends TestCase
     {
         $result = $this->convert(
             "See [1]_.\n\n"
-            .".. [1] Footnote *body*.\n",
+            . ".. [1] Footnote *body*.\n",
         );
 
         self::assertSame(
@@ -814,16 +814,16 @@ final class RstToMarkdownTest extends TestCase
     {
         $result = $this->convert(
             "See [1]_ and [2]_.\n\n"
-            .".. [1]\n\n"
-            .".. [2] First.\n\n"
-            ."   Second.\n",
+            . ".. [1]\n\n"
+            . ".. [2] First.\n\n"
+            . "   Second.\n",
         );
 
         self::assertSame(
             "See [^fn-1] and [^fn-2].\n\n"
-            ."[^fn-1]:\n\n"
-            ."[^fn-2]: First.\n\n"
-            ."    Second.\n",
+            . "[^fn-1]:\n\n"
+            . "[^fn-2]: First.\n\n"
+            . "    Second.\n",
             $result->output,
         );
         self::assertTrue($result->report->isEmpty());
@@ -833,13 +833,13 @@ final class RstToMarkdownTest extends TestCase
     {
         $result = $this->convert(
             "See [CIT2002]_.\n\n"
-            .".. [CIT2002] Citation **body**.\n",
+            . ".. [CIT2002] Citation **body**.\n",
         );
 
         self::assertSame(
             "See [CIT2002](#citation-cit2002).\n\n"
-            ."<a id=\"citation-cit2002\"></a>\n\n"
-            ."**[CIT2002]** Citation **body**.\n",
+            . "<a id=\"citation-cit2002\"></a>\n\n"
+            . "**[CIT2002]** Citation **body**.\n",
             $result->output,
         );
         self::assertSame(['citation' => 1], $result->report->countsByConstruct());
@@ -1055,10 +1055,10 @@ final class RstToMarkdownTest extends TestCase
     {
         $result = $this->convert(
             ".. |project| replace:: **Alto**\n"
-            .".. |copy| unicode:: 0xA9\n"
-            .".. |logo| image:: logo.png\n"
-            ."   :alt: Logo\n\n"
-            ."Use |project|, |copy|, and |logo|.\n",
+            . ".. |copy| unicode:: 0xA9\n"
+            . ".. |logo| image:: logo.png\n"
+            . "   :alt: Logo\n\n"
+            . "Use |project|, |copy|, and |logo|.\n",
         );
 
         self::assertSame(
@@ -1071,7 +1071,7 @@ final class RstToMarkdownTest extends TestCase
     public function testRowsShorterThanTheColumnCountArePaddedWithEmptyCells(): void
     {
         $span = ByteSpan::of(0, 10);
-        $cell = static fn (string $text): TableCell => new TableCell($span, [new Paragraph($span, new Text($span, $text))]);
+        $cell = static fn(string $text): TableCell => new TableCell($span, [new Paragraph($span, new Text($span, $text))]);
         $table = new Table(
             $span,
             [new TableRow($span, [$cell('h1'), $cell('h2')])],
@@ -1103,10 +1103,10 @@ final class RstToMarkdownTest extends TestCase
     {
         $result = $this->convert(
             ".. configuration-block::\n\n"
-            ."    .. code-block:: yaml\n\n"
-            ."        key: value\n\n"
-            ."    .. code-block:: php\n\n"
-            ."        return [];\n",
+            . "    .. code-block:: yaml\n\n"
+            . "        key: value\n\n"
+            . "    .. code-block:: php\n\n"
+            . "        return [];\n",
         );
 
         self::assertSame("```yaml\nkey: value\n```\n\n```php\nreturn [];\n```\n", $result->output);
@@ -1120,9 +1120,9 @@ final class RstToMarkdownTest extends TestCase
     public function testConfigurationBlockReanchorsNestedConversionIssues(): void
     {
         $rst = ".. configuration-block::\n\n"
-            ."    .. code-block:: html+twig\n"
-            ."       :linenos:\n\n"
-            ."        <div />\n";
+            . "    .. code-block:: html+twig\n"
+            . "       :linenos:\n\n"
+            . "        <div />\n";
         $result = $this->convert($rst);
 
         self::assertSame(
@@ -1151,8 +1151,8 @@ final class RstToMarkdownTest extends TestCase
     public function testConfigurationBlockUsesTheEnclosingDocumentsTargets(): void
     {
         $rst = ".. configuration-block::\n\n"
-            ."    See target_.\n\n"
-            .".. _target: https://example.test\n";
+            . "    See target_.\n\n"
+            . ".. _target: https://example.test\n";
         $source = Source::fromString($rst);
         $parsed = Rst::symfony()->parse($rst);
         $result = new RstToMarkdown()->convert(
@@ -1175,7 +1175,7 @@ final class RstToMarkdownTest extends TestCase
     public function testConfigurationBlockUsesProjectReferences(): void
     {
         $rst = ".. configuration-block::\n\n"
-            ."    See :ref:`install-label` and :doc:`../install`.\n";
+            . "    See :ref:`install-label` and :doc:`../install`.\n";
         $source = Source::fromString($rst);
         $parsed = Rst::symfony()->parse($rst);
         $install = Rst::symfony()->parse(".. _install-label:\n\nInstallation\n============\n");

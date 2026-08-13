@@ -254,7 +254,7 @@ final class RstFile
             throw new FileReadException(\sprintf('Unable to read RST file "%s".', $path));
         }
 
-        return rtrim($directory, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR.basename($path);
+        return rtrim($directory, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR . basename($path);
     }
 
     private static function anchorWritePath(string $path): string
@@ -269,7 +269,7 @@ final class RstFile
             throw new FileWriteException($path, \sprintf('Unable to resolve parent directory for RST file "%s".', $path));
         }
 
-        return rtrim($directory, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR.basename($path);
+        return rtrim($directory, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR . basename($path);
     }
 
     private static function fingerprint(string $bytes): string

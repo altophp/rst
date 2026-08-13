@@ -25,12 +25,18 @@ namespace Alto\Rst\Convert;
  */
 enum LinkStyle: string
 {
-    /** Keep the style the source used. */
+    /**
+     * Keep the style the source used.
+     */
     case Preserve = 'preserve';
 
-    /** Always inline, definitions dropped. */
+    /**
+     * Always inline, definitions dropped.
+     */
     case Inline = 'inline';
 
-    /** Always reference-style, definitions collected at the end. */
+    /**
+     * Always reference-style, definitions collected at the end.
+     */
     case Reference = 'reference';
 }

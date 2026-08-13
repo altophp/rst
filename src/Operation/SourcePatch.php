@@ -27,6 +27,5 @@ final readonly class SourcePatch
     public function __construct(
         public ByteSpan $span,
         public string $replacement,
-    ) {
-    }
+    ) {}
 }

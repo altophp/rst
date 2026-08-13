@@ -172,8 +172,8 @@ final readonly class SimpleTableAligner
         }
 
         $terminator = $this->terminator($lines);
-        $border = $indent.implode('  ', array_map(
-            static fn (int $width): string => str_repeat('=', $width),
+        $border = $indent . implode('  ', array_map(
+            static fn(int $width): string => str_repeat('=', $width),
             $widths,
         ));
         $replacementLines = [$border];
@@ -248,7 +248,7 @@ final readonly class SimpleTableAligner
             $row .= $text;
 
             if ($index < $last) {
-                $row .= str_repeat(' ', $widths[$index] - ($this->displayWidth($text) ?? 0)).'  ';
+                $row .= str_repeat(' ', $widths[$index] - ($this->displayWidth($text) ?? 0)) . '  ';
             }
         }
 

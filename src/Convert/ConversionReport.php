@@ -30,8 +30,7 @@ final readonly class ConversionReport
      */
     public function __construct(
         public array $issues = [],
-    ) {
-    }
+    ) {}
 
     public function isEmpty(): bool
     {
@@ -96,7 +95,7 @@ final readonly class ConversionReport
     {
         return array_values(array_filter(
             $this->issues,
-            static fn (ConversionIssue $issue): bool => $issue->kind === $kind,
+            static fn(ConversionIssue $issue): bool => $issue->kind === $kind,
         ));
     }
 

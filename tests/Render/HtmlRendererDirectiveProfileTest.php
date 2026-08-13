@@ -110,18 +110,18 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
     {
         self::assertSame(
             "<div class=\"admonition note\">\n"
-            ."<p class=\"admonition-title\">Note</p>\n"
-            ."<p>Choose one:</p>\n"
-            ."<ul>\n"
-            ."<li>\n<p>first</p>\n</li>\n"
-            ."<li>\n<p>second</p>\n</li>\n"
-            ."</ul>\n"
-            ."</div>\n",
+            . "<p class=\"admonition-title\">Note</p>\n"
+            . "<p>Choose one:</p>\n"
+            . "<ul>\n"
+            . "<li>\n<p>first</p>\n</li>\n"
+            . "<li>\n<p>second</p>\n</li>\n"
+            . "</ul>\n"
+            . "</div>\n",
             self::render(
                 ".. note::\n\n"
-                ."    Choose one:\n\n"
-                ."    - first\n"
-                ."    - second\n",
+                . "    Choose one:\n\n"
+                . "    - first\n"
+                . "    - second\n",
             ),
         );
     }
@@ -226,15 +226,15 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
     {
         self::assertSame(
             "<figure>\n"
-            ."<img src=\"https://example.com/a.png\" alt=\"Fig\">\n"
-            ."<figcaption>The <em>caption</em>.</figcaption>\n"
-            ."<p>A legend paragraph.</p>\n"
-            ."</figure>\n",
+            . "<img src=\"https://example.com/a.png\" alt=\"Fig\">\n"
+            . "<figcaption>The <em>caption</em>.</figcaption>\n"
+            . "<p>A legend paragraph.</p>\n"
+            . "</figure>\n",
             self::render(
                 ".. figure:: https://example.com/a.png\n"
-                ."    :alt: Fig\n\n"
-                ."    The *caption*.\n\n"
-                ."    A legend paragraph.\n",
+                . "    :alt: Fig\n\n"
+                . "    The *caption*.\n\n"
+                . "    A legend paragraph.\n",
             ),
         );
     }
@@ -259,15 +259,15 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
     {
         self::assertSame(
             "<div class=\"configuration-block\">\n"
-            ."<pre><code class=\"language-yaml\">key: value</code></pre>\n"
-            ."<pre><code class=\"language-php\">return [];</code></pre>\n"
-            ."</div>\n",
+            . "<pre><code class=\"language-yaml\">key: value</code></pre>\n"
+            . "<pre><code class=\"language-php\">return [];</code></pre>\n"
+            . "</div>\n",
             self::render(
                 ".. configuration-block::\n\n"
-                ."    .. code-block:: yaml\n\n"
-                ."        key: value\n\n"
-                ."    .. code-block:: php\n\n"
-                ."        return [];\n",
+                . "    .. code-block:: yaml\n\n"
+                . "        key: value\n\n"
+                . "    .. code-block:: php\n\n"
+                . "        return [];\n",
             ),
         );
     }
@@ -293,14 +293,14 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
 
         self::assertSame(
             "<div class=\"configuration-block\">\n"
-            ."<pre><code class=\"language-yaml\">key: value</code></pre>\n"
-            ."</div>\n",
+            . "<pre><code class=\"language-yaml\">key: value</code></pre>\n"
+            . "</div>\n",
             new ConfigurationBlockHandler()->renderHtml(
                 $directive,
                 $source,
                 Profile::symfony(),
                 HtmlPolicy::safe(),
-                new DirectiveRenderContext(static fn (): string => self::fail('Legacy bodies use the compatibility parser.')),
+                new DirectiveRenderContext(static fn(): string => self::fail('Legacy bodies use the compatibility parser.')),
             ),
         );
     }
@@ -321,7 +321,7 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
                 $source,
                 Profile::symfony(),
                 HtmlPolicy::safe(),
-                new DirectiveRenderContext(static fn (): string => self::fail('Legacy bodies use the compatibility parser.')),
+                new DirectiveRenderContext(static fn(): string => self::fail('Legacy bodies use the compatibility parser.')),
             ),
         );
     }
@@ -344,7 +344,7 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
                 $source,
                 Profile::symfony(),
                 HtmlPolicy::safe(),
-                new DirectiveRenderContext(static fn (): string => self::fail('Legacy bodies use the compatibility parser.')),
+                new DirectiveRenderContext(static fn(): string => self::fail('Legacy bodies use the compatibility parser.')),
             ),
         );
     }
@@ -353,12 +353,12 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
     {
         self::assertSame(
             "<div class=\"admonition note\">\n"
-            ."<p class=\"admonition-title\">Note</p>\n"
-            ."<p>Legacy body.\n</p>\n"
-            ."</div>\n",
+            . "<p class=\"admonition-title\">Note</p>\n"
+            . "<p>Legacy body.\n</p>\n"
+            . "</div>\n",
             self::renderManualDirective(
                 "    Legacy body.\n",
-                static fn (ByteSpan $span): Directive => new Directive(
+                static fn(ByteSpan $span): Directive => new Directive(
                     $span,
                     'note',
                     rawBody: $span,
@@ -370,12 +370,12 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
 
         self::assertSame(
             "<div class=\"version-note versionadded\">\n"
-            ."<p>New in version 8.0</p>\n"
-            ."<p>Legacy details.\n</p>\n"
-            ."</div>\n",
+            . "<p>New in version 8.0</p>\n"
+            . "<p>Legacy details.\n</p>\n"
+            . "</div>\n",
             self::renderManualDirective(
                 "Legacy details.\n",
-                static fn (ByteSpan $span): Directive => new Directive(
+                static fn(ByteSpan $span): Directive => new Directive(
                     $span,
                     'versionadded',
                     ['8.0'],
@@ -388,12 +388,12 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
 
         self::assertSame(
             "<figure>\n"
-            ."<img src=\"diagram.svg\">\n"
-            ."<figcaption>Legacy caption.</figcaption>\n"
-            ."</figure>\n",
+            . "<img src=\"diagram.svg\">\n"
+            . "<figcaption>Legacy caption.</figcaption>\n"
+            . "</figure>\n",
             self::renderManualDirective(
                 "\n    Legacy caption.\n",
-                static fn (ByteSpan $span): Directive => new Directive(
+                static fn(ByteSpan $span): Directive => new Directive(
                     $span,
                     'figure',
                     ['diagram.svg'],
@@ -433,12 +433,12 @@ final class HtmlRendererDirectiveProfileTest extends TestCase
     {
         self::assertSame(
             "<aside class=\"screencast\">\n"
-            ."<p class=\"screencast-title\">Screencast</p>\n"
-            ."<p>Watch the <a href=\"https://example.test\">series</a>.</p>\n"
-            ."</aside>\n",
+            . "<p class=\"screencast-title\">Screencast</p>\n"
+            . "<p>Watch the <a href=\"https://example.test\">series</a>.</p>\n"
+            . "</aside>\n",
             self::render(
                 ".. screencast::\n\n"
-                ."    Watch the `series <https://example.test>`_.\n",
+                . "    Watch the `series <https://example.test>`_.\n",
             ),
         );
     }

@@ -557,12 +557,12 @@ final class ReferenceGraphBuilder
             return;
         }
 
-        $key = $type->value.':'.$definition->normalizedName;
+        $key = $type->value . ':' . $definition->normalizedName;
 
         if (isset($this->typedDefinitions[$key])) {
             $this->problem(
                 ProblemSeverity::Error,
-                $type->value.'/duplicate-definition',
+                $type->value . '/duplicate-definition',
                 \sprintf('%s definition "%s" is defined more than once.', ucfirst($type->value), $definition->name),
                 $definition->span,
             );
@@ -678,7 +678,7 @@ final class ReferenceGraphBuilder
                 $node instanceof StandaloneHyperlink => $node->uri,
                 $node instanceof InlineTarget => $node->name,
                 $node instanceof FootnoteReference,
-                $node instanceof CitationReference => '['.$node->label.']',
+                $node instanceof CitationReference => '[' . $node->label . ']',
                 $node instanceof Emphasis,
                 $node instanceof Strong => $this->inlinePlainText($node->children()),
                 default => null,
@@ -847,7 +847,7 @@ final class ReferenceGraphBuilder
                 $suffix = ReferenceStatus::Circular === $status ? 'circular' : 'unresolved';
                 $this->problem(
                     ProblemSeverity::Error,
-                    'reference/'.$suffix.'-indirect-target',
+                    'reference/' . $suffix . '-indirect-target',
                     \sprintf('Indirect target "%s" is %s.', $definition->name, $status->value),
                     $definition->span,
                 );
@@ -1052,7 +1052,7 @@ final class ReferenceGraphBuilder
         }
 
         $normalized = ReferenceName::normalize($label);
-        $key = $type->value.':'.$normalized;
+        $key = $type->value . ':' . $normalized;
         $definitions = $this->typedDefinitions[$key] ?? [];
 
         if ([] === $definitions) {
@@ -1118,7 +1118,7 @@ final class ReferenceGraphBuilder
         foreach ($nodes as $node) {
             $start = $node->span()->start;
             $expanded .= substr($replacement, $cursor, $start - $cursor);
-            $key = ReferenceType::Substitution->value.':'.ReferenceName::normalize($node->name);
+            $key = ReferenceType::Substitution->value . ':' . ReferenceName::normalize($node->name);
             $definitions = $this->typedDefinitions[$key] ?? [];
 
             if ([] === $definitions) {
@@ -1340,19 +1340,19 @@ final class ReferenceGraphBuilder
 
         if ($codePoint <= 0x7FF) {
             return pack('C', 0xC0 | ($codePoint >> 6))
-                .pack('C', 0x80 | ($codePoint & 0x3F));
+                . pack('C', 0x80 | ($codePoint & 0x3F));
         }
 
         if ($codePoint <= 0xFFFF) {
             return pack('C', 0xE0 | ($codePoint >> 12))
-                .pack('C', 0x80 | (($codePoint >> 6) & 0x3F))
-                .pack('C', 0x80 | ($codePoint & 0x3F));
+                . pack('C', 0x80 | (($codePoint >> 6) & 0x3F))
+                . pack('C', 0x80 | ($codePoint & 0x3F));
         }
 
         return pack('C', 0xF0 | ($codePoint >> 18))
-            .pack('C', 0x80 | (($codePoint >> 12) & 0x3F))
-            .pack('C', 0x80 | (($codePoint >> 6) & 0x3F))
-            .pack('C', 0x80 | ($codePoint & 0x3F));
+            . pack('C', 0x80 | (($codePoint >> 12) & 0x3F))
+            . pack('C', 0x80 | (($codePoint >> 6) & 0x3F))
+            . pack('C', 0x80 | ($codePoint & 0x3F));
     }
 
     /**
@@ -1376,7 +1376,7 @@ final class ReferenceGraphBuilder
 
         usort(
             $references,
-            static fn (SubstitutionReference $left, SubstitutionReference $right): int => $left->span()->start <=> $right->span()->start,
+            static fn(SubstitutionReference $left, SubstitutionReference $right): int => $left->span()->start <=> $right->span()->start,
         );
 
         return $references;
@@ -1443,7 +1443,7 @@ final class ReferenceGraphBuilder
         };
         $this->problem(
             ProblemSeverity::Error,
-            $area.'/'.$suffix,
+            $area . '/' . $suffix,
             \sprintf('%s reference "%s" is %s.', ucfirst($type->value), $label, $status->value),
             $span,
         );

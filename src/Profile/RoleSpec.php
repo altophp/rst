@@ -28,6 +28,5 @@ final readonly class RoleSpec
     public function __construct(
         public string $name,
         public array $aliases = [],
-    ) {
-    }
+    ) {}
 }

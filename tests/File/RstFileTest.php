@@ -197,7 +197,7 @@ final class RstFileTest extends TestCase
         $path = $this->writeTempFile("Title\n=====\n\nOld.\n");
         $file = RstFile::open($path);
         $file->editor()->replaceSectionBody(self::section($file), 'Local.');
-        $missing = \dirname($path).'/missing-'.bin2hex(random_bytes(4)).'/copy.rst';
+        $missing = \dirname($path) . '/missing-' . bin2hex(random_bytes(4)) . '/copy.rst';
 
         try {
             $file->saveAs($missing);
@@ -255,8 +255,8 @@ final class RstFileTest extends TestCase
     {
         $first = $this->tempDirectory();
         $second = $this->tempDirectory();
-        $firstPath = $first.'/guide.rst';
-        $secondPath = $second.'/guide.rst';
+        $firstPath = $first . '/guide.rst';
+        $secondPath = $second . '/guide.rst';
         file_put_contents($firstPath, "Title\n=====\n");
         file_put_contents($secondPath, "Title\n=====\n");
         $this->paths[] = $firstPath;
@@ -293,7 +293,7 @@ final class RstFileTest extends TestCase
 
     public function testOpenRejectsEmptyMissingParentAndDanglingSymlinkPaths(): void
     {
-        $missingParent = \sys_get_temp_dir().'/alto-rst-missing-'.bin2hex(random_bytes(8)).'/guide.rst';
+        $missingParent = \sys_get_temp_dir() . '/alto-rst-missing-' . bin2hex(random_bytes(8)) . '/guide.rst';
         $paths = ['', $missingParent];
 
         if ('\\' !== \DIRECTORY_SEPARATOR) {
@@ -359,7 +359,7 @@ final class RstFileTest extends TestCase
 
     private function tempPath(): string
     {
-        $path = \sys_get_temp_dir().'/alto-rst-save-'.bin2hex(random_bytes(8)).'.rst';
+        $path = \sys_get_temp_dir() . '/alto-rst-save-' . bin2hex(random_bytes(8)) . '.rst';
         $this->paths[] = $path;
 
         return $path;
@@ -367,7 +367,7 @@ final class RstFileTest extends TestCase
 
     private function tempDirectory(): string
     {
-        $directory = \sys_get_temp_dir().'/alto-rst-save-'.bin2hex(random_bytes(8));
+        $directory = \sys_get_temp_dir() . '/alto-rst-save-' . bin2hex(random_bytes(8));
         self::assertTrue(mkdir($directory));
         $this->directories[] = $directory;
 

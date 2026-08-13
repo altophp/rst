@@ -31,8 +31,7 @@ final readonly class FormatResult
         public int $skippedSectionTitles = 0,
         public int $skippedBulletLists = 0,
         public int $skippedExtensionPasses = 0,
-    ) {
-    }
+    ) {}
 
     public function changed(): bool
     {

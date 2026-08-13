@@ -21,6 +21,5 @@ final readonly class SaveOptions
     public function __construct(
         public bool $atomic = true,
         public bool $compareBeforeWrite = true,
-    ) {
-    }
+    ) {}
 }

@@ -159,7 +159,7 @@ final class ConvertRoundTripTest extends TestCase
         $markdown = self::rstToMd($rst);
         $back = self::mdToRst($markdown);
 
-        self::assertSame(RstShape::of($rst), RstShape::of($back), "Markdown was:\n".$markdown."\nRST back:\n".$back);
+        self::assertSame(RstShape::of($rst), RstShape::of($back), "Markdown was:\n" . $markdown . "\nRST back:\n" . $back);
     }
 
     /**
@@ -248,9 +248,9 @@ final class ConvertRoundTripTest extends TestCase
     #[DataProvider('markdownDocuments')]
     public function testMarkdownSurvivesARoundTripThroughRst(string $markdown): void
     {
-        $rst = self::mdToRst($markdown."\n");
+        $rst = self::mdToRst($markdown . "\n");
         $back = self::rstToMd($rst);
 
-        self::assertSame(MdShape::of($markdown."\n"), MdShape::of($back), "RST was:\n".$rst."\nMarkdown back:\n".$back);
+        self::assertSame(MdShape::of($markdown . "\n"), MdShape::of($back), "RST was:\n" . $rst . "\nMarkdown back:\n" . $back);
     }
 }

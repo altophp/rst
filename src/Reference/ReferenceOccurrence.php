@@ -31,6 +31,5 @@ final readonly class ReferenceOccurrence
         public ReferenceStatus $status,
         public ?ReferenceDefinition $target,
         public ?string $displayLabel = null,
-    ) {
-    }
+    ) {}
 }

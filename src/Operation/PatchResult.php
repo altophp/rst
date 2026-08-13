@@ -26,6 +26,5 @@ final readonly class PatchResult
     public function __construct(
         public string $bytes,
         public array $patches,
-    ) {
-    }
+    ) {}
 }

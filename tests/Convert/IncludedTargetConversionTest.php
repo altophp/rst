@@ -29,9 +29,9 @@ final class IncludedTargetConversionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->root = sys_get_temp_dir().'/alto-rst-included-target-'.bin2hex(random_bytes(8));
+        $this->root = sys_get_temp_dir() . '/alto-rst-included-target-' . bin2hex(random_bytes(8));
         mkdir($this->root);
-        mkdir($this->root.'/_includes');
+        mkdir($this->root . '/_includes');
     }
 
     protected function tearDown(): void
@@ -59,11 +59,11 @@ final class IncludedTargetConversionTest extends TestCase
     public function testIncludedSectionTargetsResolveBeforeTheIncludeIsWritten(): void
     {
         file_put_contents(
-            $this->root.'/index.rst',
+            $this->root . '/index.rst',
             "See `included option`_.\n\n.. include:: /_includes/option.rst.inc\n",
         );
         file_put_contents(
-            $this->root.'/_includes/option.rst.inc',
+            $this->root . '/_includes/option.rst.inc',
             "``Included option``\n~~~~~~~~~~~~~~~~~~~\n\nDetails.\n",
         );
 
@@ -93,15 +93,15 @@ final class IncludedTargetConversionTest extends TestCase
     public function testNestedIncludesShareTheirTargetsWithTheParent(): void
     {
         file_put_contents(
-            $this->root.'/index.rst',
+            $this->root . '/index.rst',
             "See `nested option`_.\n\n.. include:: /_includes/first.rst.inc\n",
         );
         file_put_contents(
-            $this->root.'/_includes/first.rst.inc',
+            $this->root . '/_includes/first.rst.inc',
             ".. include:: second.rst.inc\n",
         );
         file_put_contents(
-            $this->root.'/_includes/second.rst.inc',
+            $this->root . '/_includes/second.rst.inc',
             "Nested option\n~~~~~~~~~~~~~\n",
         );
 
@@ -124,13 +124,13 @@ final class IncludedTargetConversionTest extends TestCase
     public function testDirectiveBodyReferencesUseIncludedTargets(): void
     {
         file_put_contents(
-            $this->root.'/index.rst',
+            $this->root . '/index.rst',
             ".. warning::\n\n"
-            ."    See `included option`_.\n\n"
-            .".. include:: /_includes/option.rst.inc\n",
+            . "    See `included option`_.\n\n"
+            . ".. include:: /_includes/option.rst.inc\n",
         );
         file_put_contents(
-            $this->root.'/_includes/option.rst.inc',
+            $this->root . '/_includes/option.rst.inc',
             "Included option\n~~~~~~~~~~~~~~~\n",
         );
 
@@ -156,11 +156,11 @@ final class IncludedTargetConversionTest extends TestCase
     public function testIncludedTargetsRemainUnavailableWithoutFileAuthority(): void
     {
         file_put_contents(
-            $this->root.'/index.rst',
+            $this->root . '/index.rst',
             "See `included option`_.\n\n.. include:: /_includes/option.rst.inc\n",
         );
         file_put_contents(
-            $this->root.'/_includes/option.rst.inc',
+            $this->root . '/_includes/option.rst.inc',
             "Included option\n~~~~~~~~~~~~~~~\n",
         );
 

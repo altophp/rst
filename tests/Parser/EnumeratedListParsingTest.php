@@ -220,9 +220,9 @@ final class EnumeratedListParsingTest extends ParserTestCase
     {
         $result = self::parseRst(
             "10.  first line\n"
-            ."     aligned continuation\n"
-            ."      unexpected indentation\n"
-            ."11.  next\n",
+            . "     aligned continuation\n"
+            . "      unexpected indentation\n"
+            . "11.  next\n",
         );
         $children = $result->document()->children();
 

@@ -194,7 +194,7 @@ final class MarkdownReaderListTest extends MarkdownReaderTestCase
     {
         $markdown = "- one\n- two\n";
         $list = self::read($markdown)->children()[0];
-        self::assertSpan(0, \strlen('- one'."\n".'- two'), $list);
+        self::assertSpan(0, \strlen('- one' . "\n" . '- two'), $list);
     }
 
     public function testFiveOrMoreSpacesAfterMarkerIsTreatedAsOneSpaceThenIndentation(): void

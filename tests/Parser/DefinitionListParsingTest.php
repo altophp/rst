@@ -35,7 +35,7 @@ final class DefinitionListParsingTest extends ParserTestCase
 
         $first = $list->children()[0];
         self::assertSame('term', $first->term->text);
-        self::assertSame(['classifier', 'other'], array_map(static fn ($text): string => $text->text, $first->classifiers));
+        self::assertSame(['classifier', 'other'], array_map(static fn($text): string => $text->text, $first->classifiers));
         self::assertCount(1, $first->definition());
         self::assertInstanceOf(Paragraph::class, $first->definition()[0]);
         self::assertSame('body with *markup*', $first->definition()[0]->text->text);

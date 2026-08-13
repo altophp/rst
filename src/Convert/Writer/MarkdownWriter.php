@@ -209,10 +209,10 @@ final class MarkdownWriter
 
         if (null !== $this->references) {
             $fragmentPrefix = $this->fragmentAnchorPrefix();
-            $footnotePrefix = null === $fragmentPrefix ? 'fn' : 'fn-'.$fragmentPrefix;
+            $footnotePrefix = null === $fragmentPrefix ? 'fn' : 'fn-' . $fragmentPrefix;
 
             foreach ($this->references->definitions(DefinitionKind::Footnote) as $index => $definition) {
-                $this->footnoteIds[spl_object_id($definition)] = $footnotePrefix.'-'.($index + 1);
+                $this->footnoteIds[spl_object_id($definition)] = $footnotePrefix . '-' . ($index + 1);
             }
         }
 
@@ -230,7 +230,7 @@ final class MarkdownWriter
         $output = implode("\n\n", $blocks);
 
         return new ConversionResult(
-            '' === $output ? '' : $output."\n",
+            '' === $output ? '' : $output . "\n",
             new ConversionReport($this->issues),
             array_values($this->resolvedReferenceSpans),
         );
@@ -271,7 +271,7 @@ final class MarkdownWriter
             }
 
             $seen[$key] = true;
-            $lines[] = '['.$this->escapeText($definition['label']).']: '.$definition['url'];
+            $lines[] = '[' . $this->escapeText($definition['label']) . ']: ' . $definition['url'];
         }
 
         return $lines;
@@ -341,9 +341,9 @@ final class MarkdownWriter
 
         if (HeadingStyle::Setext === $this->options->headingStyle && $level <= 2) {
             $underline = str_repeat(1 === $level ? '=' : '-', max(3, \strlen($title)));
-            $heading = $title."\n".$underline;
+            $heading = $title . "\n" . $underline;
         } else {
-            $heading = str_repeat('#', $level).' '.$title;
+            $heading = str_repeat('#', $level) . ' ' . $title;
         }
 
         return [$heading, ...$this->blocks($section->body())];
@@ -365,7 +365,7 @@ final class MarkdownWriter
         $items = [];
 
         foreach ($list->children() as $item) {
-            $items[] = $this->listItemBlock($item, $marker.' ');
+            $items[] = $this->listItemBlock($item, $marker . ' ');
         }
 
         return implode($this->listSeparator($list->children()), $items);
@@ -385,7 +385,7 @@ final class MarkdownWriter
         $items = [];
 
         foreach ($list->children() as $item) {
-            $items[] = $this->listItemBlock($item, $number.'. ');
+            $items[] = $this->listItemBlock($item, $number . '. ');
             ++$number;
         }
 
@@ -421,11 +421,11 @@ final class MarkdownWriter
 
     private function definitionListItemBlock(DefinitionListItem $item): string
     {
-        $label = '**'.$this->inlineFromText($item->term).'**';
+        $label = '**' . $this->inlineFromText($item->term) . '**';
 
         if ([] !== $item->classifiers) {
             $classifiers = array_map($this->inlineFromText(...), $item->classifiers);
-            $label .= ' ('.implode(', ', $classifiers).')';
+            $label .= ' (' . implode(', ', $classifiers) . ')';
         }
 
         $content = implode("\n\n", [$label, ...$this->blocks($item->definition())]);
@@ -493,7 +493,7 @@ final class MarkdownWriter
      */
     private function tableLine(array $cells): string
     {
-        return '| '.implode(' | ', array_map(static fn (string $cell): string => str_replace("\n", ' ', $cell), $cells)).' |';
+        return '| ' . implode(' | ', array_map(static fn(string $cell): string => str_replace("\n", ' ', $cell), $cells)) . ' |';
     }
 
     /**
@@ -701,7 +701,7 @@ final class MarkdownWriter
 
         if ($parsed->problems()->hasAtLeast(ProblemSeverity::Error)) {
             $codes = array_values(array_unique(array_map(
-                static fn (Problem $problem): string => $problem->code,
+                static fn(Problem $problem): string => $problem->code,
                 $parsed->problems()->filterBySeverity(ProblemSeverity::Error)->problems(),
             )));
             $this->issue(ConversionIssue::unsupported(
@@ -817,16 +817,16 @@ final class MarkdownWriter
         $char = $this->options->fenceStyle->value;
         $longest = 0;
 
-        if (false !== preg_match_all('/'.preg_quote($char, '/').'+/', $content, $matches)) {
+        if (false !== preg_match_all('/' . preg_quote($char, '/') . '+/', $content, $matches)) {
             foreach ($matches[0] as $run) {
                 $longest = max($longest, \strlen($run));
             }
         }
 
         $fence = $this->options->fenceStyle->fence($longest + 1);
-        $body = '' === $content ? '' : $content."\n";
+        $body = '' === $content ? '' : $content . "\n";
 
-        return $fence.$language."\n".$body.$fence;
+        return $fence . $language . "\n" . $body . $fence;
     }
 
     private function admonitionBlock(Directive $directive, string $name): string
@@ -836,7 +836,7 @@ final class MarkdownWriter
 
         if (!isset($alertNames[$name])) {
             $this->issue(ConversionIssue::approximated(
-                'directive:'.$name,
+                'directive:' . $name,
                 sprintf('Admonition "%s" rendered as the nearest GitHub alert, "%s".', $name, $alert),
                 $directive->span(),
             ));
@@ -844,7 +844,7 @@ final class MarkdownWriter
 
         if ([] !== $directive->options) {
             $this->issue(ConversionIssue::lossy(
-                'directive:'.$name.':options',
+                'directive:' . $name . ':options',
                 sprintf('Admonition options dropped: %s.', implode(', ', array_keys($directive->options))),
                 $directive->span(),
             ));
@@ -853,15 +853,15 @@ final class MarkdownWriter
         $blocks = [];
 
         if (AdmonitionStyle::GithubAlert === $this->options->admonitionStyle) {
-            $blocks[] = '[!'.$alert.']';
+            $blocks[] = '[!' . $alert . ']';
         } else {
-            $blocks[] = '**'.ucfirst(strtolower($alert)).'**';
+            $blocks[] = '**' . ucfirst(strtolower($alert)) . '**';
         }
 
         $title = trim($directive->arguments[0] ?? '');
 
         if ('' !== $title) {
-            $blocks[] = '**'.$this->escapeText($title).'**';
+            $blocks[] = '**' . $this->escapeText($title) . '**';
         }
 
         return Lines::quote(implode("\n\n", [...$blocks, ...$this->nestedBlocks($directive)]));
@@ -871,7 +871,7 @@ final class MarkdownWriter
     {
         $version = trim($directive->arguments[0] ?? '');
         $label = rtrim(sprintf(self::VERSION_LABELS[$name], $version));
-        $blocks = ['**'.$label.'**', ...$this->nestedBlocks($directive)];
+        $blocks = ['**' . $label . '**', ...$this->nestedBlocks($directive)];
 
         return Lines::quote(implode("\n\n", $blocks));
     }
@@ -887,7 +887,7 @@ final class MarkdownWriter
         $split = preg_split('/\R/', $body);
         $entries = array_values(array_filter(
             array_map('trim', false === $split ? [] : $split),
-            static fn (string $entry): bool => '' !== $entry,
+            static fn(string $entry): bool => '' !== $entry,
         ));
         $targets = [];
 
@@ -990,9 +990,9 @@ final class MarkdownWriter
                 ?? $this->projectReferences?->documentTitleFor($path)
                 ?? str_replace('_', ' ', basename($path));
             $target = null === $this->documentPath
-                ? $path.'.md'
+                ? $path . '.md'
                 : $this->relativeMarkdownPath($this->documentPath, $path);
-            $lines[] = '- ['.$this->escapeText($display).']('.$target.')';
+            $lines[] = '- [' . $this->escapeText($display) . '](' . $target . ')';
         }
 
         return [implode("\n", $lines)];
@@ -1017,7 +1017,7 @@ final class MarkdownWriter
         $docname = str_replace('\\', '/', trim($docname));
 
         if (!str_starts_with($docname, '/') && null !== $this->documentPath && str_contains($this->documentPath, '/')) {
-            $docname = substr($this->documentPath, 0, (int) strrpos($this->documentPath, '/')).'/'.$docname;
+            $docname = substr($this->documentPath, 0, (int) strrpos($this->documentPath, '/')) . '/' . $docname;
         }
 
         $parts = [];
@@ -1044,21 +1044,21 @@ final class MarkdownWriter
         $title = trim($directive->arguments[0] ?? '');
         $label = '' === $title ? ucfirst($name) : $title;
         $this->issue(ConversionIssue::approximated(
-            'directive:'.$name,
+            'directive:' . $name,
             \sprintf('Directive "%s" was flattened into a quoted Markdown aside.', $name),
             $directive->span(),
         ));
 
         if ([] !== $directive->options) {
             $this->issue(ConversionIssue::lossy(
-                'directive:'.$name.':options',
+                'directive:' . $name . ':options',
                 sprintf('Aside options dropped: %s.', implode(', ', array_keys($directive->options))),
                 $directive->span(),
             ));
         }
 
         return Lines::quote(implode("\n\n", [
-            '**'.$this->escapeText($label).'**',
+            '**' . $this->escapeText($label) . '**',
             ...$this->nestedBlocks($directive),
         ]));
     }
@@ -1115,11 +1115,11 @@ final class MarkdownWriter
         }
 
         $alt = trim($directive->options['alt'] ?? '');
-        $image = '!['.$this->escapeText($alt).']('.$this->linkDestination($url).')';
+        $image = '![' . $this->escapeText($alt) . '](' . $this->linkDestination($url) . ')';
         $target = trim($directive->options['target'] ?? '');
 
         if ('' !== $target) {
-            return '['.$image.']('.$this->linkDestination($target).')';
+            return '[' . $image . '](' . $this->linkDestination($target) . ')';
         }
 
         return $image;
@@ -1154,14 +1154,14 @@ final class MarkdownWriter
         $known = $this->profile->directives->has($name);
 
         $this->issue(ConversionIssue::unsupported(
-            'directive:'.$name,
+            'directive:' . $name,
             $known
                 ? sprintf('Directive "%s" has no Markdown mapping.', $name)
                 : sprintf('Directive "%s" is not recognized by the "%s" profile and has no Markdown mapping.', $name, $this->profile->name),
             $directive->span(),
         ));
 
-        return $this->placeholder('directive '.$name);
+        return $this->placeholder('directive ' . $name);
     }
 
     /**
@@ -1219,7 +1219,7 @@ final class MarkdownWriter
         $output = implode("\n\n", $blocks);
 
         return new ConversionResult(
-            '' === $output ? '' : $output."\n",
+            '' === $output ? '' : $output . "\n",
             new ConversionReport($issues),
         );
     }
@@ -1264,7 +1264,7 @@ final class MarkdownWriter
             $text = (string) preg_replace('/-{2,}/', '-', $text);
         }
 
-        return '' === $text ? '<!-- -->' : '<!-- '.$text.' -->';
+        return '' === $text ? '<!-- -->' : '<!-- ' . $text . ' -->';
     }
 
     /**
@@ -1288,7 +1288,7 @@ final class MarkdownWriter
             $target->span(),
         ));
 
-        return ['<a id="'.$anchor.'"></a>'];
+        return ['<a id="' . $anchor . '"></a>'];
     }
 
     private function footnoteBlock(FootnoteDefinition $footnote): string
@@ -1303,14 +1303,14 @@ final class MarkdownWriter
         $id = $this->footnoteId($definition);
 
         if ([] === $blocks) {
-            return '[^'.$id.']:';
+            return '[^' . $id . ']:';
         }
 
         $first = array_shift($blocks);
-        $output = Lines::prefix($first, '[^'.$id.']: ', '    ');
+        $output = Lines::prefix($first, '[^' . $id . ']: ', '    ');
 
         foreach ($blocks as $block) {
-            $output .= "\n\n".Lines::indent($block, '    ');
+            $output .= "\n\n" . Lines::indent($block, '    ');
         }
 
         return $output;
@@ -1326,7 +1326,7 @@ final class MarkdownWriter
 
         $anchor = $this->citationAnchor($definition);
         $body = implode("\n\n", $this->blocks($citation->children()));
-        $label = '**['.$this->escapeText($citation->label).']**';
+        $label = '**[' . $this->escapeText($citation->label) . ']**';
 
         $this->issue(ConversionIssue::approximated(
             'citation',
@@ -1334,7 +1334,7 @@ final class MarkdownWriter
             $citation->span(),
         ));
 
-        return '<a id="'.$anchor.'"></a>'."\n\n".$label.('' === $body ? '' : ' '.$body);
+        return '<a id="' . $anchor . '"></a>' . "\n\n" . $label . ('' === $body ? '' : ' ' . $body);
     }
 
     private function definitionForNode(Node $node, DefinitionKind $kind): ?ReferenceDefinition
@@ -1356,8 +1356,8 @@ final class MarkdownWriter
     private function citationAnchor(ReferenceDefinition $definition): string
     {
         $fragmentPrefix = $this->fragmentAnchorPrefix();
-        $prefix = null === $fragmentPrefix ? '' : $fragmentPrefix.'-';
-        $slug = TargetMap::slug('citation-'.$prefix.$definition->name);
+        $prefix = null === $fragmentPrefix ? '' : $fragmentPrefix . '-';
+        $slug = TargetMap::slug('citation-' . $prefix . $definition->name);
 
         return '' === $slug ? 'citation' : $slug;
     }
@@ -1370,7 +1370,7 @@ final class MarkdownWriter
 
         $slug = TargetMap::slug(strtr($this->sourcePath, ['/' => '-', '\\' => '-', '.' => '-']));
 
-        return ('' === $slug ? 'include' : $slug).'-'.substr(hash('sha256', $this->sourcePath), 0, 8);
+        return ('' === $slug ? 'include' : $slug) . '-' . substr(hash('sha256', $this->sourcePath), 0, 8);
     }
 
     /**
@@ -1382,12 +1382,12 @@ final class MarkdownWriter
         $short = false === ($position = strrpos($class, '\\')) ? $class : substr($class, $position + 1);
 
         $this->issue(ConversionIssue::unsupported(
-            'node:'.$short,
+            'node:' . $short,
             sprintf('Node "%s" has no Markdown mapping.', $short),
             $node->span(),
         ));
 
-        return [$this->placeholder('node '.$short)];
+        return [$this->placeholder('node ' . $short)];
     }
 
     /**
@@ -1398,7 +1398,7 @@ final class MarkdownWriter
     {
         $safe = (string) preg_replace('/-{2,}/', '-', $label);
 
-        return '<!-- rst: '.trim($safe).' -->';
+        return '<!-- rst: ' . trim($safe) . ' -->';
     }
 
     private function inlineFromText(Text $text): string
@@ -1452,11 +1452,11 @@ final class MarkdownWriter
     {
         return match (true) {
             $node instanceof InlineText => $this->escapeText($node->text),
-            $node instanceof Emphasis => '*'.$this->renderInline($node->children()).'*',
-            $node instanceof Strong => '**'.$this->renderInline($node->children()).'**',
+            $node instanceof Emphasis => '*' . $this->renderInline($node->children()) . '*',
+            $node instanceof Strong => '**' . $this->renderInline($node->children()) . '**',
             $node instanceof InlineLiteral => $this->codeSpan($node->text),
             $node instanceof HyperlinkReference => $this->renderLink($node),
-            $node instanceof StandaloneHyperlink => '<'.$node->uri.'>',
+            $node instanceof StandaloneHyperlink => '<' . $node->uri . '>',
             $node instanceof InterpretedText => $this->renderRole($node),
             $node instanceof FootnoteReference => $this->renderFootnoteReference($node),
             $node instanceof CitationReference => $this->renderCitationReference($node),
@@ -1489,12 +1489,12 @@ final class MarkdownWriter
             return $this->renderInert(
                 $node,
                 'inline:footnote-reference',
-                '['.$node->label.']',
+                '[' . $node->label . ']',
                 'Footnote reference',
             );
         }
 
-        return '[^'.$this->footnoteId($reference->target).']';
+        return '[^' . $this->footnoteId($reference->target) . ']';
     }
 
     private function renderCitationReference(CitationReference $node): string
@@ -1509,12 +1509,12 @@ final class MarkdownWriter
             return $this->renderInert(
                 $node,
                 'inline:citation-reference',
-                '['.$node->label.']',
+                '[' . $node->label . ']',
                 'Citation reference',
             );
         }
 
-        return '['.$this->escapeText($node->label).'](#'.$this->citationAnchor($reference->target).')';
+        return '[' . $this->escapeText($node->label) . '](#' . $this->citationAnchor($reference->target) . ')';
     }
 
     private function renderSubstitutionReference(SubstitutionReference $node): string
@@ -1524,14 +1524,14 @@ final class MarkdownWriter
 
         if (
             null === $target
-            || ReferenceStatus::Resolved !== $reference?->status
+            || ReferenceStatus::Resolved !== $reference->status
             || null === $target->destination
             || null === $target->substitutionKind
         ) {
             return $this->renderInert(
                 $node,
                 'inline:substitution-reference',
-                '|'.$node->name.'|',
+                '|' . $node->name . '|',
                 'Substitution reference',
             );
         }
@@ -1543,8 +1543,8 @@ final class MarkdownWriter
         return match ($target->substitutionKind) {
             SubstitutionKind::Unicode => $this->escapeText($target->destination),
             SubstitutionKind::Image => '!['
-                .$this->escapeText($target->substitutionAlt ?? $target->destination)
-                .']('.$this->linkDestination($target->destination).')',
+                . $this->escapeText($target->substitutionAlt ?? $target->destination)
+                . '](' . $this->linkDestination($target->destination) . ')',
             SubstitutionKind::Replace => $this->renderInline($this->inlineParser->parse(
                 $target->destination,
                 $target->destinationSpan->start,
@@ -1570,10 +1570,10 @@ final class MarkdownWriter
                     $reference->span(),
                 ));
 
-                return '['.$text.']['.$text.']';
+                return '[' . $text . '][' . $text . ']';
             }
 
-            return '['.$text.']('.$this->linkDestination($url).')';
+            return '[' . $text . '](' . $this->linkDestination($url) . ')';
         }
 
         $url = $this->targets->urlFor($reference->text);
@@ -1582,10 +1582,10 @@ final class MarkdownWriter
             $this->markContextResolved($reference);
 
             if (LinkStyle::Inline === $this->options->linkStyle) {
-                return '['.$text.']('.$this->linkDestination($url).')';
+                return '[' . $text . '](' . $this->linkDestination($url) . ')';
             }
 
-            return '['.$text.']['.$text.']';
+            return '[' . $text . '][' . $text . ']';
         }
 
         $sectionTitle = $this->targets->sectionTitleFor($reference->text);
@@ -1593,7 +1593,7 @@ final class MarkdownWriter
         if (null !== $sectionTitle) {
             $this->markContextResolved($reference);
 
-            return '['.$text.'](#'.TargetMap::slug($sectionTitle).')';
+            return '[' . $text . '](#' . TargetMap::slug($sectionTitle) . ')';
         }
 
         $anchor = $this->targets->anchorFor($reference->text);
@@ -1601,7 +1601,7 @@ final class MarkdownWriter
         if (null !== $anchor) {
             $this->markContextResolved($reference);
 
-            return '['.$text.'](#'.$anchor.')';
+            return '[' . $text . '](#' . $anchor . ')';
         }
 
         $this->issue(ConversionIssue::approximated(
@@ -1610,7 +1610,7 @@ final class MarkdownWriter
             $reference->span(),
         ));
 
-        return '['.$text.']['.$text.']';
+        return '[' . $text . '][' . $text . ']';
     }
 
     private function markContextResolved(HyperlinkReference $reference): void
@@ -1622,7 +1622,7 @@ final class MarkdownWriter
         }
 
         $span = $reference->span();
-        $this->resolvedReferenceSpans[$span->start.':'.$span->length] = $span;
+        $this->resolvedReferenceSpans[$span->start . ':' . $span->length] = $span;
     }
 
     /**
@@ -1632,10 +1632,10 @@ final class MarkdownWriter
     private function emitResolvedLink(string $rawText, string $text, string $url): string
     {
         if (LinkStyle::Reference === $this->options->linkStyle && $this->registerDefinition($rawText, $url)) {
-            return '['.$text.']['.$text.']';
+            return '[' . $text . '][' . $text . ']';
         }
 
-        return '['.$text.']('.$this->linkDestination($url).')';
+        return '[' . $text . '](' . $this->linkDestination($url) . ')';
     }
 
     private function registerDefinition(string $label, string $url): bool
@@ -1664,7 +1664,7 @@ final class MarkdownWriter
                 $role->span(),
             ));
 
-            return '*'.$this->escapeText($role->text).'*';
+            return '*' . $this->escapeText($role->text) . '*';
         }
 
         $spec = $this->profile->roles->get($name);
@@ -1686,12 +1686,12 @@ final class MarkdownWriter
         $this->issue(
             \in_array($roleName, self::CODE_LIKE_ROLES, true)
                 ? ConversionIssue::approximated(
-                    'role:'.$name,
+                    'role:' . $name,
                     sprintf('Code-like role "%s" rendered as a code span.', $name),
                     $role->span(),
                 )
                 : ConversionIssue::lossy(
-                    'role:'.$name,
+                    'role:' . $name,
                     sprintf('Role "%s" semantics were dropped and its text was rendered as a code span.', $name),
                     $role->span(),
                 ),
@@ -1720,45 +1720,45 @@ final class MarkdownWriter
         if (null !== $project && ReferenceStatus::Resolved === $project->status && null !== $project->targetPath) {
             $target = $this->relativeMarkdownPath($this->documentPath, $project->targetPath);
             $fragment = ReferenceType::SphinxRef === $type && null !== $project->target
-                ? '#'.ReferenceName::id($project->target->name)
+                ? '#' . ReferenceName::id($project->target->name)
                 : '';
-            $href = $project->targetPath === self::canonicalPath($this->documentPath) ? $fragment : $target.$fragment;
+            $href = $project->targetPath === self::canonicalPath($this->documentPath) ? $fragment : $target . $fragment;
             $display = $title ?? $project->displayLabel ?? $label;
             $this->issue(ConversionIssue::approximated(
-                'role:'.$name,
+                'role:' . $name,
                 sprintf('Cross-reference "%s" resolved through the project map.', $label),
                 $role->span(),
             ));
 
-            return '['.$this->escapeText($display).']('.$href.')';
+            return '[' . $this->escapeText($display) . '](' . $href . ')';
         }
 
         $sectionTitle = 'ref' === $name ? $this->targets->sectionTitleFor($label) : null;
 
         if (null !== $sectionTitle) {
             $this->issue(ConversionIssue::approximated(
-                'role:'.$name,
+                'role:' . $name,
                 sprintf('Cross-reference "%s" mapped to the heading anchor of "%s".', $label, $sectionTitle),
                 $role->span(),
             ));
 
-            return '['.$this->escapeText($title ?? $sectionTitle).'](#'.TargetMap::slug($sectionTitle).')';
+            return '[' . $this->escapeText($title ?? $sectionTitle) . '](#' . TargetMap::slug($sectionTitle) . ')';
         }
 
         $anchor = 'ref' === $name ? $this->targets->anchorFor($label) : null;
 
         if (null !== $anchor) {
             $this->issue(ConversionIssue::approximated(
-                'role:'.$name,
+                'role:' . $name,
                 sprintf('Cross-reference "%s" mapped to an HTML anchor.', $label),
                 $role->span(),
             ));
 
-            return '['.$this->escapeText($title ?? $label).'](#'.$anchor.')';
+            return '[' . $this->escapeText($title ?? $label) . '](#' . $anchor . ')';
         }
 
         $this->issue(ConversionIssue::lossy(
-            'role:'.$name,
+            'role:' . $name,
             sprintf('Cross-reference "%s" could not retain its external target; its text was kept.', $label),
             $role->span(),
         ));
@@ -1777,7 +1777,7 @@ final class MarkdownWriter
             array_shift($target);
         }
 
-        return str_repeat('../', \count($source)).implode('/', $target).'.md';
+        return str_repeat('../', \count($source)) . implode('/', $target) . '.md';
     }
 
     private static function canonicalPath(string $path): string
@@ -1801,7 +1801,7 @@ final class MarkdownWriter
         $pad = str_starts_with($text, '`') || str_ends_with($text, '`')
             || str_starts_with($text, ' ') || str_ends_with($text, ' ') ? ' ' : '';
 
-        return $delimiter.$pad.$text.$pad.$delimiter;
+        return $delimiter . $pad . $text . $pad . $delimiter;
     }
 
     /**
@@ -1810,7 +1810,7 @@ final class MarkdownWriter
     private function linkDestination(string $url): string
     {
         if (str_contains($url, ' ') || str_contains($url, '(') || str_contains($url, ')')) {
-            return '<'.str_replace(['<', '>'], ['\\<', '\\>'], $url).'>';
+            return '<' . str_replace(['<', '>'], ['\\<', '\\>'], $url) . '>';
         }
 
         return $url;
@@ -1836,15 +1836,15 @@ final class MarkdownWriter
     private function escapeLineStart(string $line): string
     {
         if (1 === preg_match('/^(\d{1,9})([.)])(\s|$)/', $line, $matches)) {
-            return $matches[1].'\\'.$matches[2].substr($line, \strlen($matches[1]) + 1);
+            return $matches[1] . '\\' . $matches[2] . substr($line, \strlen($matches[1]) + 1);
         }
 
         if (1 === preg_match('/^([#>+-])(\s|$)/', $line)) {
-            return '\\'.$line;
+            return '\\' . $line;
         }
 
         if (1 === preg_match('/^(-{3,}|_{3,})\s*$/', $line)) {
-            return '\\'.$line;
+            return '\\' . $line;
         }
 
         return $line;

@@ -88,7 +88,7 @@ final class ConversionReportTest extends TestCase
         $lossy = $report->ofKind(IssueKind::Lossy);
 
         self::assertCount(2, $lossy);
-        self::assertSame(['a', 'c'], array_map(static fn (ConversionIssue $i): string => $i->construct, $lossy));
+        self::assertSame(['a', 'c'], array_map(static fn(ConversionIssue $i): string => $i->construct, $lossy));
         self::assertSame([], $report->ofKind(IssueKind::Approximated));
     }
 

@@ -105,8 +105,7 @@ final class RstWriter
 
     public function __construct(
         private readonly ConversionOptions $options,
-    ) {
-    }
+    ) {}
 
     public function write(MdDocument $document): ConversionResult
     {
@@ -124,7 +123,7 @@ final class RstWriter
         $output = implode("\n\n", $blocks);
 
         return new ConversionResult(
-            '' === $output ? '' : $output."\n",
+            '' === $output ? '' : $output . "\n",
             new ConversionReport($this->issues),
         );
     }
@@ -171,9 +170,9 @@ final class RstWriter
 
     private function targetLine(string $label, string $url): string
     {
-        $name = 1 === preg_match(self::SIMPLE_NAME, $label) ? $label : '`'.$label.'`';
+        $name = 1 === preg_match(self::SIMPLE_NAME, $label) ? $label : '`' . $label . '`';
 
-        return '.. _'.$name.': '.$url;
+        return '.. _' . $name . ': ' . $url;
     }
 
     /**
@@ -220,7 +219,7 @@ final class RstWriter
         $title = '' === $title ? '\\ ' : $title;
         $adornment = $this->options->adornmentFor($heading->level);
 
-        return $title."\n".str_repeat($adornment, max(1, \strlen($title)));
+        return $title . "\n" . str_repeat($adornment, max(1, \strlen($title)));
     }
 
     private function paragraphBlock(MdParagraph $paragraph): string
@@ -237,7 +236,7 @@ final class RstWriter
     private function imageDirective(MdImage $image): string
     {
         $alt = $this->plainText($image->children());
-        $block = '.. image:: '.$image->url;
+        $block = '.. image:: ' . $image->url;
         $dropped = [];
 
         if (null !== $image->title) {
@@ -250,13 +249,13 @@ final class RstWriter
         if ([] !== $dropped) {
             $this->issue(ConversionIssue::lossy(
                 'md:image-metadata',
-                'Image metadata dropped: '.implode(', ', $dropped).'.',
+                'Image metadata dropped: ' . implode(', ', $dropped) . '.',
                 $image->span(),
             ));
         }
 
         if ('' !== $alt) {
-            $block .= "\n".$this->options->indent().':alt: '.$alt;
+            $block .= "\n" . $this->options->indent() . ':alt: ' . $alt;
         }
 
         return $block;
@@ -273,7 +272,7 @@ final class RstWriter
                 return '';
             }
 
-            return "::\n\n".Lines::indent($content, $this->options->indent());
+            return "::\n\n" . Lines::indent($content, $this->options->indent());
         }
 
         $words = preg_split('/\s+/', $info);
@@ -288,13 +287,13 @@ final class RstWriter
             ));
         }
 
-        $directive = '.. '.$this->options->codeBlockDirective.':: '.$language;
+        $directive = '.. ' . $this->options->codeBlockDirective . ':: ' . $language;
 
         if ('' === $content) {
             return $directive;
         }
 
-        return $directive."\n\n".Lines::indent($content, $this->options->indent());
+        return $directive . "\n\n" . Lines::indent($content, $this->options->indent());
     }
 
     private function blockQuoteBlock(MdBlockQuote $quote): string
@@ -334,16 +333,16 @@ final class RstWriter
                 ? \array_slice($items, 1)
                 : [new MdText($head->span(), $remainder), ...\array_slice($items, 1)];
 
-            return $this->directiveBlock('.. '.$directive.'::', $this->quoteBody($bodyItems, $rest));
+            return $this->directiveBlock('.. ' . $directive . '::', $this->quoteBody($bodyItems, $rest));
         }
 
         if ($head instanceof MdStrong) {
             $label = trim($this->plainText($head->children()));
 
             foreach (self::VERSION_DIRECTIVES as $prefix => $directive) {
-                if (1 === preg_match('/^'.preg_quote($prefix, '/').'\s+(\S+)$/', $label, $matches)) {
+                if (1 === preg_match('/^' . preg_quote($prefix, '/') . '\s+(\S+)$/', $label, $matches)) {
                     return $this->directiveBlock(
-                        '.. '.$directive.':: '.$matches[1],
+                        '.. ' . $directive . ':: ' . $matches[1],
                         $this->quoteBody($this->trimLeadingSpace(\array_slice($items, 1)), $rest),
                     );
                 }
@@ -353,7 +352,7 @@ final class RstWriter
 
             if (null !== $directive) {
                 return $this->directiveBlock(
-                    '.. '.$directive.'::',
+                    '.. ' . $directive . '::',
                     $this->quoteBody($this->trimLeadingSpace(\array_slice($items, 1)), $rest),
                 );
             }
@@ -419,7 +418,7 @@ final class RstWriter
             return $head;
         }
 
-        return $head."\n\n".Lines::indent($content, $this->options->indent());
+        return $head . "\n\n" . Lines::indent($content, $this->options->indent());
     }
 
     private function listBlock(MdList $list): string
@@ -430,10 +429,10 @@ final class RstWriter
 
         foreach ($list->children() as $item) {
             if ($list->ordered) {
-                $marker = $number.($list->delimiter->value ?? '.').' ';
+                $marker = $number . ($list->delimiter->value ?? '.') . ' ';
                 ++$number;
             } else {
-                $marker = ($list->bulletMarker ?? $this->options->bulletMarker).' ';
+                $marker = ($list->bulletMarker ?? $this->options->bulletMarker) . ' ';
             }
 
             $items[] = $this->listItemBlock($item, $marker);
@@ -500,7 +499,7 @@ final class RstWriter
             $widths[] = $width;
         }
 
-        $border = implode('  ', array_map(static fn (int $width): string => str_repeat('=', $width), $widths));
+        $border = implode('  ', array_map(static fn(int $width): string => str_repeat('=', $width), $widths));
         $lines = [$border, $this->tableRowLine($header, $widths), $border];
 
         if ([] === $rows) {
@@ -571,7 +570,7 @@ final class RstWriter
         }
 
         if (1 === preg_match('/^<a id="([A-Za-z0-9._:-]+)"><\/a>$/', $content, $matches)) {
-            return '.. _'.$matches[1].':';
+            return '.. _' . $matches[1] . ':';
         }
 
         $this->issue(ConversionIssue::unsupported(
@@ -580,7 +579,7 @@ final class RstWriter
             $html->span(),
         ));
 
-        return "..\n".Lines::indent("raw HTML block:\n\n".$content, '   ');
+        return "..\n" . Lines::indent("raw HTML block:\n\n" . $content, '   ');
     }
 
     private function commentBlock(string $text): string
@@ -590,10 +589,10 @@ final class RstWriter
         }
 
         if (!str_contains($text, "\n")) {
-            return '.. '.$text;
+            return '.. ' . $text;
         }
 
-        return "..\n".Lines::indent($text, '   ');
+        return "..\n" . Lines::indent($text, '   ');
     }
 
     /**
@@ -605,12 +604,12 @@ final class RstWriter
         $short = false === ($position = strrpos($class, '\\')) ? $class : substr($class, $position + 1);
 
         $this->issue(ConversionIssue::unsupported(
-            'md:'.strtolower($short),
+            'md:' . strtolower($short),
             sprintf('Markdown node "%s" has no RST mapping.', $short),
             $node->span(),
         ));
 
-        return ['.. '.$short.' dropped by markdown-to-rst'];
+        return ['.. ' . $short . ' dropped by markdown-to-rst'];
     }
 
     /**
@@ -631,8 +630,8 @@ final class RstWriter
     {
         return match (true) {
             $node instanceof MdText => $this->escapeText($node->text),
-            $node instanceof MdEmphasis => '*'.$this->markupContent($node->children()).'*',
-            $node instanceof MdStrong => '**'.$this->markupContent($node->children()).'**',
+            $node instanceof MdEmphasis => '*' . $this->markupContent($node->children()) . '*',
+            $node instanceof MdStrong => '**' . $this->markupContent($node->children()) . '**',
             $node instanceof MdCode => $this->literalSpan($node->text),
             $node instanceof MdLink => $this->renderLink($node),
             $node instanceof MdImage => $this->renderInlineImage($node),
@@ -675,10 +674,10 @@ final class RstWriter
         }
 
         if (str_starts_with($text, '`') || str_ends_with($text, '`')) {
-            $text = ' '.$text.' ';
+            $text = ' ' . $text . ' ';
         }
 
-        return '``'.$text.'``';
+        return '``' . $text . '``';
     }
 
     private function renderLink(MdLink $link): string
@@ -705,7 +704,7 @@ final class RstWriter
             return $link->url;
         }
 
-        return '`'.$text.' <'.$link->url.'>`_';
+        return '`' . $text . ' <' . $link->url . '>`_';
     }
 
     private function renderReferenceLink(MdLink $link, string $text): string
@@ -734,16 +733,16 @@ final class RstWriter
             $link->span(),
         ));
 
-        return '`'.$text.' <'.$link->url.'>`_';
+        return '`' . $text . ' <' . $link->url . '>`_';
     }
 
     private function namedReference(string $text): string
     {
         if (1 === preg_match(self::SIMPLE_NAME, $text)) {
-            return $text.'_';
+            return $text . '_';
         }
 
-        return '`'.$text.'`_';
+        return '`' . $text . '`_';
     }
 
     private function registerTarget(string $label, string $url): bool
@@ -875,27 +874,27 @@ final class RstWriter
     private function escapeLineStart(string $line): string
     {
         if (1 === preg_match('/^(\d{1,9}|#)([.)])(\s|$)/', $line, $matches)) {
-            return $matches[1].'\\'.$matches[2].substr($line, \strlen($matches[1]) + 1);
+            return $matches[1] . '\\' . $matches[2] . substr($line, \strlen($matches[1]) + 1);
         }
 
         if (1 === preg_match('/^([-+])(\s|$)/', $line)) {
-            return '\\'.$line;
+            return '\\' . $line;
         }
 
         if (1 === preg_match('/^\.\.(\s|$)/', $line)) {
-            return '\\'.$line;
+            return '\\' . $line;
         }
 
         if (1 === preg_match('/^__(\s|$)/', $line)) {
-            return '\\'.$line;
+            return '\\' . $line;
         }
 
         if (str_starts_with($line, ':')) {
-            return '\\'.$line;
+            return '\\' . $line;
         }
 
         if (1 === preg_match('/^([!-\/:-@\[-`{-~])\1{3,}$/', $line)) {
-            return '\\'.$line;
+            return '\\' . $line;
         }
 
         return $line;

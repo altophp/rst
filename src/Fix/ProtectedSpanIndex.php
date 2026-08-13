@@ -34,8 +34,7 @@ final readonly class ProtectedSpanIndex
     private function __construct(
         private array $spans,
         private bool $protectAll = false,
-    ) {
-    }
+    ) {}
 
     public static function fromParseResult(ParseResult $result): self
     {
@@ -88,7 +87,7 @@ final readonly class ProtectedSpanIndex
      */
     private static function merged(array $spans): array
     {
-        usort($spans, static fn (ByteSpan $left, ByteSpan $right): int => $left->start <=> $right->start);
+        usort($spans, static fn(ByteSpan $left, ByteSpan $right): int => $left->start <=> $right->start);
 
         $merged = [];
         $current = null;

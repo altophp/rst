@@ -31,8 +31,7 @@ final readonly class FixResult
         public array $patches,
         public ParseResult $parseResult,
         public int $skippedProtectedEdits = 0,
-    ) {
-    }
+    ) {}
 
     public function changed(): bool
     {

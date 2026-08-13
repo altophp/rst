@@ -32,7 +32,7 @@ final readonly class ProjectConversionResult
         public ProblemReport $projectReferenceProblems,
     ) {
         $this->report = new ConversionReport(array_merge(...array_map(
-            static fn (ProjectFileConversion $file): array => $file->conversion->report->issues,
+            static fn(ProjectFileConversion $file): array => $file->conversion->report->issues,
             $files,
         )));
     }
@@ -64,7 +64,7 @@ final readonly class ProjectConversionResult
     {
         return array_values(array_filter(
             $this->files,
-            static fn (ProjectFileConversion $file): bool => $status === $file->status(),
+            static fn(ProjectFileConversion $file): bool => $status === $file->status(),
         ));
     }
 
@@ -77,7 +77,7 @@ final readonly class ProjectConversionResult
     {
         return array_values(array_filter(
             $this->files,
-            static fn (ProjectFileConversion $file): bool => $file->conversion->report->hasKind($kind),
+            static fn(ProjectFileConversion $file): bool => $file->conversion->report->hasKind($kind),
         ));
     }
 
@@ -91,14 +91,14 @@ final readonly class ProjectConversionResult
     {
         return array_values(array_filter(
             $this->files,
-            static fn (ProjectFileConversion $file): bool => $file->hasDiagnostics(),
+            static fn(ProjectFileConversion $file): bool => $file->hasDiagnostics(),
         ));
     }
 
     public function parseProblems(): ProblemReport
     {
         return new ProblemReport(...array_merge(...array_map(
-            static fn (ProjectFileConversion $file): array => $file->parseProblems->problems(),
+            static fn(ProjectFileConversion $file): array => $file->parseProblems->problems(),
             $this->files,
         )));
     }
@@ -111,7 +111,7 @@ final readonly class ProjectConversionResult
     public function referenceProblems(): ProblemReport
     {
         return new ProblemReport(...array_merge(...array_map(
-            static fn (ProjectFileConversion $file): array => $file->referenceProblems->problems(),
+            static fn(ProjectFileConversion $file): array => $file->referenceProblems->problems(),
             $this->files,
         )));
     }

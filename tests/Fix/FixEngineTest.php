@@ -139,19 +139,19 @@ final class FixEngineTest extends TestCase
     public function testAddsBlankLinesAfterInternalAnchorsAndBeforeDirectiveBodies(): void
     {
         $source = ".. _target:\r\n"
-            ."Title\r\n"
-            ."=====\r\n\r\n"
-            .".. note::\r\n"
-            ."    Body.\r\n";
+            . "Title\r\n"
+            . "=====\r\n\r\n"
+            . ".. note::\r\n"
+            . "    Body.\r\n";
 
         $result = new FixEngine()->fix($source);
 
         self::assertSame(
             ".. _target:\r\n\r\n"
-            ."Title\r\n"
-            ."=====\r\n\r\n"
-            .".. note::\r\n\r\n"
-            ."    Body.\r\n",
+            . "Title\r\n"
+            . "=====\r\n\r\n"
+            . ".. note::\r\n\r\n"
+            . "    Body.\r\n",
             $result->bytes,
         );
         self::assertCount(2, $result->patches);
@@ -161,9 +161,9 @@ final class FixEngineTest extends TestCase
     public function testBlankLinePassesCanBeDisabledAndIgnoreExternalTargets(): void
     {
         $source = ".. _external: https://example.test/\n"
-            ."Paragraph.\n\n"
-            .".. note::\n"
-            ."    Body.\n";
+            . "Paragraph.\n\n"
+            . ".. note::\n"
+            . "    Body.\n";
 
         $result = new FixEngine()->fix(
             $source,
@@ -180,8 +180,8 @@ final class FixEngineTest extends TestCase
     public function testDefaultRoleLiteralNormalizationIsExplicitAndLocal(): void
     {
         $source = "Use `cache` and :ref:`target` with ``literal``.\n\n"
-            .".. _target:\n\n"
-            ."Target\n======\n";
+            . ".. _target:\n\n"
+            . "Target\n======\n";
         $engine = new FixEngine();
 
         $default = $engine->fix($source);
@@ -193,8 +193,8 @@ final class FixEngineTest extends TestCase
         self::assertSame($source, $default->bytes);
         self::assertSame(
             "Use ``cache`` and :ref:`target` with ``literal``.\n\n"
-            .".. _target:\n\n"
-            ."Target\n======\n",
+            . ".. _target:\n\n"
+            . "Target\n======\n",
             $normalized->bytes,
         );
         self::assertCount(1, $normalized->patches);
@@ -208,10 +208,10 @@ final class FixEngineTest extends TestCase
     public function testDefaultRoleLiteralNormalizationIsIdempotentAndSkipsProtectedContent(): void
     {
         $source = "Outside `value`.\n\n"
-            .".. note::\n\n"
-            ."    Inside `value`.\n\n"
-            ."Code::\n\n"
-            ."    `value`\n";
+            . ".. note::\n\n"
+            . "    Inside `value`.\n\n"
+            . "Code::\n\n"
+            . "    `value`\n";
         $options = new FixOptions(normalizeDefaultRoleAsLiteral: true);
         $engine = new FixEngine();
 

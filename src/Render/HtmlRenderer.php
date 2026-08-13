@@ -282,12 +282,12 @@ final readonly class HtmlRenderer
         $html = match (true) {
             $node instanceof Section => $this->renderSection($node, $state, $inTableCell),
             $node instanceof Paragraph => $this->renderParagraph($node, $state, $inTableCell),
-            $node instanceof LiteralBlock => '<pre class="literal">'.$this->escape($state->source->slice($node->content))."</pre>\n",
-            $node instanceof BlockQuote => "<blockquote>\n".$this->renderChildren($node->children(), $state, $inTableCell)."</blockquote>\n",
-            $node instanceof BulletList => "<ul>\n".$this->renderChildren($node->children(), $state, $inTableCell)."</ul>\n",
+            $node instanceof LiteralBlock => '<pre class="literal">' . $this->escape($state->source->slice($node->content)) . "</pre>\n",
+            $node instanceof BlockQuote => "<blockquote>\n" . $this->renderChildren($node->children(), $state, $inTableCell) . "</blockquote>\n",
+            $node instanceof BulletList => "<ul>\n" . $this->renderChildren($node->children(), $state, $inTableCell) . "</ul>\n",
             $node instanceof EnumeratedList => $this->renderEnumeratedList($node, $state, $inTableCell),
-            $node instanceof ListItem => "<li>\n".$this->renderChildren($node->children(), $state, $inTableCell)."</li>\n",
-            $node instanceof DefinitionList => "<dl>\n".$this->renderChildren($node->children(), $state, $inTableCell)."</dl>\n",
+            $node instanceof ListItem => "<li>\n" . $this->renderChildren($node->children(), $state, $inTableCell) . "</li>\n",
+            $node instanceof DefinitionList => "<dl>\n" . $this->renderChildren($node->children(), $state, $inTableCell) . "</dl>\n",
             $node instanceof DefinitionListItem => $this->renderDefinitionListItem($node, $state, $inTableCell),
             $node instanceof Table => $this->renderTable($node, $state),
             $node instanceof Directive => $this->renderDirective($node, $state),
@@ -297,7 +297,7 @@ final readonly class HtmlRenderer
             $node instanceof Transition => "<hr>\n",
             $node instanceof Comment => '',
             $node instanceof HyperlinkTarget => $this->renderHyperlinkTarget($node, $state),
-            $node instanceof Text => $this->escape($node->text)."\n",
+            $node instanceof Text => $this->escape($node->text) . "\n",
             default => $this->renderFallback($node),
         };
 
@@ -305,17 +305,17 @@ final readonly class HtmlRenderer
         $anchors = '';
 
         foreach ($state->extraAnchorIds($node) as $extraId) {
-            $anchors .= '<span id="'.$this->escape($extraId)."\"></span>\n";
+            $anchors .= '<span id="' . $this->escape($extraId) . "\"></span>\n";
         }
 
         if (null !== $id && !$node instanceof Paragraph && !$node instanceof Section
             && !$node instanceof FootnoteDefinition && !$node instanceof CitationDefinition
             && !$node instanceof HyperlinkTarget
         ) {
-            $anchors = '<span id="'.$this->escape($id)."\"></span>\n".$anchors;
+            $anchors = '<span id="' . $this->escape($id) . "\"></span>\n" . $anchors;
         }
 
-        return $anchors.$html;
+        return $anchors . $html;
     }
 
     private function renderSection(Section $section, RenderState $state, bool $inTableCell): string
@@ -323,19 +323,19 @@ final readonly class HtmlRenderer
         $level = min($section->level, 6);
         $id = $state->sectionId($section);
 
-        $open = null === $id ? '<section>' : '<section id="'.$this->escape($id).'">';
+        $open = null === $id ? '<section>' : '<section id="' . $this->escape($id) . '">';
         $title = $this->renderInlineNodes($state->inlineNodes($section->title->text, false), $state);
         $heading = sprintf('<h%d>%s</h%d>', $level, $title, $level);
 
-        return $open."\n".$heading."\n".$this->renderChildren($section->body(), $state, $inTableCell)."</section>\n";
+        return $open . "\n" . $heading . "\n" . $this->renderChildren($section->body(), $state, $inTableCell) . "</section>\n";
     }
 
     private function renderParagraph(Paragraph $paragraph, RenderState $state, bool $inTableCell): string
     {
         $id = $state->nodeId($paragraph);
-        $attribute = null === $id ? '' : ' id="'.$this->escape($id).'"';
+        $attribute = null === $id ? '' : ' id="' . $this->escape($id) . '"';
 
-        return '<p'.$attribute.'>'.$this->renderInlineNodes($state->inlineNodes($paragraph->text, $inTableCell), $state)."</p>\n";
+        return '<p' . $attribute . '>' . $this->renderInlineNodes($state->inlineNodes($paragraph->text, $inTableCell), $state) . "</p>\n";
     }
 
     private function renderEnumeratedList(EnumeratedList $list, RenderState $state, bool $inTableCell): string
@@ -353,9 +353,9 @@ final readonly class HtmlRenderer
             $attributes .= sprintf(' start="%d"', $list->start);
         }
 
-        $open = '<ol'.$attributes.'>';
+        $open = '<ol' . $attributes . '>';
 
-        return $open."\n".$this->renderChildren($list->children(), $state, $inTableCell)."</ol>\n";
+        return $open . "\n" . $this->renderChildren($list->children(), $state, $inTableCell) . "</ol>\n";
     }
 
     private function renderDefinitionListItem(
@@ -367,13 +367,13 @@ final readonly class HtmlRenderer
 
         foreach ($item->classifiers as $classifier) {
             $term .= ' <span class="classifier-delimiter">:</span> <span class="classifier">'
-                .$this->renderInlineNodes($state->inlineNodes($classifier, $inTableCell), $state)
-                .'</span>';
+                . $this->renderInlineNodes($state->inlineNodes($classifier, $inTableCell), $state)
+                . '</span>';
         }
 
-        return '<dt>'.$term."</dt>\n<dd>\n"
-            .$this->renderChildren($item->definition(), $state, $inTableCell)
-            ."</dd>\n";
+        return '<dt>' . $term . "</dt>\n<dd>\n"
+            . $this->renderChildren($item->definition(), $state, $inTableCell)
+            . "</dd>\n";
     }
 
     /**
@@ -384,7 +384,7 @@ final readonly class HtmlRenderer
     {
         $id = $state->targetId($target);
 
-        return null === $id ? '' : '<span id="'.$this->escape($id)."\"></span>\n";
+        return null === $id ? '' : '<span id="' . $this->escape($id) . "\"></span>\n";
     }
 
     private function renderTable(Table $table, RenderState $state): string
@@ -411,7 +411,7 @@ final readonly class HtmlRenderer
             $html .= "</tbody>\n";
         }
 
-        return $html."</table>\n";
+        return $html . "</table>\n";
     }
 
     private function renderTableRow(TableRow $row, RenderState $state, string $tag): string
@@ -422,10 +422,10 @@ final readonly class HtmlRenderer
             $attributes = $cell->colspan > 1 ? sprintf(' colspan="%d"', $cell->colspan) : '';
             $attributes .= $cell->rowspan > 1 ? sprintf(' rowspan="%d"', $cell->rowspan) : '';
 
-            $html .= '<'.$tag.$attributes.">\n".$this->renderChildren($cell->children(), $state, true).'</'.$tag.">\n";
+            $html .= '<' . $tag . $attributes . ">\n" . $this->renderChildren($cell->children(), $state, true) . '</' . $tag . ">\n";
         }
 
-        return $html."</tr>\n";
+        return $html . "</tr>\n";
     }
 
     /**
@@ -446,9 +446,9 @@ final readonly class HtmlRenderer
     {
         return match (true) {
             $node instanceof InlineText => $this->escape($node->text),
-            $node instanceof Emphasis => '<em>'.$this->renderInlineNodes($node->children(), $state).'</em>',
-            $node instanceof Strong => '<strong>'.$this->renderInlineNodes($node->children(), $state).'</strong>',
-            $node instanceof InlineLiteral => '<code>'.$this->escape($node->text).'</code>',
+            $node instanceof Emphasis => '<em>' . $this->renderInlineNodes($node->children(), $state) . '</em>',
+            $node instanceof Strong => '<strong>' . $this->renderInlineNodes($node->children(), $state) . '</strong>',
+            $node instanceof InlineLiteral => '<code>' . $this->escape($node->text) . '</code>',
             $node instanceof HyperlinkReference => $this->renderHyperlinkReference($node, $state),
             $node instanceof StandaloneHyperlink => $this->renderExternalLink($node->uri, $node->uri, $state),
             $node instanceof InterpretedText => $this->renderInterpretedText($node, $state),
@@ -512,7 +512,7 @@ final readonly class HtmlRenderer
 
         return null === $id
             ? $this->escape($label)
-            : '<a href="#'.$this->escape($id).'">'.$this->escape($label).'</a>';
+            : '<a href="#' . $this->escape($id) . '">' . $this->escape($label) . '</a>';
     }
 
     /**
@@ -527,7 +527,7 @@ final readonly class HtmlRenderer
         [$kind, $value] = $resolution;
 
         if ('id' === $kind) {
-            return '<a href="#'.$this->escape($value).'">'.$this->escape($label).'</a>';
+            return '<a href="#' . $this->escape($value) . '">' . $this->escape($label) . '</a>';
         }
 
         return $this->renderExternalLink($value, $label, $state);
@@ -537,7 +537,7 @@ final readonly class HtmlRenderer
     {
         $href = $state->policy->isUrlAllowed($url) ? $this->escape($url) : '';
 
-        return '<a href="'.$href.'">'.$this->escape($label).'</a>';
+        return '<a href="' . $href . '">' . $this->escape($label) . '</a>';
     }
 
     /**
@@ -561,7 +561,7 @@ final readonly class HtmlRenderer
         }
 
         if (null === $text->role) {
-            return '<cite>'.$this->escape($text->text).'</cite>';
+            return '<cite>' . $this->escape($text->text) . '</cite>';
         }
 
         $spec = $state->profile?->roles->get($text->role);
@@ -570,16 +570,16 @@ final readonly class HtmlRenderer
             return $this->escape($text->text);
         }
 
-        $handler = $state->profile?->extensions->roleHandler($spec->name);
+        $handler = $state->profile->extensions->roleHandler($spec->name);
 
-        if (null !== $handler && null !== $state->profile) {
+        if (null !== $handler) {
             return $handler->renderHtml($text, $state->source, $state->profile, $state->policy);
         }
 
         $element = self::ROLE_ELEMENTS[$spec->name] ?? null;
 
         if (null !== $element) {
-            return '<'.$element.'>'.$this->escape($text->text).'</'.$element.'>';
+            return '<' . $element . '>' . $this->escape($text->text) . '</' . $element . '>';
         }
 
         return $this->escape($this->roleTitle($text->text));
@@ -591,7 +591,7 @@ final readonly class HtmlRenderer
         ReferenceType $type,
     ): string {
         $reference = $state->references->referenceAt($node->span(), $type);
-        $label = '['.(null === $reference ? $node->label : ($reference->displayLabel ?? $node->label)).']';
+        $label = '[' . (null === $reference ? $node->label : ($reference->displayLabel ?? $node->label)) . ']';
 
         if (null === $reference || $type !== $reference->type || ReferenceStatus::Resolved !== $reference->status || null === $reference->target) {
             return $this->escape($label);
@@ -604,8 +604,8 @@ final readonly class HtmlRenderer
             return $this->escape($label);
         }
 
-        return '<a id="'.$this->escape($referenceId).'" class="'.$type->value.'-reference" href="#'
-            .$this->escape($targetId).'">'.$this->escape($label).'</a>';
+        return '<a id="' . $this->escape($referenceId) . '" class="' . $type->value . '-reference" href="#'
+            . $this->escape($targetId) . '">' . $this->escape($label) . '</a>';
     }
 
     private function renderSubstitutionReference(SubstitutionReference $node, RenderState $state): string
@@ -613,19 +613,19 @@ final readonly class HtmlRenderer
         $reference = $state->references->referenceAt($node->span(), ReferenceType::Substitution);
 
         if (null === $reference || ReferenceStatus::Resolved !== $reference->status || null === $reference->target) {
-            return $this->escape('|'.$node->name.'|');
+            return $this->escape('|' . $node->name . '|');
         }
 
         $replacement = $reference->target->destination;
 
         if (null === $replacement) {
-            return $this->escape('|'.$node->name.'|');
+            return $this->escape('|' . $node->name . '|');
         }
 
         if (SubstitutionKind::Image === $reference->target->substitutionKind) {
             $src = $state->policy->isUrlAllowed($replacement) ? $this->escape($replacement) : '';
             $alt = $this->escape($reference->target->substitutionAlt ?? $node->name);
-            $replacementHtml = '<img src="'.$src.'" alt="'.$alt.'">';
+            $replacementHtml = '<img src="' . $src . '" alt="' . $alt . '">';
 
             return $this->renderLinkedSubstitution($node, $replacementHtml, $state);
         }
@@ -671,12 +671,12 @@ final readonly class HtmlRenderer
                 ? $this->escape($reference->target->destination)
                 : '';
 
-            return '<a href="'.$href.'">'.$labelHtml.'</a>';
+            return '<a href="' . $href . '">' . $labelHtml . '</a>';
         }
 
         $id = $state->definitionId($reference->target);
 
-        return null === $id ? $labelHtml : '<a href="#'.$this->escape($id).'">'.$labelHtml.'</a>';
+        return null === $id ? $labelHtml : '<a href="#' . $this->escape($id) . '">' . $labelHtml . '</a>';
     }
 
     /**
@@ -700,7 +700,7 @@ final readonly class HtmlRenderer
             return $this->escape($target->name);
         }
 
-        return '<span id="'.$this->escape($id).'">'.$this->escape($target->name).'</span>';
+        return '<span id="' . $this->escape($id) . '">' . $this->escape($target->name) . '</span>';
     }
 
     private function renderFootnoteDefinition(FootnoteDefinition $definition, RenderState $state): string
@@ -740,17 +740,17 @@ final readonly class HtmlRenderer
 
         foreach ($state->backReferenceIds($graphDefinition) as $index => $referenceId) {
             $suffix = 0 === $index ? '' : (string) ($index + 1);
-            $backlinks .= '<a class="backref" href="#'.$this->escape($referenceId).'">'.$this->escape('back'.$suffix).'</a>';
+            $backlinks .= '<a class="backref" href="#' . $this->escape($referenceId) . '">' . $this->escape('back' . $suffix) . '</a>';
         }
 
-        $html = '<aside id="'.$this->escape($id).'" class="'.$class."\">\n";
-        $html .= '<span class="label">'.$this->escape('['.$label.']').'</span>';
+        $html = '<aside id="' . $this->escape($id) . '" class="' . $class . "\">\n";
+        $html .= '<span class="label">' . $this->escape('[' . $label . ']') . '</span>';
 
         if ('' !== $backlinks) {
-            $html .= '<span class="backrefs">'.$backlinks.'</span>';
+            $html .= '<span class="backrefs">' . $backlinks . '</span>';
         }
 
-        return $html."\n".$this->renderChildren($definition->children(), $state, false)."</aside>\n";
+        return $html . "\n" . $this->renderChildren($definition->children(), $state, false) . "</aside>\n";
     }
 
     private function graphDefinitionForNode(Node $node, RenderState $state): ?ReferenceDefinition
@@ -809,7 +809,7 @@ final readonly class HtmlRenderer
                 $state->profile,
                 $state->policy,
                 new DirectiveRenderContext(
-                    fn (Directive $body): string => DirectiveBodyKind::Blocks === $body->bodyKind
+                    fn(Directive $body): string => DirectiveBodyKind::Blocks === $body->bodyKind
                         ? $this->renderChildren($body->children(), $state, false)
                         : '',
                 ),
@@ -833,7 +833,7 @@ final readonly class HtmlRenderer
         }
 
         if ('image' === $name) {
-            return $this->renderImage($directive, $state)."\n";
+            return $this->renderImage($directive, $state) . "\n";
         }
 
         if ('figure' === $name) {
@@ -856,29 +856,29 @@ final readonly class HtmlRenderer
         }
 
         if (null === $directive->rawBody) {
-            return '<div class="admonition '.$name."\"></div>\n";
+            return '<div class="admonition ' . $name . "\"></div>\n";
         }
 
         $body = $this->escape($state->source->slice($directive->rawBody));
 
-        return '<div class="admonition '.$name."\">\n<p>".$body."</p>\n</div>\n";
+        return '<div class="admonition ' . $name . "\">\n<p>" . $body . "</p>\n</div>\n";
     }
 
     private function renderAdmonition(string $name, string $title, Directive $directive, RenderState $state): string
     {
-        $html = '<div class="admonition '.$this->escape($name)."\">\n";
+        $html = '<div class="admonition ' . $this->escape($name) . "\">\n";
 
         if ('' !== $title) {
-            $html .= '<p class="admonition-title">'.$this->escape($title)."</p>\n";
+            $html .= '<p class="admonition-title">' . $this->escape($title) . "</p>\n";
         }
 
         if (DirectiveBodyKind::Blocks === $directive->bodyKind) {
             $html .= $this->renderChildren($directive->children(), $state, false);
         } elseif (null !== $directive->rawBody) {
-            $html .= '<p>'.$this->escape($this->dedent($state->source->slice($directive->rawBody)))."</p>\n";
+            $html .= '<p>' . $this->escape($this->dedent($state->source->slice($directive->rawBody))) . "</p>\n";
         }
 
-        return $html."</div>\n";
+        return $html . "</div>\n";
     }
 
     private function renderCodeBlock(Directive $directive, RenderState $state): string
@@ -887,50 +887,50 @@ final readonly class HtmlRenderer
         $language = trim($directive->arguments[0] ?? '');
 
         if ('' !== $language) {
-            $attribute = ' class="language-'.$this->escape($language).'"';
+            $attribute = ' class="language-' . $this->escape($language) . '"';
         }
 
         $body = null === $directive->rawBody ? '' : $this->dedent($state->source->slice($directive->rawBody));
 
-        return '<pre><code'.$attribute.'>'.$this->escape($body)."</code></pre>\n";
+        return '<pre><code' . $attribute . '>' . $this->escape($body) . "</code></pre>\n";
     }
 
     private function renderVersionNote(string $name, Directive $directive, RenderState $state): string
     {
-        $html = '<div class="version-note '.$this->escape($name)."\">\n";
+        $html = '<div class="version-note ' . $this->escape($name) . "\">\n";
         $version = trim($directive->arguments[0] ?? '');
 
         if ('' !== $version) {
-            $html .= '<p>'.$this->escape(self::VERSION_PREFIXES[$name].' '.$version)."</p>\n";
+            $html .= '<p>' . $this->escape(self::VERSION_PREFIXES[$name] . ' ' . $version) . "</p>\n";
         }
 
         if (DirectiveBodyKind::Blocks === $directive->bodyKind) {
             $html .= $this->renderChildren($directive->children(), $state, false);
         } elseif (null !== $directive->rawBody) {
-            $html .= '<p>'.$this->escape($this->dedent($state->source->slice($directive->rawBody)))."</p>\n";
+            $html .= '<p>' . $this->escape($this->dedent($state->source->slice($directive->rawBody))) . "</p>\n";
         }
 
-        return $html."</div>\n";
+        return $html . "</div>\n";
     }
 
     private function renderImage(Directive $directive, RenderState $state): string
     {
         $uri = trim($directive->arguments[0] ?? '');
         $src = '' !== $uri && $state->policy->isUrlAllowed($uri) ? $this->escape($uri) : '';
-        $attributes = ' src="'.$src.'"';
+        $attributes = ' src="' . $src . '"';
 
         $alt = $directive->options['alt'] ?? null;
 
         if (null !== $alt) {
-            $attributes .= ' alt="'.$this->escape($alt).'"';
+            $attributes .= ' alt="' . $this->escape($alt) . '"';
         }
 
-        return '<img'.$attributes.'>';
+        return '<img' . $attributes . '>';
     }
 
     private function renderFigure(Directive $directive, RenderState $state): string
     {
-        $html = "<figure>\n".$this->renderImage($directive, $state)."\n";
+        $html = "<figure>\n" . $this->renderImage($directive, $state) . "\n";
 
         if (DirectiveBodyKind::Blocks === $directive->bodyKind) {
             $children = $directive->children();
@@ -938,8 +938,8 @@ final readonly class HtmlRenderer
 
             if ($caption instanceof Paragraph) {
                 $html .= '<figcaption>'
-                    .$this->renderInlineNodes($state->inlineNodes($caption->text, false), $state)
-                    ."</figcaption>\n";
+                    . $this->renderInlineNodes($state->inlineNodes($caption->text, false), $state)
+                    . "</figcaption>\n";
             } elseif (null !== $caption) {
                 array_unshift($children, $caption);
             }
@@ -951,16 +951,16 @@ final readonly class HtmlRenderer
             $caption = trim(false === $parts ? $body : $parts[0]);
 
             if ('' !== $caption) {
-                $html .= '<figcaption>'.$this->escape($caption)."</figcaption>\n";
+                $html .= '<figcaption>' . $this->escape($caption) . "</figcaption>\n";
             }
         }
 
-        return $html."</figure>\n";
+        return $html . "</figure>\n";
     }
 
     private function directivePlaceholder(Directive $directive): string
     {
-        return '<!-- directive: '.$this->commentSafe($directive->name)." -->\n";
+        return '<!-- directive: ' . $this->commentSafe($directive->name) . " -->\n";
     }
 
     private function renderFallback(Node $node): string
@@ -968,7 +968,7 @@ final readonly class HtmlRenderer
         $class = $node::class;
         $short = false === ($pos = strrpos($class, '\\')) ? $class : substr($class, $pos + 1);
 
-        return '<!-- node: '.$this->commentSafe($short)." -->\n";
+        return '<!-- node: ' . $this->commentSafe($short) . " -->\n";
     }
 
     /**

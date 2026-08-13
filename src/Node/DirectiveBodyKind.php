@@ -20,15 +20,23 @@ namespace Alto\Rst\Node;
  */
 enum DirectiveBodyKind: string
 {
-    /** The directive does not accept body content. */
+    /**
+     * The directive does not accept body content.
+     */
     case None = 'none';
 
-    /** The body is reStructuredText block content with typed child nodes. */
+    /**
+     * The body is reStructuredText block content with typed child nodes.
+     */
     case Blocks = 'blocks';
 
-    /** The body is literal data, such as source code or CSV rows. */
+    /**
+     * The body is literal data, such as source code or CSV rows.
+     */
     case Literal = 'literal';
 
-    /** The body has directive-specific syntax not represented by the ROM. */
+    /**
+     * The body has directive-specific syntax not represented by the ROM.
+     */
     case Opaque = 'opaque';
 }

@@ -143,7 +143,7 @@ final class RenderState
 
         while (isset($this->claimedIds[$id])) {
             ++$suffix;
-            $id = $slug.'-'.$suffix;
+            $id = $slug . '-' . $suffix;
         }
 
         $this->claimedIds[$id] = true;
@@ -206,7 +206,7 @@ final class RenderState
                 $seed = ReferenceName::id($this->references->displayLabel($definition) ?? $definition->name);
 
                 if ('' !== $seed) {
-                    $id = $this->claimId($prefix.$seed);
+                    $id = $this->claimId($prefix . $seed);
                     $this->definitionIds->offsetSet($definition, $id);
                     $this->graphIds->offsetSet($node, $id);
                 }
@@ -223,7 +223,7 @@ final class RenderState
             $seed = ReferenceName::id($definition->name);
 
             if ('' === $seed) {
-                $seed = 'target-'.(++$anonymousTarget);
+                $seed = 'target-' . (++$anonymousTarget);
             }
 
             $id = $this->claimId($seed);
@@ -247,7 +247,7 @@ final class RenderState
 
             if (\in_array($reference->type, [ReferenceType::Footnote, ReferenceType::Citation], true)) {
                 $prefix = ReferenceType::Footnote === $reference->type ? 'footnote-reference-' : 'citation-reference-';
-                $this->referenceIds[ReferenceGraph::spanKey($reference->span)] = $this->claimId($prefix.ReferenceName::id($reference->displayLabel ?? $reference->label));
+                $this->referenceIds[ReferenceGraph::spanKey($reference->span)] = $this->claimId($prefix . ReferenceName::id($reference->displayLabel ?? $reference->label));
             }
         }
     }

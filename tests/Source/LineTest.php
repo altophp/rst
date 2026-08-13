@@ -64,7 +64,7 @@ final class LineTest extends TestCase
     #[DataProvider('provideBlankness')]
     public function testBlankDetection(string $content, bool $expected): void
     {
-        $line = Source::fromString($content."\nend")->line(0);
+        $line = Source::fromString($content . "\nend")->line(0);
 
         self::assertSame($expected, $line->isBlank());
     }

@@ -60,11 +60,10 @@ final class ExtensionSafetyTest extends TestCase
                 throw new \LogicException('Disabled include handler must not run.');
             }
         };
-        $extension = new class($handler) implements Extension {
+        $extension = new class ($handler) implements Extension {
             public function __construct(
                 private readonly DirectiveHandler $handler,
-            ) {
-            }
+            ) {}
 
             public function name(): string
             {

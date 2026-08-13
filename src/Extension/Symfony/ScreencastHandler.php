@@ -45,9 +45,9 @@ final readonly class ScreencastHandler implements DirectiveHandler
         DirectiveRenderContext $context,
     ): string {
         return "<aside class=\"screencast\">\n"
-            ."<p class=\"screencast-title\">Screencast</p>\n"
-            .$context->renderBody($directive)
-            ."</aside>\n";
+            . "<p class=\"screencast-title\">Screencast</p>\n"
+            . $context->renderBody($directive)
+            . "</aside>\n";
     }
 
     public function convertToMarkdown(
@@ -69,7 +69,7 @@ final readonly class ScreencastHandler implements DirectiveHandler
 
         $arguments = array_values(array_filter(
             array_map('trim', $directive->arguments),
-            static fn (string $argument): bool => '' !== $argument,
+            static fn(string $argument): bool => '' !== $argument,
         ));
 
         if ([] !== $arguments) {
@@ -84,7 +84,7 @@ final readonly class ScreencastHandler implements DirectiveHandler
         $nested = rtrim($body->output, "\n");
 
         if ('' !== $nested) {
-            $content .= "\n\n".$nested;
+            $content .= "\n\n" . $nested;
         }
 
         return new ConversionResult(self::quote($content), new ConversionReport($issues));
@@ -95,7 +95,7 @@ final readonly class ScreencastHandler implements DirectiveHandler
         $lines = explode("\n", $block);
 
         return implode("\n", array_map(
-            static fn (string $line): string => '' === $line ? '>' : '> '.$line,
+            static fn(string $line): string => '' === $line ? '>' : '> ' . $line,
             $lines,
         ));
     }

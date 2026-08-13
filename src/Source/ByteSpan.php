@@ -29,8 +29,7 @@ final readonly class ByteSpan
     private function __construct(
         public int $start,
         public int $length,
-    ) {
-    }
+    ) {}
 
     public static function of(int $start, int $length): self
     {

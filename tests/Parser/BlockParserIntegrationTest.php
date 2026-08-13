@@ -37,18 +37,18 @@ final class BlockParserIntegrationTest extends ParserTestCase
     public function testRealisticDocument(): void
     {
         $input = "=====\nTitle\n=====\n\n"
-            ."Intro paragraph\non two lines.\n\n"
-            ."Section A\n=========\n\n"
-            ."Some code::\n\n    line one\n      line two\n\n"
-            ."- first item\n- second item\n  continues\n\n"
-            ."1. one\n2. two\n\n"
-            .".. code-block:: php\n   :linenos:\n\n   echo \"hi\";\n\n"
-            .".. _target: https://example.com/\n\n"
-            .".. just a comment\n\n"
-            ."Subsection\n----------\n\n"
-            ."   A block quote.\n\n"
-            ."----\n\n"
-            ."Closing paragraph.\n";
+            . "Intro paragraph\non two lines.\n\n"
+            . "Section A\n=========\n\n"
+            . "Some code::\n\n    line one\n      line two\n\n"
+            . "- first item\n- second item\n  continues\n\n"
+            . "1. one\n2. two\n\n"
+            . ".. code-block:: php\n   :linenos:\n\n   echo \"hi\";\n\n"
+            . ".. _target: https://example.com/\n\n"
+            . ".. just a comment\n\n"
+            . "Subsection\n----------\n\n"
+            . "   A block quote.\n\n"
+            . "----\n\n"
+            . "Closing paragraph.\n";
 
         $result = self::parseRst($input);
 
@@ -141,11 +141,11 @@ final class BlockParserIntegrationTest extends ParserTestCase
     public function testMalformedKitchenSinkNeverThrows(): void
     {
         $input = "====\nBroken overline\n\n"
-            ."Deep\n~~~~\n\n"
-            ."Code::\nno blank\n\n"
-            ."- one\n* two\nplain\n\n"
-            ."1. a\n3. b\n\n"
-            ."::\n\nunindented\n";
+            . "Deep\n~~~~\n\n"
+            . "Code::\nno blank\n\n"
+            . "- one\n* two\nplain\n\n"
+            . "1. a\n3. b\n\n"
+            . "::\n\nunindented\n";
 
         $result = self::parseRst($input);
 
@@ -167,7 +167,7 @@ final class BlockParserIntegrationTest extends ParserTestCase
 
     public function testConformanceCorpusParsesWithoutErrorsAbsentFromTheOracle(): void
     {
-        $files = glob(__DIR__.'/../fixtures/conformance/*/*.rst');
+        $files = glob(__DIR__ . '/../fixtures/conformance/*/*.rst');
 
         self::assertIsArray($files);
         self::assertNotSame([], $files);
@@ -183,14 +183,14 @@ final class BlockParserIntegrationTest extends ParserTestCase
             self::assertInstanceOf(Document::class, $result->document());
 
             if ($result->problems()->hasAtLeast(ProblemSeverity::Error)) {
-                $oracle = file_get_contents(substr($file, 0, -\strlen('.rst')).'.pseudoxml');
+                $oracle = file_get_contents(substr($file, 0, -\strlen('.rst')) . '.pseudoxml');
                 self::assertIsString($oracle);
                 self::assertStringContainsString(
                     '<system_message level="3"',
                     $oracle,
                     \sprintf(
                         'Fixture %s produced an error absent from docutils: %s',
-                        basename(\dirname($file)).'/'.basename($file),
+                        basename(\dirname($file)) . '/' . basename($file),
                         implode(', ', self::problemCodes($result)),
                     ),
                 );

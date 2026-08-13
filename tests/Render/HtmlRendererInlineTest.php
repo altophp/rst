@@ -95,8 +95,8 @@ final class HtmlRendererInlineTest extends TestCase
     {
         self::assertSame(
             "<p>See <a href=\"#some-target\">Read this</a>.</p>\n"
-            ."<span id=\"some-target\"></span>\n"
-            ."<section id=\"target-title\">\n<h1>Target title</h1>\n</section>\n",
+            . "<span id=\"some-target\"></span>\n"
+            . "<section id=\"target-title\">\n<h1>Target title</h1>\n</section>\n",
             self::render(
                 "See :ref:`Read this <some-target>`.\n\n.. _some-target:\n\nTarget title\n============\n",
                 Profile::symfony(),
@@ -108,8 +108,8 @@ final class HtmlRendererInlineTest extends TestCase
     {
         self::assertSame(
             "<p>See <a href=\"#some-target\">Target title</a>.</p>\n"
-            ."<span id=\"some-target\"></span>\n"
-            ."<section id=\"target-title\">\n<h1>Target title</h1>\n</section>\n",
+            . "<span id=\"some-target\"></span>\n"
+            . "<section id=\"target-title\">\n<h1>Target title</h1>\n</section>\n",
             self::render(
                 "See :ref:`some-target`.\n\n.. _some-target:\n\nTarget title\n============\n",
                 Profile::symfony(),
@@ -137,13 +137,13 @@ final class HtmlRendererInlineTest extends TestCase
     {
         self::assertSame(
             '<p>See <a id="footnote-reference-1" class="footnote-reference" href="#footnote-1">[1]</a>'
-            ." and <a id=\"citation-reference-cit2002\" class=\"citation-reference\" href=\"#citation-cit2002\">[CIT2002]</a>.</p>\n"
-            ."<aside id=\"footnote-1\" class=\"footnote\">\n"
-            ."<span class=\"label\">[1]</span><span class=\"backrefs\"><a class=\"backref\" href=\"#footnote-reference-1\">back</a></span>\n"
-            ."<p>Footnote body.</p>\n</aside>\n"
-            ."<aside id=\"citation-cit2002\" class=\"citation\">\n"
-            ."<span class=\"label\">[CIT2002]</span><span class=\"backrefs\"><a class=\"backref\" href=\"#citation-reference-cit2002\">back</a></span>\n"
-            ."<p>Citation body.</p>\n</aside>\n",
+            . " and <a id=\"citation-reference-cit2002\" class=\"citation-reference\" href=\"#citation-cit2002\">[CIT2002]</a>.</p>\n"
+            . "<aside id=\"footnote-1\" class=\"footnote\">\n"
+            . "<span class=\"label\">[1]</span><span class=\"backrefs\"><a class=\"backref\" href=\"#footnote-reference-1\">back</a></span>\n"
+            . "<p>Footnote body.</p>\n</aside>\n"
+            . "<aside id=\"citation-cit2002\" class=\"citation\">\n"
+            . "<span class=\"label\">[CIT2002]</span><span class=\"backrefs\"><a class=\"backref\" href=\"#citation-reference-cit2002\">back</a></span>\n"
+            . "<p>Citation body.</p>\n</aside>\n",
             self::render(
                 "See [1]_ and [CIT2002]_.\n\n.. [1] Footnote body.\n\n.. [CIT2002] Citation body.\n",
             ),
@@ -164,8 +164,8 @@ final class HtmlRendererInlineTest extends TestCase
             "<p>Use Before middle after.</p>\n",
             self::render(
                 ".. |outer| replace:: Before |inner| after\n"
-                .".. |inner| replace:: middle\n\n"
-                ."Use |outer|.\n",
+                . ".. |inner| replace:: middle\n\n"
+                . "Use |outer|.\n",
             ),
         );
     }
@@ -184,18 +184,18 @@ final class HtmlRendererInlineTest extends TestCase
             "<p><a href=\"\">Label</a></p>\n",
             self::render(
                 ".. |name| replace:: Label\n"
-                .".. _name: javascript:alert(1)\n\n"
-                ."|name|_\n",
+                . ".. _name: javascript:alert(1)\n\n"
+                . "|name|_\n",
             ),
         );
         self::assertSame(
             "<p><a href=\"#name\">Label</a></p>\n"
-            ."<p id=\"name\">Destination.</p>\n",
+            . "<p id=\"name\">Destination.</p>\n",
             self::render(
                 ".. |name| replace:: Label\n\n"
-                ."|name|_\n\n"
-                .".. _name:\n\n"
-                ."Destination.\n",
+                . "|name|_\n\n"
+                . ".. _name:\n\n"
+                . "Destination.\n",
             ),
         );
     }
@@ -206,8 +206,8 @@ final class HtmlRendererInlineTest extends TestCase
             "<p>Visit <a href=\"https://example.com/\">Example</a>.</p>\n",
             self::render(
                 ".. |site| replace:: `Example`_\n"
-                .".. _Example: https://example.com/\n\n"
-                ."Visit |site|.\n",
+                . ".. _Example: https://example.com/\n\n"
+                . "Visit |site|.\n",
             ),
         );
     }
@@ -218,16 +218,16 @@ final class HtmlRendererInlineTest extends TestCase
             "<p>Named <a href=\"https://example.com/\">Example</a>.</p>\n",
             self::render(
                 ".. |name| replace:: Example\n"
-                .".. _name: https://example.com/\n\n"
-                ."Named |name|_.\n",
+                . ".. _name: https://example.com/\n\n"
+                . "Named |name|_.\n",
             ),
         );
         self::assertSame(
             "<p>Anonymous <a href=\"https://example.com/\">Example</a>.</p>\n",
             self::render(
                 ".. |name| replace:: Example\n"
-                .".. __: https://example.com/\n\n"
-                ."Anonymous |name|__.\n",
+                . ".. __: https://example.com/\n\n"
+                . "Anonymous |name|__.\n",
             ),
         );
     }
@@ -252,8 +252,8 @@ final class HtmlRendererInlineTest extends TestCase
     {
         self::assertSame(
             "<aside id=\"footnote-1\" class=\"footnote\">\n"
-            ."<span class=\"label\">[1]</span>\n"
-            ."<p>Orphan.</p>\n</aside>\n",
+            . "<span class=\"label\">[1]</span>\n"
+            . "<p>Orphan.</p>\n</aside>\n",
             self::render(".. [#] Orphan.\n"),
         );
     }
@@ -262,9 +262,9 @@ final class HtmlRendererInlineTest extends TestCase
     {
         self::assertSame(
             "<p>See <a href=\"#a\">a</a> and <a href=\"#b\">b</a>.</p>\n"
-            ."<span id=\"a\"></span>\n"
-            ."<span id=\"b\"></span>\n"
-            ."<ul>\n<li>\n<p>item</p>\n</li>\n</ul>\n",
+            . "<span id=\"a\"></span>\n"
+            . "<span id=\"b\"></span>\n"
+            . "<ul>\n<li>\n<p>item</p>\n</li>\n</ul>\n",
             self::render("See a_ and b_.\n\n.. _a:\n.. _b:\n\n- item\n"),
         );
     }
@@ -273,7 +273,7 @@ final class HtmlRendererInlineTest extends TestCase
     {
         self::assertSame(
             "<p><a href=\"#target-1\">Jump</a> now.</p>\n"
-            ."<p id=\"target-1\">Destination paragraph.</p>\n",
+            . "<p id=\"target-1\">Destination paragraph.</p>\n",
             self::render("Jump__ now.\n\n.. __:\n\nDestination paragraph.\n"),
         );
     }

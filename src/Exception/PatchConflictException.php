@@ -18,6 +18,4 @@ namespace Alto\Rst\Exception;
  *
  * @author Simon André <smn.andre@gmail.com>
  */
-final class PatchConflictException extends \LogicException implements RstExceptionInterface
-{
-}
+final class PatchConflictException extends \LogicException implements RstExceptionInterface {}

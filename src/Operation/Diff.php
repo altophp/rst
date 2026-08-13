@@ -29,8 +29,7 @@ final readonly class Diff
         public bool $isEmpty,
         public string $unified,
         private array $hunks,
-    ) {
-    }
+    ) {}
 
     public static function between(
         string $originalBytes,
@@ -63,7 +62,7 @@ final readonly class Diff
             }
         }
 
-        return new self(false, implode("\n", $output)."\n", $hunks);
+        return new self(false, implode("\n", $output) . "\n", $hunks);
     }
 
     public function isEmpty(): bool
@@ -358,7 +357,7 @@ final readonly class Diff
                 ++$editedCount;
             }
 
-            $lines[] = $action['type'].rtrim($action['line'], "\r\n");
+            $lines[] = $action['type'] . rtrim($action['line'], "\r\n");
         }
 
         $first = $actions[0];

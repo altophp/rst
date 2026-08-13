@@ -58,7 +58,7 @@ final class ProblemFormatterTest extends TestCase
 
         self::assertSame(
             "error [table/malformed] Malformed table. (bytes 0..5)\n"
-            ."info [document/empty] Document is empty.\n",
+            . "info [document/empty] Document is empty.\n",
             new ProblemFormatter()->format($report),
         );
     }

@@ -61,9 +61,9 @@ final class GridTableParsingTest extends ParserTestCase
     {
         $result = self::parseRst(
             "+---+---+\n"
-            ."| a | b |\n"
-            ."| ab    |\n"
-            ."+---+---+\n",
+            . "| a | b |\n"
+            . "| ab    |\n"
+            . "+---+---+\n",
         );
         $table = self::tableOf($result);
 
@@ -75,9 +75,9 @@ final class GridTableParsingTest extends ParserTestCase
     {
         $result = self::parseRst(
             "+---+---------+\n"
-            ."| A | - one   |\n"
-            ."|   | - two   |\n"
-            ."+---+---------+\n",
+            . "| A | - one   |\n"
+            . "|   | - two   |\n"
+            . "+---+---------+\n",
         );
         $table = self::tableOf($result);
         $cell = $table->body[0]->children()[1];
@@ -91,11 +91,11 @@ final class GridTableParsingTest extends ParserTestCase
     public function testMultiLineParagraphKeepsOnlyItsCellTextAndSourceSegments(): void
     {
         $rst = "+-----+-----+\n"
-            ."| A   | B   |\n"
-            ."+=====+=====+\n"
-            ."| one | two |\n"
-            ."| x   | y   |\n"
-            ."+-----+-----+\n";
+            . "| A   | B   |\n"
+            . "+=====+=====+\n"
+            . "| one | two |\n"
+            . "| x   | y   |\n"
+            . "+-----+-----+\n";
         $result = self::parseRst($rst);
         $table = self::tableOf($result);
         $paragraph = $table->body[0]->children()[0]->children()[0];
@@ -108,7 +108,7 @@ final class GridTableParsingTest extends ParserTestCase
                 [strpos($rst, 'x'), 1],
             ],
             array_map(
-                static fn (\Alto\Rst\Source\ByteSpan $span): array => [$span->start, $span->length],
+                static fn(\Alto\Rst\Source\ByteSpan $span): array => [$span->start, $span->length],
                 $paragraph->text->sourceSegments(),
             ),
         );
@@ -164,8 +164,8 @@ final class GridTableParsingTest extends ParserTestCase
     private static function rowTexts(array $rows): array
     {
         return array_map(
-            static fn (TableRow $row): array => array_map(
-                static fn ($cell): string => [] === $cell->children() ? '' : self::textOf($cell->children()[0]),
+            static fn(TableRow $row): array => array_map(
+                static fn($cell): string => [] === $cell->children() ? '' : self::textOf($cell->children()[0]),
                 $row->children(),
             ),
             $rows,

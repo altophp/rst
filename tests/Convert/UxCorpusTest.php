@@ -49,7 +49,7 @@ final class UxCorpusTest extends TestCase
 
     private const string BENCHMARK_SHA256 = '2c5dafeccd27d0703b432d57c2afe040485c49e740473f8da770b19c0011376b';
 
-    private const string DRIFT_FIXTURE = __DIR__.'/../fixtures/convert/round-trip-drift.rst';
+    private const string DRIFT_FIXTURE = __DIR__ . '/../fixtures/convert/round-trip-drift.rst';
 
     private const string DRIFT_FIXTURE_SHA256 = '45a2e49da6d96df65a982807f7bd511fe7bad7f4190cdc679575d4f86e13a772';
 
@@ -70,7 +70,7 @@ final class UxCorpusTest extends TestCase
             return [];
         }
 
-        $files = glob($root.self::CORPUS_GLOB);
+        $files = glob($root . self::CORPUS_GLOB);
 
         return false === $files ? [] : $files;
     }
@@ -100,13 +100,13 @@ final class UxCorpusTest extends TestCase
 
         foreach ($files as $file) {
             $result = self::convertFile($file);
-            $name = basename(\dirname($file, 2)).'/'.basename($file);
+            $name = basename(\dirname($file, 2)) . '/' . basename($file);
 
             self::assertNotSame('', $result->output);
 
             foreach ($result->report->issues as $issue) {
                 $totalsByKind[$issue->kind->value] = ($totalsByKind[$issue->kind->value] ?? 0) + 1;
-                $totalsByConstruct[$issue->kind->value.' '.$issue->construct] = ($totalsByConstruct[$issue->kind->value.' '.$issue->construct] ?? 0) + 1;
+                $totalsByConstruct[$issue->kind->value . ' ' . $issue->construct] = ($totalsByConstruct[$issue->kind->value . ' ' . $issue->construct] ?? 0) + 1;
 
                 if (IssueKind::Unsupported === $issue->kind) {
                     $unsupported[] = sprintf('%s: %s (%s)', $name, $issue->construct, $issue->message);
@@ -122,21 +122,21 @@ final class UxCorpusTest extends TestCase
             \count($files),
             [] === $totalsByKind ? 'none' : json_encode($totalsByKind),
             [] === $totalsByConstruct ? '  none' : implode("\n", array_map(
-                static fn (string $key, int $count): string => sprintf('  %-45s %d', $key, $count),
+                static fn(string $key, int $count): string => sprintf('  %-45s %d', $key, $count),
                 array_keys($totalsByConstruct),
                 array_values($totalsByConstruct),
             )),
         );
 
-        fwrite(\STDERR, "\n".$summary);
+        fwrite(\STDERR, "\n" . $summary);
 
-        self::assertSame([], $unsupported, "Unsupported constructs found:\n".implode("\n", $unsupported));
+        self::assertSame([], $unsupported, "Unsupported constructs found:\n" . implode("\n", $unsupported));
     }
 
     public function testTheLiveComponentBenchmarkSurvivesARoundTrip(): void
     {
         $root = self::corpusRoot();
-        $benchmark = null === $root ? null : $root.self::BENCHMARK_PATH;
+        $benchmark = null === $root ? null : $root . self::BENCHMARK_PATH;
 
         if (null === $benchmark || !is_file($benchmark)) {
             self::markTestSkipped(\sprintf('Set %s to a Symfony UX checkout to run this test.', self::CORPUS_ENV));
@@ -167,7 +167,7 @@ final class UxCorpusTest extends TestCase
         fwrite(\STDERR, sprintf(
             "\nLiveComponent round trip: %d shape drift(s).\n%s",
             \count($drift),
-            [] === $drift ? '' : implode("\n", \array_slice($drift, 0, 20))."\n",
+            [] === $drift ? '' : implode("\n", \array_slice($drift, 0, 20)) . "\n",
         ));
 
         self::assertSame(
@@ -257,11 +257,11 @@ final class UxCorpusTest extends TestCase
         }
 
         if (($shape[0] ?? null) === 'section' && \is_int($shape[1] ?? null) && \is_string($shape[2] ?? null)) {
-            $out[] = 'section '.$shape[1].' '.$shape[2];
+            $out[] = 'section ' . $shape[1] . ' ' . $shape[2];
         }
 
         if (($shape[0] ?? null) === 'directive' && \is_string($shape[1] ?? null)) {
-            $out[] = 'directive '.$shape[1];
+            $out[] = 'directive ' . $shape[1];
         }
 
         if (($shape[0] ?? null) === 'literal') {
@@ -302,7 +302,7 @@ final class UxCorpusTest extends TestCase
                 continue;
             }
 
-            $drift = [...$drift, ...self::drift($left[$key], $right[$key], $path.'/'.$key)];
+            $drift = [...$drift, ...self::drift($left[$key], $right[$key], $path . '/' . $key)];
         }
 
         return $drift;

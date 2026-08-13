@@ -33,7 +33,7 @@ final class DiffTest extends TestCase
 
     public function testProducesAUnifiedDiffWithSeparateContextHunks(): void
     {
-        $original = implode("\n", range(1, 12))."\n";
+        $original = implode("\n", range(1, 12)) . "\n";
         $edited = "one\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\ntwelve\n";
         $diff = Diff::between($original, $edited, 'a/example.rst', 'b/example.rst', 1);
 
@@ -59,7 +59,7 @@ final class DiffTest extends TestCase
 
     public function testLargeInputsUseTheBoundedFallback(): void
     {
-        $original = implode("\n", range(1, 1100))."\n";
+        $original = implode("\n", range(1, 1100)) . "\n";
         $edited = str_replace("\n550\n", "\nchanged\n", $original);
         $diff = Diff::between($original, $edited);
 

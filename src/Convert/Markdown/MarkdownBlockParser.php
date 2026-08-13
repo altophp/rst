@@ -59,8 +59,7 @@ final class MarkdownBlockParser
 
     public function __construct(
         private readonly Source $source,
-    ) {
-    }
+    ) {}
 
     public function parseDocument(): DocumentDraft
     {
@@ -385,7 +384,7 @@ final class MarkdownBlockParser
         }
 
         $lines = array_map(
-            fn (Line $line): string => $line->isBlank() ? '' : $this->stripIndentColumns($line, 4),
+            fn(Line $line): string => $line->isBlank() ? '' : $this->stripIndentColumns($line, 4),
             $collected,
         );
 
@@ -567,7 +566,7 @@ final class MarkdownBlockParser
         }
 
         return [
-            'marker' => $m[1].$m[2],
+            'marker' => $m[1] . $m[2],
             'delimiter' => '.' === $m[2] ? MdListDelimiter::Period : MdListDelimiter::Paren,
             'start' => (int) $m[1],
         ];
@@ -1030,7 +1029,7 @@ final class MarkdownBlockParser
             $char = $content[$i];
 
             if ('\\' === $char && $i + 1 < $length) {
-                $current .= $char.$content[$i + 1];
+                $current .= $char . $content[$i + 1];
                 ++$i;
 
                 continue;

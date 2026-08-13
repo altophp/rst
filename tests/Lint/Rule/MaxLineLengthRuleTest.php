@@ -33,12 +33,12 @@ final class MaxLineLengthRuleTest extends TestCase
 
     public function testLinesAtTheLimitAreAccepted(): void
     {
-        self::assertSame([], self::lint(str_repeat('a', 80)."\n"));
+        self::assertSame([], self::lint(str_repeat('a', 80) . "\n"));
     }
 
     public function testLongLinesAreReported(): void
     {
-        $problems = self::lint(str_repeat('a', 81)."\n");
+        $problems = self::lint(str_repeat('a', 81) . "\n");
 
         self::assertCount(1, $problems);
         self::assertSame(ProblemSeverity::Info, $problems[0]->severity);
@@ -49,14 +49,14 @@ final class MaxLineLengthRuleTest extends TestCase
     {
         $rule = new MaxLineLengthRule(20);
 
-        self::assertSame([], self::lint(str_repeat('a', 20)."\n", $rule));
-        self::assertCount(1, self::lint(str_repeat('a', 21)."\n", $rule));
+        self::assertSame([], self::lint(str_repeat('a', 20) . "\n", $rule));
+        self::assertCount(1, self::lint(str_repeat('a', 21) . "\n", $rule));
     }
 
     public function testLengthIsCountedInCharactersNotBytes(): void
     {
         // 80 two-byte characters: 160 bytes, exactly at the limit.
-        self::assertSame([], self::lint(str_repeat("\u{00E9}", 80)."\n"));
+        self::assertSame([], self::lint(str_repeat("\u{00E9}", 80) . "\n"));
     }
 
     public function testInvalidLimitIsRejected(): void

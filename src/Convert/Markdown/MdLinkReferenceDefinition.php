@@ -32,6 +32,5 @@ final readonly class MdLinkReferenceDefinition
         public string $normalizedLabel,
         public string $url,
         public ?string $title,
-    ) {
-    }
+    ) {}
 }

@@ -29,8 +29,7 @@ final readonly class DirectiveRenderContext
      */
     public function __construct(
         private \Closure $bodyRenderer,
-    ) {
-    }
+    ) {}
 
     public function renderBody(Directive $directive): string
     {

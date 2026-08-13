@@ -46,8 +46,7 @@ final readonly class MarkdownInlineParser
      */
     public function __construct(
         private array $definitions = [],
-    ) {
-    }
+    ) {}
 
     public static function normalizeLabel(string $label): string
     {
@@ -285,7 +284,7 @@ final readonly class MarkdownInlineParser
             $last = $list[$lastIndex];
 
             if ($last instanceof MdText) {
-                $list[$lastIndex] = new MdText($last->span()->union($node->span()), $last->text.$node->text);
+                $list[$lastIndex] = new MdText($last->span()->union($node->span()), $last->text . $node->text);
 
                 return;
             }
@@ -399,7 +398,7 @@ final readonly class MarkdownInlineParser
             $email = $m[1];
             $end = $pos + \strlen($m[0]);
             $textNode = new MdText(ByteSpan::between($baseOffset + $pos + 1, $baseOffset + $end - 1), $email);
-            $link = new MdLink(ByteSpan::between($baseOffset + $pos, $baseOffset + $end), [$textNode], 'mailto:'.$email, null, MdLinkStyle::Inline);
+            $link = new MdLink(ByteSpan::between($baseOffset + $pos, $baseOffset + $end), [$textNode], 'mailto:' . $email, null, MdLinkStyle::Inline);
 
             return ['item' => MarkdownInlineItem::ofNode($link, $baseOffset + $pos, $baseOffset + $end), 'next' => $end];
         }

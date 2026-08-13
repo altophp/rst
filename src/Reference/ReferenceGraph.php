@@ -130,7 +130,7 @@ final readonly class ReferenceGraph
 
         return array_values(array_filter(
             $this->definitions,
-            static fn (ReferenceDefinition $definition): bool => $kind === $definition->kind,
+            static fn(ReferenceDefinition $definition): bool => $kind === $definition->kind,
         ));
     }
 
@@ -145,7 +145,7 @@ final readonly class ReferenceGraph
 
         return array_values(array_filter(
             $this->references,
-            static fn (ReferenceOccurrence $reference): bool => $type === $reference->type,
+            static fn(ReferenceOccurrence $reference): bool => $type === $reference->type,
         ));
     }
 
@@ -156,7 +156,7 @@ final readonly class ReferenceGraph
     {
         return array_values(array_filter(
             $this->references,
-            static fn (ReferenceOccurrence $reference): bool => ReferenceStatus::Resolved !== $reference->status,
+            static fn(ReferenceOccurrence $reference): bool => ReferenceStatus::Resolved !== $reference->status,
         ));
     }
 
@@ -259,7 +259,7 @@ final readonly class ReferenceGraph
     {
         return array_values(array_filter(
             $this->definitions,
-            fn (ReferenceDefinition $definition): bool => [] === $this->incoming($definition),
+            fn(ReferenceDefinition $definition): bool => [] === $this->incoming($definition),
         ));
     }
 
@@ -303,17 +303,17 @@ final readonly class ReferenceGraph
 
     public static function spanKey(ByteSpan $span): string
     {
-        return $span->start.':'.$span->length;
+        return $span->start . ':' . $span->length;
     }
 
     public static function inlineKey(Text $text, bool $perSegment): string
     {
-        return ($perSegment ? 'segments:' : 'contiguous:').self::spanKey($text->span());
+        return ($perSegment ? 'segments:' : 'contiguous:') . self::spanKey($text->span());
     }
 
     public static function directiveInlineKey(Directive $directive): string
     {
-        return 'directive:'.self::spanKey($directive->span());
+        return 'directive:' . self::spanKey($directive->span());
     }
 
     private static function definitionKey(ReferenceDefinition $definition): string
@@ -325,7 +325,7 @@ final readonly class ReferenceGraph
             default => ReferenceType::Hyperlink->value,
         };
 
-        return $family.':'.$definition->normalizedName;
+        return $family . ':' . $definition->normalizedName;
     }
 
     private static function referenceKey(ReferenceOccurrence $reference): string
@@ -335,7 +335,7 @@ final readonly class ReferenceGraph
             default => $reference->type->value,
         };
 
-        return $family.':'.$reference->normalizedLabel;
+        return $family . ':' . $reference->normalizedLabel;
     }
 
     /**
@@ -354,7 +354,7 @@ final readonly class ReferenceGraph
                 $node instanceof StandaloneHyperlink => $node->uri,
                 $node instanceof InlineTarget => $node->name,
                 $node instanceof FootnoteReference,
-                $node instanceof CitationReference => '['.$node->label.']',
+                $node instanceof CitationReference => '[' . $node->label . ']',
                 $node instanceof SubstitutionReference => $this->substitutionText($node),
                 $node instanceof Emphasis,
                 $node instanceof Strong => $this->plainText($node->children()),
@@ -370,7 +370,7 @@ final readonly class ReferenceGraph
         $reference = $this->referenceAt($node->span(), ReferenceType::Substitution);
 
         if (null === $reference || null === $reference->target || null === $reference->target->destination) {
-            return '|'.$node->name.'|';
+            return '|' . $node->name . '|';
         }
 
         return $reference->target->destination;

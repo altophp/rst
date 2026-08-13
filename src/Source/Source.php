@@ -40,8 +40,7 @@ final readonly class Source implements \IteratorAggregate
         public string $bytes,
         private array $lines,
         private bool $bom,
-    ) {
-    }
+    ) {}
 
     public static function fromString(string $bytes): self
     {

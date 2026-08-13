@@ -29,8 +29,7 @@ final readonly class ExternalLinkDestination
     public function __construct(
         public string $url,
         public ByteSpan $span,
-    ) {
-    }
+    ) {}
 
     /**
      * Includes explicit definitions and inline embedded destinations once.

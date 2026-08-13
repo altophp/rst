@@ -31,7 +31,7 @@ final readonly class ProblemFormatter
         $text = '';
 
         foreach ($report as $problem) {
-            $text .= $this->formatProblem($problem)."\n";
+            $text .= $this->formatProblem($problem) . "\n";
         }
 
         return $text;

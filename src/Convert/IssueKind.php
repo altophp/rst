@@ -25,12 +25,18 @@ namespace Alto\Rst\Convert;
  */
 enum IssueKind: string
 {
-    /** No supported target equivalent was emitted; a placeholder may remain. */
+    /**
+     * No supported target equivalent was emitted; a placeholder may remain.
+     */
     case Unsupported = 'unsupported';
 
-    /** Something was emitted, but information was dropped. */
+    /**
+     * Something was emitted, but information was dropped.
+     */
     case Lossy = 'lossy';
 
-    /** Something equivalent enough was emitted in a neighbouring construct. */
+    /**
+     * Something equivalent enough was emitted in a neighbouring construct.
+     */
     case Approximated = 'approximated';
 }

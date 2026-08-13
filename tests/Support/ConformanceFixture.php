@@ -23,15 +23,14 @@ final readonly class ConformanceFixture
         public string $name,
         public string $rstPath,
         public string $pseudoXmlPath,
-    ) {
-    }
+    ) {}
 
     /**
      * Stable identifier, "family/name", usable as a data provider key.
      */
     public function id(): string
     {
-        return $this->family.'/'.$this->name;
+        return $this->family . '/' . $this->name;
     }
 
     public function rst(): string

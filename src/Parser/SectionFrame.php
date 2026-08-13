@@ -39,8 +39,7 @@ final class SectionFrame
         public readonly int $start,
         public int $end,
         public readonly bool $styleAccepted = true,
-    ) {
-    }
+    ) {}
 
     public function append(Node $node): void
     {

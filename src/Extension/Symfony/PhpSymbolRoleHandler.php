@@ -33,8 +33,7 @@ final readonly class PhpSymbolRoleHandler implements RoleHandler
 {
     public function __construct(
         private string $roleName,
-    ) {
-    }
+    ) {}
 
     public function name(): string
     {
@@ -49,7 +48,7 @@ final readonly class PhpSymbolRoleHandler implements RoleHandler
     ): string {
         [$title] = self::roleParts($role->text);
 
-        return '<code>'.htmlspecialchars($title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8').'</code>';
+        return '<code>' . htmlspecialchars($title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</code>';
     }
 
     public function convertToMarkdown(
@@ -63,7 +62,7 @@ final readonly class PhpSymbolRoleHandler implements RoleHandler
 
         if (null !== $target) {
             $issues[] = ConversionIssue::lossy(
-                'role:'.$this->roleName,
+                'role:' . $this->roleName,
                 sprintf(
                     'PHP symbol target "%s" was dropped; visible title "%s" was preserved.',
                     $target,
@@ -102,6 +101,6 @@ final readonly class PhpSymbolRoleHandler implements RoleHandler
         $pad = str_starts_with($text, '`') || str_ends_with($text, '`')
             || str_starts_with($text, ' ') || str_ends_with($text, ' ') ? ' ' : '';
 
-        return $delimiter.$pad.$text.$pad.$delimiter;
+        return $delimiter . $pad . $text . $pad . $delimiter;
     }
 }

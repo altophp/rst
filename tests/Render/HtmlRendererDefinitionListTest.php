@@ -29,8 +29,8 @@ final class HtmlRendererDefinitionListTest extends TestCase
 
         self::assertSame(
             "<dl>\n<dt>term <em>one</em> <span class=\"classifier-delimiter\">:</span> "
-            ."<span class=\"classifier\">kind</span></dt>\n"
-            ."<dd>\n<p>body <strong>strong</strong></p>\n</dd>\n</dl>\n",
+            . "<span class=\"classifier\">kind</span></dt>\n"
+            . "<dd>\n<p>body <strong>strong</strong></p>\n</dd>\n</dl>\n",
             new HtmlRenderer()->render($document, $source),
         );
     }

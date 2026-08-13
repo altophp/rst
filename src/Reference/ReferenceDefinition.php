@@ -33,6 +33,5 @@ final readonly class ReferenceDefinition
         public ?ByteSpan $destinationSpan = null,
         public ?SubstitutionKind $substitutionKind = null,
         public ?string $substitutionAlt = null,
-    ) {
-    }
+    ) {}
 }

@@ -29,8 +29,7 @@ final readonly class LintContext
         public Document $document,
         public Source $source,
         public ReferenceGraph $references,
-    ) {
-    }
+    ) {}
 
     /**
      * Walks typed inline nodes from the graph's existing inline cache.

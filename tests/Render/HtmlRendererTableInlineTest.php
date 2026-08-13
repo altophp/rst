@@ -64,11 +64,11 @@ final class HtmlRendererTableInlineTest extends TestCase
     {
         $html = self::render(
             "+-----+-----+\n"
-            ."| A   | B   |\n"
-            ."+=====+=====+\n"
-            ."| one | two |\n"
-            ."| x   | y   |\n"
-            ."+-----+-----+\n",
+            . "| A   | B   |\n"
+            . "+=====+=====+\n"
+            . "| one | two |\n"
+            . "| x   | y   |\n"
+            . "+-----+-----+\n",
         );
 
         self::assertStringContainsString("<td>\n<p>one x</p>\n</td>", $html);

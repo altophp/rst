@@ -274,7 +274,7 @@ final class MarkdownReaderLinkTest extends MarkdownReaderTestCase
 
     public function testBalancedParenthesesInABareUrlDestination(): void
     {
-        $link = self::firstInline('[text](url(nested))'."\n");
+        $link = self::firstInline('[text](url(nested))' . "\n");
         self::assertSame('url(nested)', $link->url);
     }
 

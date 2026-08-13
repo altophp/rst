@@ -60,10 +60,10 @@ final class FormatterTest extends TestCase
             self::markTestSkipped('Unicode display width requires mbstring.');
         }
 
-        $source = $title."\n==========\n";
+        $source = $title . "\n==========\n";
         $result = new Formatter()->format($source, new FormatOptions(bulletMarker: null));
 
-        self::assertSame($title."\n".str_repeat('=', $columns)."\n", $result->bytes);
+        self::assertSame($title . "\n" . str_repeat('=', $columns) . "\n", $result->bytes);
         self::assertSame(0, $result->skippedSectionTitles);
     }
 
@@ -146,7 +146,7 @@ final class FormatterTest extends TestCase
 
     public function testWrapsSimpleParagraphsOnlyWhenRequested(): void
     {
-        $source = 'This paragraph contains enough ordinary prose to exceed the deliberately short configured line width.'."\n";
+        $source = 'This paragraph contains enough ordinary prose to exceed the deliberately short configured line width.' . "\n";
         $formatter = new Formatter();
 
         $default = $formatter->format(
@@ -165,8 +165,8 @@ final class FormatterTest extends TestCase
         self::assertSame($source, $default->bytes);
         self::assertSame(
             "This paragraph contains enough ordinary\n"
-            ."prose to exceed the deliberately short\n"
-            ."configured line width.\n",
+            . "prose to exceed the deliberately short\n"
+            . "configured line width.\n",
             $wrapped->bytes,
         );
         self::assertCount(1, $wrapped->patches);

@@ -108,7 +108,7 @@ final class ProjectConversionResultTest extends TestCase
     ): ProjectFileConversion {
         return new ProjectFileConversion(
             $sourcePath,
-            substr($sourcePath, 0, -4).'.md',
+            substr($sourcePath, 0, -4) . '.md',
             new ConversionResult('', new ConversionReport($issues)),
             $parseProblems ?? new ProblemReport(),
             $referenceProblems ?? new ProblemReport(),
@@ -123,7 +123,7 @@ final class ProjectConversionResultTest extends TestCase
     private function paths(array $files): array
     {
         return array_map(
-            static fn (ProjectFileConversion $file): string => $file->sourcePath,
+            static fn(ProjectFileConversion $file): string => $file->sourcePath,
             $files,
         );
     }

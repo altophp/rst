@@ -27,6 +27,5 @@ final readonly class ProjectReferenceResolution
         public ?string $targetPath,
         public ?ReferenceDefinition $target,
         public ?string $displayLabel,
-    ) {
-    }
+    ) {}
 }

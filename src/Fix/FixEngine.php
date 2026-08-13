@@ -206,7 +206,7 @@ final readonly class FixEngine
                     continue;
                 }
 
-                $patches[] = new SourcePatch($inline->span(), '`'.$sourceText.'`');
+                $patches[] = new SourcePatch($inline->span(), '`' . $sourceText . '`');
             }
         }
 

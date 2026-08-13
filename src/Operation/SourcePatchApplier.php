@@ -47,7 +47,7 @@ final class SourcePatchApplier
             $cursor = $patch->span->start + $patch->span->length;
         }
 
-        return new PatchResult($bytes.substr($source, $cursor), $patches);
+        return new PatchResult($bytes . substr($source, $cursor), $patches);
     }
 
     /**

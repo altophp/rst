@@ -35,7 +35,7 @@ final class MarkdownRobustnessTest extends TestCase
             "[[[[[[\n",
             "[text](\n",
             "```\nno closing fence",
-            str_repeat('`', 128)."\n",
+            str_repeat('`', 128) . "\n",
             "a\0b\n",
             "a\xFFb\n",
         ];
@@ -61,17 +61,17 @@ final class MarkdownRobustnessTest extends TestCase
     private static function mutations(string $input): array
     {
         $length = \strlen($input);
-        $mutations = [$input, '', "\0", "\r", "\n", $input.$input];
+        $mutations = [$input, '', "\0", "\r", "\n", $input . $input];
 
         foreach ([0, intdiv($length, 3), intdiv(2 * $length, 3), $length] as $offset) {
             $mutations[] = substr($input, 0, $offset);
 
             foreach (["\0", "\xFF", "\n", "\r\n", '# ', '> ', '- ', '1. ', '`', '*', '[', ']', '(', ')', '|', '\\'] as $token) {
-                $mutations[] = substr($input, 0, $offset).$token.substr($input, $offset);
+                $mutations[] = substr($input, 0, $offset) . $token . substr($input, $offset);
             }
 
             if ($offset < $length) {
-                $mutations[] = substr($input, 0, $offset).substr($input, $offset + 1);
+                $mutations[] = substr($input, 0, $offset) . substr($input, $offset + 1);
             }
         }
 

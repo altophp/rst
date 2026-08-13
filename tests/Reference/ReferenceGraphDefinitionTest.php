@@ -72,8 +72,8 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $graph = self::graph(
             "Uses |name|.\n\n"
-            .".. |name| replace:: first\n"
-            .".. |name| replace:: second\n",
+            . ".. |name| replace:: first\n"
+            . ".. |name| replace:: second\n",
         );
 
         self::assertSame('second', $graph->references()[0]->target?->destination);
@@ -84,14 +84,14 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $graph = self::graph(
             "See [#]_ then [#]_ and [2]_.\n\n"
-            .".. [#] First auto.\n"
-            .".. [2] Explicit.\n"
-            .".. [#] Second auto.\n",
+            . ".. [#] First auto.\n"
+            . ".. [2] Explicit.\n"
+            . ".. [#] Second auto.\n",
         );
 
         self::assertSame(
             ['1', '3', '2'],
-            array_map(static fn ($reference): ?string => $reference->displayLabel, $graph->references()),
+            array_map(static fn($reference): ?string => $reference->displayLabel, $graph->references()),
         );
     }
 
@@ -114,7 +114,7 @@ final class ReferenceGraphDefinitionTest extends TestCase
 
     public function testSymbolFootnotesUseTheFullDocutilsSequence(): void
     {
-        $source = implode(' ', array_fill(0, 11, '[*]_'))."\n\n";
+        $source = implode(' ', array_fill(0, 11, '[*]_')) . "\n\n";
 
         for ($index = 0; $index < 11; ++$index) {
             $source .= ".. [*] Symbol.\n";
@@ -122,7 +122,7 @@ final class ReferenceGraphDefinitionTest extends TestCase
 
         self::assertSame(
             ['*', "\u{2020}", "\u{2021}", "\u{00A7}", "\u{00B6}", '#', "\u{2660}", "\u{2665}", "\u{2666}", "\u{2663}", '**'],
-            array_map(static fn ($reference): ?string => $reference->displayLabel, self::graph($source)->references()),
+            array_map(static fn($reference): ?string => $reference->displayLabel, self::graph($source)->references()),
         );
     }
 
@@ -130,8 +130,8 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $graph = self::graph(
             ".. |outer| replace:: Before |inner| after\n"
-            .".. |inner| replace:: middle\n\n"
-            ."See |outer|.\n",
+            . ".. |inner| replace:: middle\n\n"
+            . "See |outer|.\n",
         );
         $outer = $graph->references()[1];
 
@@ -143,8 +143,8 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $graph = self::graph(
             ".. |one| replace:: |two|\n"
-            .".. |two| replace:: |one|\n\n"
-            ."See |one|.\n",
+            . ".. |two| replace:: |one|\n\n"
+            . "See |one|.\n",
         );
         $reference = $graph->references()[2];
 
@@ -155,8 +155,8 @@ final class ReferenceGraphDefinitionTest extends TestCase
     public function testReferenceIntroducedBySubstitutionKeepsItsOriginalArgumentSpan(): void
     {
         $source = ".. |site| replace:: `Example`_\n"
-            .".. _Example: https://example.com/\n\n"
-            ."Visit |site|.\n";
+            . ".. _Example: https://example.com/\n\n"
+            . "Visit |site|.\n";
         $graph = self::graph($source);
         $introduced = $graph->references()[0];
 
@@ -170,7 +170,7 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $graph = self::graph(
             ".. |safe| replace:: \\|missing| and ``|also-missing|``\n\n"
-            ."Use |safe|.\n",
+            . "Use |safe|.\n",
         );
         $reference = $graph->references(ReferenceType::Substitution)[0];
 
@@ -193,7 +193,7 @@ final class ReferenceGraphDefinitionTest extends TestCase
         self::assertSame(ReferenceStatus::Unresolved, $graph->references(ReferenceType::Substitution)[0]->status);
         self::assertContains(
             'substitution/expansion-limit',
-            array_map(static fn ($problem): string => $problem->code, $graph->problems()->problems()),
+            array_map(static fn($problem): string => $problem->code, $graph->problems()->problems()),
         );
     }
 
@@ -201,7 +201,7 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $graph = self::graph(
             ".. |chars| unicode:: U+0041 &#x42; 67 0x20AC U+1F600\n\n"
-            ."Use |chars|.\n",
+            . "Use |chars|.\n",
         );
 
         self::assertSame(
@@ -214,8 +214,8 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $graph = self::graph(
             ".. |chars| unicode:: 0x20 0x41 0x20\n"
-            ."   :trim:\n\n"
-            ."Use |chars|.\n",
+            . "   :trim:\n\n"
+            . "Use |chars|.\n",
         );
 
         self::assertSame('A', $graph->references(ReferenceType::Substitution)[0]->target?->destination);
@@ -243,7 +243,7 @@ final class ReferenceGraphDefinitionTest extends TestCase
 
         self::assertContains(
             'substitution/expansion-limit',
-            array_map(static fn ($problem): string => $problem->code, $graph->problems()->problems()),
+            array_map(static fn($problem): string => $problem->code, $graph->problems()->problems()),
         );
     }
 
@@ -251,8 +251,8 @@ final class ReferenceGraphDefinitionTest extends TestCase
     {
         $source = Source::fromString(
             "See |name|_ and missing_.\n\n"
-            .".. |name| replace:: Name\n"
-            .".. _name: https://example.com/\n",
+            . ".. |name| replace:: Name\n"
+            . ".. _name: https://example.com/\n",
         );
         $document = Rst::docutils()->parse($source->bytes)->document();
         $graph = ReferenceGraph::fromDocument($document, $source, Rst::docutils()->profile());

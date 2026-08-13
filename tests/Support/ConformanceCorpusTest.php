@@ -53,7 +53,7 @@ final class ConformanceCorpusTest extends TestCase
     public function testFixtureIdsAreUnique(): void
     {
         $ids = array_map(
-            static fn (ConformanceFixture $fixture): string => $fixture->id(),
+            static fn(ConformanceFixture $fixture): string => $fixture->id(),
             ConformanceCorpus::default()->fixtures(),
         );
 
@@ -90,6 +90,6 @@ final class ConformanceCorpusTest extends TestCase
     public function testMissingDirectoryIsRejected(): void
     {
         $this->expectException(\RuntimeException::class);
-        ConformanceCorpus::fromDirectory(__DIR__.'/does-not-exist');
+        ConformanceCorpus::fromDirectory(__DIR__ . '/does-not-exist');
     }
 }

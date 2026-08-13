@@ -23,6 +23,5 @@ final readonly class FileContent
     public function __construct(
         public string $path,
         public string $bytes,
-    ) {
-    }
+    ) {}
 }

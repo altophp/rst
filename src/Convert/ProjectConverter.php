@@ -138,7 +138,7 @@ final readonly class ProjectConverter
         $resolved = [];
 
         foreach ($resolvedSpans as $span) {
-            $resolved[$span->start.':'.$span->length] = true;
+            $resolved[$span->start . ':' . $span->length] = true;
         }
 
         return new ProblemReport(...array_values(array_filter(
@@ -148,7 +148,7 @@ final readonly class ProjectConverter
                     return true;
                 }
 
-                return !isset($resolved[$problem->span->start.':'.$problem->span->length]);
+                return !isset($resolved[$problem->span->start . ':' . $problem->span->length]);
             },
         )));
     }
@@ -276,6 +276,6 @@ final readonly class ProjectConverter
 
     private static function targetPath(string $sourcePath): string
     {
-        return substr($sourcePath, 0, -4).'.md';
+        return substr($sourcePath, 0, -4) . '.md';
     }
 }

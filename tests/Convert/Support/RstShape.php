@@ -118,8 +118,8 @@ final class RstShape
             $node instanceof Paragraph => ['p', $this->inline($node->text)],
             $node instanceof LiteralBlock => ['literal', self::normalizeBlock($this->source->slice($node->content))],
             $node instanceof BlockQuote => ['quote', $this->nodes($node->children())],
-            $node instanceof BulletList => ['ul', $node->marker, array_map(fn (ListItem $item): array => $this->nodes($item->children()), $node->children())],
-            $node instanceof EnumeratedList => ['ol', $node->style->value, $node->start, array_map(fn (ListItem $item): array => $this->nodes($item->children()), $node->children())],
+            $node instanceof BulletList => ['ul', $node->marker, array_map(fn(ListItem $item): array => $this->nodes($item->children()), $node->children())],
+            $node instanceof EnumeratedList => ['ol', $node->style->value, $node->start, array_map(fn(ListItem $item): array => $this->nodes($item->children()), $node->children())],
             $node instanceof DefinitionList => ['dl', array_map($this->definitionItem(...), $node->children())],
             $node instanceof Table => ['table', array_map($this->row(...), $node->head), array_map($this->row(...), $node->body)],
             $node instanceof Directive => $this->directive($node),
@@ -256,12 +256,12 @@ final class RstShape
 
         if (null === $url) {
             $sectionTitle = $this->targets->sectionTitleFor($reference->text);
-            $url = null === $sectionTitle ? null : '#'.TargetMap::slug($sectionTitle);
+            $url = null === $sectionTitle ? null : '#' . TargetMap::slug($sectionTitle);
         }
 
         if (null === $url) {
             $anchor = $this->targets->anchorFor($reference->text);
-            $url = null === $anchor ? '?' : '#'.$anchor;
+            $url = null === $anchor ? '?' : '#' . $anchor;
         }
 
         return ['link', self::normalize($reference->text), $url];

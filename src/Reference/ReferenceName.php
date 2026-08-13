@@ -20,9 +20,7 @@ namespace Alto\Rst\Reference;
  */
 final readonly class ReferenceName
 {
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function normalize(string $name): string
     {

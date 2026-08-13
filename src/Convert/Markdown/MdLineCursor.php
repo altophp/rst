@@ -32,8 +32,7 @@ final class MdLineCursor
     public function __construct(
         private readonly array $lines,
         private int $pos = 0,
-    ) {
-    }
+    ) {}
 
     public function peek(int $offset = 0): ?Line
     {

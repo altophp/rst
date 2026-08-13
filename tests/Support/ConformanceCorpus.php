@@ -24,12 +24,11 @@ final readonly class ConformanceCorpus
 {
     private function __construct(
         public string $directory,
-    ) {
-    }
+    ) {}
 
     public static function default(): self
     {
-        return self::fromDirectory(\dirname(__DIR__).'/fixtures/conformance');
+        return self::fromDirectory(\dirname(__DIR__) . '/fixtures/conformance');
     }
 
     public static function fromDirectory(string $directory): self
@@ -46,7 +45,7 @@ final readonly class ConformanceCorpus
      */
     public function docutilsVersion(): string
     {
-        $version = @file_get_contents($this->directory.'/VERSION');
+        $version = @file_get_contents($this->directory . '/VERSION');
         if (false === $version) {
             throw new \RuntimeException(\sprintf('Missing VERSION file in %s', $this->directory));
         }
@@ -66,7 +65,7 @@ final readonly class ConformanceCorpus
 
         $families = [];
         foreach ($entries as $entry) {
-            if ('.' !== $entry[0] && is_dir($this->directory.'/'.$entry)) {
+            if ('.' !== $entry[0] && is_dir($this->directory . '/' . $entry)) {
                 $families[] = $entry;
             }
         }
@@ -91,7 +90,7 @@ final readonly class ConformanceCorpus
                     family: $familyName,
                     name: $name,
                     rstPath: $rstPath,
-                    pseudoXmlPath: $this->directory.'/'.$familyName.'/'.$name.'.pseudoxml',
+                    pseudoXmlPath: $this->directory . '/' . $familyName . '/' . $name . '.pseudoxml',
                 );
             }
         }
@@ -104,12 +103,12 @@ final readonly class ConformanceCorpus
      */
     private function rstFilesIn(string $family): array
     {
-        $directory = $this->directory.'/'.$family;
+        $directory = $this->directory . '/' . $family;
         if (!is_dir($directory)) {
             throw new \RuntimeException(\sprintf('Unknown conformance family "%s" in %s', $family, $this->directory));
         }
 
-        $files = glob($directory.'/*.rst');
+        $files = glob($directory . '/*.rst');
         if (false === $files) {
             throw new \RuntimeException(\sprintf('Unable to list fixtures in %s', $directory));
         }

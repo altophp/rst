@@ -250,7 +250,7 @@ final class ProjectReferenceMap
             $directory = str_contains($sourcePath, '/')
                 ? substr($sourcePath, 0, (int) strrpos($sourcePath, '/'))
                 : '';
-            $candidate = self::canonicalPath(('' === $directory ? '' : $directory.'/').$label);
+            $candidate = self::canonicalPath(('' === $directory ? '' : $directory . '/') . $label);
         }
 
         $targetPath = $this->aliases[$candidate] ?? null;
@@ -320,7 +320,7 @@ final class ProjectReferenceMap
         $matches = $this->sectionLabels[ReferenceName::id($reference->label)] ?? [];
         $localMatches = array_values(array_filter(
             $matches,
-            static fn (array $match): bool => $sourcePath === $match[0],
+            static fn(array $match): bool => $sourcePath === $match[0],
         ));
 
         return $this->resolutionFromMatches(
@@ -398,6 +398,6 @@ final class ProjectReferenceMap
 
     private static function resolutionKey(string $sourcePath, ReferenceOccurrence $reference): string
     {
-        return $sourcePath.':'.ReferenceGraph::spanKey($reference->span);
+        return $sourcePath . ':' . ReferenceGraph::spanKey($reference->span);
     }
 }

@@ -54,8 +54,7 @@ final class BlockDraft
         private readonly ?array $alignments = null,
         private readonly ?array $headerCells = null,
         private readonly ?array $rows = null,
-    ) {
-    }
+    ) {}
 
     /**
      * A block that is already fully resolved: it carries no inline content

@@ -43,7 +43,7 @@ final class ProjectConverterTest extends TestCase
 
         self::assertSame(
             ['guide/start.rst', 'zeta.rst'],
-            array_map(static fn (ProjectFileConversion $file): string => $file->sourcePath, $result->files),
+            array_map(static fn(ProjectFileConversion $file): string => $file->sourcePath, $result->files),
         );
         self::assertSame(['guide/start.md', 'zeta.md'], array_keys($result->outputs()));
         self::assertStringContainsString('[Zeta](../zeta.md)', $result->outputs()['guide/start.md']);
@@ -92,13 +92,13 @@ final class ProjectConverterTest extends TestCase
         $outside = tempnam(sys_get_temp_dir(), 'alto-rst-include-');
         self::assertIsString($outside);
         file_put_contents($outside, "Sensitive outside content.\n");
-        mkdir($root.'/guide');
+        mkdir($root . '/guide');
         file_put_contents(
-            $root.'/index.rst',
-            "Home\n====\n\nSee :doc:`guide/page`.\n\n.. include:: ".$outside."\n",
+            $root . '/index.rst',
+            "Home\n====\n\nSee :doc:`guide/page`.\n\n.. include:: " . $outside . "\n",
         );
-        file_put_contents($root.'/guide/page.rst', "Page\n====\n");
-        file_put_contents($root.'/guide/ignore.txt', "Ignored\n=======\n");
+        file_put_contents($root . '/guide/page.rst', "Page\n====\n");
+        file_put_contents($root . '/guide/ignore.txt', "Ignored\n=======\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory($root, Profile::sphinx());
@@ -106,8 +106,8 @@ final class ProjectConverterTest extends TestCase
             self::assertSame(['guide/page.md', 'index.md'], array_keys($result->outputs()));
             self::assertStringContainsString('[Page](guide/page.md)', $result->outputs()['index.md']);
             self::assertStringNotContainsString('Sensitive outside content.', $result->outputs()['index.md']);
-            self::assertFileDoesNotExist($root.'/index.md');
-            self::assertFileDoesNotExist($root.'/guide/page.md');
+            self::assertFileDoesNotExist($root . '/index.md');
+            self::assertFileDoesNotExist($root . '/guide/page.md');
         } finally {
             unlink($outside);
             $this->removeDirectory($root);
@@ -117,9 +117,9 @@ final class ProjectConverterTest extends TestCase
     public function testExplicitRootedPolicyExpandsAnIncludeWithoutCreatingAnOutputFile(): void
     {
         $root = $this->tempDirectory();
-        mkdir($root.'/_includes');
-        file_put_contents($root.'/index.rst', ".. include:: /_includes/shared.rst.inc\n");
-        file_put_contents($root.'/_includes/shared.rst.inc', "Shared *content*.\n");
+        mkdir($root . '/_includes');
+        file_put_contents($root . '/index.rst', ".. include:: /_includes/shared.rst.inc\n");
+        file_put_contents($root . '/_includes/shared.rst.inc', "Shared *content*.\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -142,11 +142,11 @@ final class ProjectConverterTest extends TestCase
     public function testIncludedReferencesResolveRelativeToTheOwningDocument(): void
     {
         $root = $this->tempDirectory();
-        mkdir($root.'/guide');
-        mkdir($root.'/fragments');
-        file_put_contents($root.'/guide/index.rst', ".. include:: ../fragments/shared.rst.inc\n");
-        file_put_contents($root.'/guide/target.rst', "Target\n======\n");
-        file_put_contents($root.'/fragments/shared.rst.inc', "See :doc:`target`.\n");
+        mkdir($root . '/guide');
+        mkdir($root . '/fragments');
+        file_put_contents($root . '/guide/index.rst', ".. include:: ../fragments/shared.rst.inc\n");
+        file_put_contents($root . '/guide/target.rst', "Target\n======\n");
+        file_put_contents($root . '/fragments/shared.rst.inc', "See :doc:`target`.\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -210,7 +210,7 @@ final class ProjectConverterTest extends TestCase
     {
         $result = new ProjectConverter()->convertSources([
             'index.rst' => ".. raw:: html\n\n"
-                ."    <object data=\"diagram.svg\" type=\"image/svg+xml\"></object>\n",
+                . "    <object data=\"diagram.svg\" type=\"image/svg+xml\"></object>\n",
         ], Profile::symfony(), ConversionOptions::symfony(allowRawHtml: true));
 
         self::assertSame(
@@ -235,7 +235,7 @@ final class ProjectConverterTest extends TestCase
     public function testRootedFilePolicyDoesNotAuthorizeRawHtml(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/index.rst', ".. raw:: html\n\n    <strong>unsafe</strong>\n");
+        file_put_contents($root . '/index.rst', ".. raw:: html\n\n    <strong>unsafe</strong>\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -313,8 +313,8 @@ final class ProjectConverterTest extends TestCase
     public function testExplicitPolicyReportsAnIncludeCycle(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/index.rst', ".. include:: loop.rst.inc\n");
-        file_put_contents($root.'/loop.rst.inc', ".. include:: index.rst\n");
+        file_put_contents($root . '/index.rst', ".. include:: loop.rst.inc\n");
+        file_put_contents($root . '/loop.rst.inc', ".. include:: index.rst\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -334,9 +334,9 @@ final class ProjectConverterTest extends TestCase
     public function testNestedDirectiveKeepsItsIncludeCycleContext(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/index.rst', ".. include:: fragment.rst.inc\n");
+        file_put_contents($root . '/index.rst', ".. include:: fragment.rst.inc\n");
         file_put_contents(
-            $root.'/fragment.rst.inc',
+            $root . '/fragment.rst.inc',
             ".. note::\n\n    .. include:: index.rst\n",
         );
 
@@ -357,9 +357,9 @@ final class ProjectConverterTest extends TestCase
     public function testConfigurationBlockKeepsItsIncludeCycleContext(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/index.rst', ".. include:: fragment.rst.inc\n");
+        file_put_contents($root . '/index.rst', ".. include:: fragment.rst.inc\n");
         file_put_contents(
-            $root.'/fragment.rst.inc',
+            $root . '/fragment.rst.inc',
             ".. configuration-block::\n\n    .. include:: index.rst\n",
         );
 
@@ -387,19 +387,19 @@ final class ProjectConverterTest extends TestCase
     {
         $root = $this->tempDirectory();
         file_put_contents(
-            $root.'/index.rst',
+            $root . '/index.rst',
             ".. include:: a.rst.inc\n\n.. include:: b.rst.inc\n",
         );
         file_put_contents(
-            $root.'/a.rst.inc',
+            $root . '/a.rst.inc',
             "See [1]_ and [CIT]_.\n\n.. [1] First note.\n.. [CIT] First citation.\n",
         );
         file_put_contents(
-            $root.'/b.rst.inc',
+            $root . '/b.rst.inc',
             "See [1]_ and [CIT]_.\n\n.. [1] Second note.\n.. [CIT] Second citation.\n",
         );
-        $aPrefix = 'a-rst-inc-'.substr(hash('sha256', 'a.rst.inc'), 0, 8);
-        $bPrefix = 'b-rst-inc-'.substr(hash('sha256', 'b.rst.inc'), 0, 8);
+        $aPrefix = 'a-rst-inc-' . substr(hash('sha256', 'a.rst.inc'), 0, 8);
+        $bPrefix = 'b-rst-inc-' . substr(hash('sha256', 'b.rst.inc'), 0, 8);
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -426,9 +426,9 @@ final class ProjectConverterTest extends TestCase
     public function testExplicitPolicyReportsTheIncludeDepthLimit(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/index.rst', ".. include:: first.rst.inc\n");
-        file_put_contents($root.'/first.rst.inc', ".. include:: second.rst.inc\n");
-        file_put_contents($root.'/second.rst.inc', "Never reached.\n");
+        file_put_contents($root . '/index.rst', ".. include:: first.rst.inc\n");
+        file_put_contents($root . '/first.rst.inc', ".. include:: second.rst.inc\n");
+        file_put_contents($root . '/second.rst.inc', "Never reached.\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -448,8 +448,8 @@ final class ProjectConverterTest extends TestCase
     public function testExplicitPolicyReportsParserErrorsFromAnIncludedFile(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/index.rst', ".. include:: broken.rst.inc\n");
-        file_put_contents($root.'/broken.rst.inc', "=======\nBroken\n------\n");
+        file_put_contents($root . '/index.rst', ".. include:: broken.rst.inc\n");
+        file_put_contents($root . '/broken.rst.inc', "=======\nBroken\n------\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -474,11 +474,11 @@ final class ProjectConverterTest extends TestCase
     {
         $root = $this->tempDirectory();
         file_put_contents(
-            $root.'/index.rst',
+            $root . '/index.rst',
             ".. include:: shared.rst.inc\n"
-            ."    :start-line: 2\n",
+            . "    :start-line: 2\n",
         );
-        file_put_contents($root.'/shared.rst.inc', "first\nsecond\n");
+        file_put_contents($root . '/shared.rst.inc', "first\nsecond\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -498,7 +498,7 @@ final class ProjectConverterTest extends TestCase
     public function testExplicitPolicyReportsAMissingIncludedFile(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/index.rst', ".. include:: missing.rst.inc\n");
+        file_put_contents($root . '/index.rst', ".. include:: missing.rst.inc\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory(
@@ -547,7 +547,7 @@ final class ProjectConverterTest extends TestCase
     public function testDirectoryDiscoveryPreservesLeadingSpacesAndUnicodeFilenames(): void
     {
         $root = $this->tempDirectory();
-        file_put_contents($root.'/ étonné.rst', "Étonné\n======\n");
+        file_put_contents($root . '/ étonné.rst', "Étonné\n======\n");
 
         try {
             $result = new ProjectConverter()->convertDirectory($root);
@@ -565,7 +565,7 @@ final class ProjectConverterTest extends TestCase
         $outside = tempnam(sys_get_temp_dir(), 'alto-rst-outside-');
         self::assertIsString($outside);
         file_put_contents($outside, "Outside\n=======\n");
-        $link = $root.'/outside.rst';
+        $link = $root . '/outside.rst';
 
         if (!@symlink($outside, $link)) {
             unlink($outside);
@@ -607,7 +607,7 @@ final class ProjectConverterTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('is not a readable directory');
 
-        new ProjectConverter()->convertDirectory(sys_get_temp_dir().'/alto-rst-missing-'.bin2hex(random_bytes(4)));
+        new ProjectConverter()->convertDirectory(sys_get_temp_dir() . '/alto-rst-missing-' . bin2hex(random_bytes(4)));
     }
 
     public function testRejectsAbsoluteNonRstAndDuplicateCanonicalPaths(): void
@@ -644,7 +644,7 @@ final class ProjectConverterTest extends TestCase
 
     private function tempDirectory(): string
     {
-        $path = sys_get_temp_dir().'/alto-rst-project-'.bin2hex(random_bytes(8));
+        $path = sys_get_temp_dir() . '/alto-rst-project-' . bin2hex(random_bytes(8));
         mkdir($path);
 
         return $path;

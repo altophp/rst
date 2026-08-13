@@ -1,12 +1,14 @@
-# Alto Rst
+# ALTO RST
 
-Alto Rst parses reStructuredText into the ROM, a source-positioned object
+ALTO RST parses reStructuredText into the ROM, a source-positioned object
 model you can lint, format, edit, and convert to safe HTML, preserving
 everything you don't touch.
 
-[![CI](https://github.com/altophp/rst/actions/workflows/CI.yml/badge.svg)](https://github.com/altophp/rst/actions/workflows/CI.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![PHP](https://img.shields.io/badge/php-%3E%3D8.4-777bb4.svg)](composer.json)
+&nbsp; ![PHP Version](https://img.shields.io/badge/PHP-8.4%2B-00B7FF?logoColor=00B7FF&labelColor=050608)
+&nbsp; ![CI](https://img.shields.io/github/actions/workflow/status/altophp/rst/CI.yml?branch=main&label=Tests&labelColor=050608&color=00B7FF)
+&nbsp; [![Packagist](https://img.shields.io/packagist/v/alto/rst?label=Packagist&labelColor=050608&color=00B7FF)](https://packagist.org/packages/alto/rst)
+&nbsp; ![License](https://img.shields.io/github/license/altophp/rst?label=License&labelColor=050608&color=00B7FF)
+&nbsp; [![GitHub Sponsors](https://img.shields.io/github/sponsors/smnandre?logo=githubsponsors&logoColor=00B7FF&label=%20Sponsor&labelColor=050608&color=00B7FF)](https://github.com/sponsors/smnandre)
 
 The core has no runtime Composer dependencies. It supports docutils RST,
 Sphinx syntax, and the conventions used by Symfony documentation. Trusted
@@ -28,13 +30,15 @@ The full guide set lives under [`docs/`](docs/index.md).
 
 ## Installation
 
+Install ALTO RST with Composer:
+
 ```bash
 composer require alto/rst
 ```
 
-Requires PHP 8.4 or newer. No Python or Sphinx process is involved at runtime.
+ALTO RST requires PHP 8.4 or later. No Python or Sphinx process is involved at runtime.
 
-## Render to HTML
+## Quick Start
 
 ```php
 use Alto\Rst\Rst;
@@ -61,8 +65,8 @@ Rst::sphinx();
 Rst::symfony();
 ```
 
-See [Installation](docs/install.md), [Parse and
-render](docs/parse-and-render.md), and [Security](docs/security.md) for
+See [Installation](docs/installation.md), [Parsing](docs/parsing/index.md),
+[Rendering](docs/rendering/index.md), and [Security](docs/security.md) for
 setup, profile, and rendering policies.
 
 ## Parse a document when you need more
@@ -103,18 +107,18 @@ Resolved footnotes, citations, and substitutions have explicit Markdown
 mappings, including collision-safe anchors across expanded include files.
 Code fence language names such as `html+twig` remain unchanged.
 
-The documentation covers this in more depth: [Lint RST](docs/lint.md) to run
-and configure the recommended rules, [Convert documents](docs/convert.md) to
-convert individual documents or complete projects between RST and Markdown,
-and [Fix, format, and edit](docs/writing.md) for conservative fixes,
+The documentation covers this in more depth: [Linting](docs/linting/index.md)
+to run and configure the recommended rules, [Conversion](docs/conversion/index.md)
+to convert individual documents or complete projects between RST and Markdown,
+and [Editing](docs/editing/index.md) for conservative fixes,
 formatting, typed edits, diffs, and conflict-safe file persistence.
 
 ## Extend
 
 Trusted extensions add directives, roles, lint rules, fixes, formatter
 passes, statistics, and conversion mappings through compiled profile
-contracts. Read [Extensions](docs/extensions.md) for the extension contracts
-and [Reference graph](docs/references.md) for how local and project-wide
+contracts. Read [Extensions](docs/extensions/index.md) for the extension contracts
+and [Reference](docs/reference/index.md) for how local and project-wide
 targets, links, notes, citations, and substitutions resolve.
 
 ## Documentation
@@ -123,13 +127,23 @@ targets, links, notes, citations, and substitutions resolve.
 - [Security](docs/security.md): control URLs, raw HTML, includes, and other
   file-reading constructs.
 
-## Development
+## Contributing
+
+Contributions of all kinds are welcome. Visit the
+[project on GitHub](https://github.com/altophp/rst) to
+[report a bug](https://github.com/altophp/rst/issues/new),
+[suggest a feature](https://github.com/altophp/rst/issues/new), or
+[open a pull request](https://github.com/altophp/rst/pulls).
+
+Before submitting code, run:
 
 ```bash
-composer qa        # phpstan (max), php-cs-fixer, phpunit
-composer tests     # phpunit only
-composer coverage  # phpunit with a 97% line-coverage floor
+# Runs PHP CS Fixer, PHPStan, and PHPUnit
+composer qa
 ```
+
+Changes to public behavior should include tests and documentation. Run
+`composer coverage` separately to enforce the 97% line-coverage floor.
 
 The suite runs against a pinned docutils 0.23 fixture corpus committed to the
 repository. No Python or Sphinx process is involved, at runtime or at test time.
@@ -137,6 +151,16 @@ repository. No Python or Sphinx process is involved, at runtime or at test time.
 Set `ALTO_RST_UX_CORPUS` to a Symfony UX checkout to also run the corpus
 conversion tests; they skip when it is unset.
 
+## Support
+
+ALTO RST is open source. You can support its continued development through
+[GitHub Sponsors](https://github.com/sponsors/smnandre).
+
+Sharing this package with others or
+[starring it on GitHub](https://github.com/altophp/rst) is also much
+appreciated.
+
 ## License
 
-Alto Rst is available under the [MIT License](LICENSE).
+ALTO RST is released by [ALTO PHP](https://altophp.com) under the
+[MIT License](LICENSE).

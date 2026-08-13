@@ -205,26 +205,26 @@ final class HtmlRendererLinkTest extends TestCase
     {
         self::assertSame(
             '<p>See <a href="https://example.com/final">named</a>, '
-            .'<a href="https://example.com/final">embedded</a>, '
-            .'<a href="https://example.com/direct">direct</a>, '
-            ."<a href=\"#inside\">inside</a>, and missing.</p>\n"
-            ."<p><a href=\"https://example.com/anonymous\">anonymous</a></p>\n"
-            ."<p><a href=\"https://example.com/final\">alias anonymous</a></p>\n"
-            ."<p>orphan</p>\n"
-            ."<span id=\"inside\"></span>\n"
-            ."<p>Destination.</p>\n",
+            . '<a href="https://example.com/final">embedded</a>, '
+            . '<a href="https://example.com/direct">direct</a>, '
+            . "<a href=\"#inside\">inside</a>, and missing.</p>\n"
+            . "<p><a href=\"https://example.com/anonymous\">anonymous</a></p>\n"
+            . "<p><a href=\"https://example.com/final\">alias anonymous</a></p>\n"
+            . "<p>orphan</p>\n"
+            . "<span id=\"inside\"></span>\n"
+            . "<p>Destination.</p>\n",
             self::renderWithoutGraph(
                 'See named_, `embedded <alias_>`_, '
-                ."`direct <https://example.com/direct>`_, inside_, and missing_.\n\n"
-                ."`anonymous`__\n\n"
-                ."`alias anonymous`__\n\n"
-                ."`orphan`__\n\n"
-                .".. _named: `alias`_\n"
-                .".. _alias: https://example.com/final\n"
-                .".. _inside:\n"
-                .".. __: https://example.com/anonymous\n"
-                .".. __: alias_\n\n"
-                ."Destination.\n",
+                . "`direct <https://example.com/direct>`_, inside_, and missing_.\n\n"
+                . "`anonymous`__\n\n"
+                . "`alias anonymous`__\n\n"
+                . "`orphan`__\n\n"
+                . ".. _named: `alias`_\n"
+                . ".. _alias: https://example.com/final\n"
+                . ".. _inside:\n"
+                . ".. __: https://example.com/anonymous\n"
+                . ".. __: alias_\n\n"
+                . "Destination.\n",
             ),
         );
     }
@@ -235,7 +235,7 @@ final class HtmlRendererLinkTest extends TestCase
             "<p>Title and |name|.</p>\n",
             self::renderWithoutGraph(
                 ":ref:`Title <target>` and |name|.\n\n"
-                .".. |name| replace:: replacement\n",
+                . ".. |name| replace:: replacement\n",
                 Profile::symfony(),
             ),
         );
@@ -252,9 +252,9 @@ final class HtmlRendererLinkTest extends TestCase
             "<p>a and <a href=\"\">unsafe</a></p>\n",
             self::renderWithoutGraph(
                 "a_ and unsafe_\n\n"
-                .".. _a: b_\n"
-                .".. _b: a_\n"
-                .".. _unsafe: javascript:alert(1)\n",
+                . ".. _a: b_\n"
+                . ".. _b: a_\n"
+                . ".. _unsafe: javascript:alert(1)\n",
             ),
         );
     }

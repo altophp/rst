@@ -71,8 +71,7 @@ final class TargetMap
 
     private function __construct(
         private readonly ?self $parent,
-    ) {
-    }
+    ) {}
 
     public static function fromDocument(
         Document $document,
@@ -314,7 +313,7 @@ final class TargetMap
         }
 
         if (isset($this->sectionTitles[$reference])) {
-            return '#'.self::slug($this->sectionTitles[$reference]);
+            return '#' . self::slug($this->sectionTitles[$reference]);
         }
 
         return $this->parent?->urlFor($reference);

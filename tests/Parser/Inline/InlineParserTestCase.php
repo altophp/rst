@@ -66,7 +66,7 @@ abstract class InlineParserTestCase extends TestCase
     protected static function problemCodes(string $text): array
     {
         return array_map(
-            static fn (Problem $problem): string => $problem->code,
+            static fn(Problem $problem): string => $problem->code,
             self::parseProblems($text),
         );
     }
@@ -139,13 +139,13 @@ abstract class InlineParserTestCase extends TestCase
             $node instanceof HyperlinkReference => \sprintf(
                 'reference(%s%s%s%s)',
                 $node->text,
-                null === $node->embeddedUri ? '' : ',uri='.$node->embeddedUri,
+                null === $node->embeddedUri ? '' : ',uri=' . $node->embeddedUri,
                 $node->anonymous ? ',anonymous' : '',
                 $node->simple ? ',simple' : '',
             ),
             $node instanceof StandaloneHyperlink => \sprintf('standalone(%s)', $node->uri),
             $node instanceof InlineTarget => \sprintf('target(%s)', $node->name),
-            default => throw new \LogicException($node::class.' is not an inline node.'),
+            default => throw new \LogicException($node::class . ' is not an inline node.'),
         };
     }
 

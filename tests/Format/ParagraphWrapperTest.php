@@ -37,7 +37,7 @@ final class ParagraphWrapperTest extends TestCase
 {
     public function testWrapsAnOverlongTopLevelParagraphAtEightyCharacters(): void
     {
-        $source = 'This paragraph contains enough ordinary prose to exceed the default line width while remaining easy to wrap safely.'."\n";
+        $source = 'This paragraph contains enough ordinary prose to exceed the default line width while remaining easy to wrap safely.' . "\n";
         $patches = self::patches($source);
 
         self::assertCount(1, $patches);
@@ -56,15 +56,15 @@ final class ParagraphWrapperTest extends TestCase
     #[DataProvider('lineEndings')]
     public function testPreservesTheSourceLineEnding(string $eol): void
     {
-        $source = 'One two three four five six seven eight nine ten.'.$eol;
+        $source = 'One two three four five six seven eight nine ten.' . $eol;
         $patches = self::patches($source, 20);
 
         self::assertCount(1, $patches);
         self::assertSame(
-            'One two three four'.$eol.'five six seven eight'.$eol.'nine ten.',
+            'One two three four' . $eol . 'five six seven eight' . $eol . 'nine ten.',
             $patches[0]->replacement,
         );
-        self::assertSame($patches[0]->replacement.$eol, new SourcePatchApplier()->apply($source, $patches)->bytes);
+        self::assertSame($patches[0]->replacement . $eol, new SourcePatchApplier()->apply($source, $patches)->bytes);
     }
 
     /**
@@ -176,17 +176,17 @@ final class ParagraphWrapperTest extends TestCase
     #[DataProvider('lineEndings')]
     public function testWrapsASimpleAdmonitionBody(string $eol): void
     {
-        $source = '.. note::'.$eol.$eol
-            .'    This admonition contains enough ordinary prose to require wrapping at the deliberately short configured width.'.$eol;
+        $source = '.. note::' . $eol . $eol
+            . '    This admonition contains enough ordinary prose to require wrapping at the deliberately short configured width.' . $eol;
         $patches = self::patches($source, 44);
         $formatted = new SourcePatchApplier()->apply($source, $patches)->bytes;
 
         self::assertCount(1, $patches);
         self::assertSame(
-            '.. note::'.$eol.$eol
-            .'    This admonition contains enough ordinary'.$eol
-            .'    prose to require wrapping at the'.$eol
-            .'    deliberately short configured width.'.$eol,
+            '.. note::' . $eol . $eol
+            . '    This admonition contains enough ordinary' . $eol
+            . '    prose to require wrapping at the' . $eol
+            . '    deliberately short configured width.' . $eol,
             $formatted,
         );
         self::assertFalse(Rst::docutils()->parse($formatted)->problems()->hasProblems());
@@ -255,8 +255,8 @@ final class ParagraphWrapperTest extends TestCase
 
     public function testIgnoresInlineMarkupAndEscapedWhitespace(): void
     {
-        $markup = 'This paragraph contains **strong markup** and enough ordinary prose to exceed a deliberately short width safely.'."\n";
-        $escaped = 'This paragraph contains escaped\\ whitespace and enough ordinary prose to exceed a deliberately short width safely.'."\n";
+        $markup = 'This paragraph contains **strong markup** and enough ordinary prose to exceed a deliberately short width safely.' . "\n";
+        $escaped = 'This paragraph contains escaped\\ whitespace and enough ordinary prose to exceed a deliberately short width safely.' . "\n";
 
         self::assertSame([], self::patches($markup, 40));
         self::assertSame([], self::patches($escaped, 40));
@@ -264,14 +264,14 @@ final class ParagraphWrapperTest extends TestCase
 
     public function testIgnoresAParagraphWithAnUnbreakableLongUrl(): void
     {
-        $source = 'Read https://example.com/a/very/long/path/that/must/not/be/split for the complete explanation.'."\n";
+        $source = 'Read https://example.com/a/very/long/path/that/must/not/be/split for the complete explanation.' . "\n";
 
         self::assertSame([], self::patches($source, 40));
     }
 
     public function testCanWrapProseAroundAShortStandaloneUrl(): void
     {
-        $source = 'Read https://example.com and continue with enough ordinary prose to exceed the deliberately short line width.'."\n";
+        $source = 'Read https://example.com and continue with enough ordinary prose to exceed the deliberately short line width.' . "\n";
         $patches = self::patches($source, 40);
 
         self::assertCount(1, $patches);
@@ -290,7 +290,7 @@ final class ParagraphWrapperTest extends TestCase
 
     public function testIgnoresReferenceRecovery(): void
     {
-        $source = 'This paragraph has an unresolved reference_ and enough ordinary prose to exceed the deliberately short width.'."\n";
+        $source = 'This paragraph has an unresolved reference_ and enough ordinary prose to exceed the deliberately short width.' . "\n";
 
         self::assertSame([], self::patches($source, 40));
     }
@@ -306,7 +306,7 @@ final class ParagraphWrapperTest extends TestCase
         self::assertSame(
             ['reference/unresolved-target'],
             array_map(
-                static fn ($problem): string => $problem->code,
+                static fn($problem): string => $problem->code,
                 Rst::docutils()->parse($formatted)->references()->problems()->problems(),
             ),
         );
@@ -314,23 +314,23 @@ final class ParagraphWrapperTest extends TestCase
 
     public function testIgnoresParserRecovery(): void
     {
-        $source = ':author: This unsupported field list has a deliberately long value that must remain untouched.'."\n";
+        $source = ':author: This unsupported field list has a deliberately long value that must remain untouched.' . "\n";
 
         self::assertSame([], self::patches($source, 40));
     }
 
     public function testCountsUtf8CharactersInsteadOfBytes(): void
     {
-        $source = str_repeat("\u{00E9}", 20).' '.str_repeat("\u{00E0}", 20)."\n";
+        $source = str_repeat("\u{00E9}", 20) . ' ' . str_repeat("\u{00E0}", 20) . "\n";
         $patches = self::patches($source, 30);
 
         self::assertCount(1, $patches);
-        self::assertSame(str_repeat("\u{00E9}", 20)."\n".str_repeat("\u{00E0}", 20), $patches[0]->replacement);
+        self::assertSame(str_repeat("\u{00E9}", 20) . "\n" . str_repeat("\u{00E0}", 20), $patches[0]->replacement);
     }
 
     public function testWrappingIsIdempotent(): void
     {
-        $source = 'One two three four five six seven eight nine ten eleven twelve thirteen fourteen.'."\n";
+        $source = 'One two three four five six seven eight nine ten eleven twelve thirteen fourteen.' . "\n";
         $first = new SourcePatchApplier()->apply($source, self::patches($source, 25))->bytes;
 
         self::assertSame([], self::patches($first, 25));
@@ -370,7 +370,7 @@ final class ParagraphWrapperTest extends TestCase
     public function testManualParagraphWithATabPrefixIsNotWrapped(): void
     {
         $text = 'This paragraph contains enough ordinary prose to require wrapping at a deliberately short width.';
-        $bytes = "\t".$text;
+        $bytes = "\t" . $text;
         $source = Source::fromString($bytes);
         $paragraphSpan = ByteSpan::of(0, \strlen($bytes));
         $paragraph = new Paragraph(

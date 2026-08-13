@@ -22,15 +22,23 @@ namespace Alto\Rst\Convert;
  */
 enum ConversionStatus: string
 {
-    /** At least one construct produced no supported target equivalent. */
+    /**
+     * At least one construct produced no supported target equivalent.
+     */
     case Blocked = 'blocked';
 
-    /** Output exists, but at least one mapping discarded information. */
+    /**
+     * Output exists, but at least one mapping discarded information.
+     */
     case Review = 'review';
 
-    /** Only intentional nearby target mappings were recorded. */
+    /**
+     * Only intentional nearby target mappings were recorded.
+     */
     case Tracked = 'tracked';
 
-    /** No conversion issue was recorded. */
+    /**
+     * No conversion issue was recorded.
+     */
     case Exact = 'exact';
 }

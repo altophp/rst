@@ -54,8 +54,7 @@ final readonly class DirectiveSet
      */
     private function __construct(
         private array $directives = [],
-    ) {
-    }
+    ) {}
 
     public static function empty(): self
     {
@@ -135,7 +134,7 @@ final readonly class DirectiveSet
     public function names(): array
     {
         return array_map(
-            static fn (DirectiveSpec $directive): string => $directive->name,
+            static fn(DirectiveSpec $directive): string => $directive->name,
             array_values($this->directives),
         );
     }

@@ -146,7 +146,7 @@ final class InlineParserProblemTest extends InlineParserTestCase
     public function testProblemsAccumulateInSourceOrder(): void
     {
         $codes = array_map(
-            static fn (Problem $problem): string => $problem->code,
+            static fn(Problem $problem): string => $problem->code,
             self::parseProblems('a ``b c *d e'),
         );
 

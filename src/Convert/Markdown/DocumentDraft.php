@@ -33,8 +33,7 @@ final class DocumentDraft
         private readonly ByteSpan $span,
         private readonly array $children,
         private readonly array $definitions,
-    ) {
-    }
+    ) {}
 
     public function finalize(MarkdownInlineParser $inline): MdDocument
     {

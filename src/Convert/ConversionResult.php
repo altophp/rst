@@ -35,8 +35,7 @@ final readonly class ConversionResult
         public string $output,
         public ConversionReport $report,
         public array $resolvedReferenceSpans = [],
-    ) {
-    }
+    ) {}
 
     public function status(): ConversionStatus
     {

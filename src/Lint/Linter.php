@@ -66,7 +66,7 @@ final readonly class Linter
 
         usort(
             $problems,
-            static fn (Problem $a, Problem $b): int => ($a->span->start ?? 0) <=> ($b->span->start ?? 0),
+            static fn(Problem $a, Problem $b): int => ($a->span->start ?? 0) <=> ($b->span->start ?? 0),
         );
 
         return new ProblemReport(...$problems);

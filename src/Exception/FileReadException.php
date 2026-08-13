@@ -16,6 +16,4 @@ namespace Alto\Rst\Exception;
 /**
  * @author Simon André <smn.andre@gmail.com>
  */
-final class FileReadException extends \RuntimeException implements RstExceptionInterface
-{
-}
+final class FileReadException extends \RuntimeException implements RstExceptionInterface {}

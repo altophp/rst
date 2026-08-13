@@ -28,8 +28,7 @@ abstract readonly class MdNode
 {
     protected function __construct(
         private ByteSpan $span,
-    ) {
-    }
+    ) {}
 
     final public function span(): ByteSpan
     {

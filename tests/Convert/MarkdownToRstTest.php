@@ -325,8 +325,8 @@ final class MarkdownToRstTest extends TestCase
 
         self::assertSame(
             ".. image:: pictures/map.png\n"
-            ."    :alt: A map\n\n"
-            .".. _map: pictures/map.png\n",
+            . "    :alt: A map\n\n"
+            . ".. _map: pictures/map.png\n",
             $result->output,
         );
         self::assertSame(['md:image-metadata' => 1], $result->report->countsByConstruct());

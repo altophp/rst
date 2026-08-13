@@ -34,8 +34,7 @@ final readonly class Rst
 {
     private function __construct(
         private Profile $profile,
-    ) {
-    }
+    ) {}
 
     public static function docutils(): self
     {

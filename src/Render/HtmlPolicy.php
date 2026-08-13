@@ -48,8 +48,7 @@ final class HtmlPolicy
      */
     private function __construct(
         private readonly array $schemes,
-    ) {
-    }
+    ) {}
 
     /**
      * The default: URL schemes restricted to http, https, mailto, tel,

@@ -20,15 +20,23 @@ namespace Alto\Rst\Convert\Markdown;
  */
 enum MdTableAlignment
 {
-    /** No colon in the delimiter cell. */
+    /**
+     * No colon in the delimiter cell.
+     */
     case None;
 
-    /** ":---" */
+    /**
+     * ":---"
+     */
     case Left;
 
-    /** "---:" */
+    /**
+     * "---:"
+     */
     case Right;
 
-    /** ":---:" */
+    /**
+     * ":---:"
+     */
     case Center;
 }

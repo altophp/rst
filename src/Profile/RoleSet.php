@@ -28,8 +28,7 @@ final readonly class RoleSet
      */
     private function __construct(
         private array $index = [],
-    ) {
-    }
+    ) {}
 
     public static function empty(): self
     {

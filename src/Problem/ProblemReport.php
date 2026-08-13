@@ -80,7 +80,7 @@ final readonly class ProblemReport implements \Countable, \IteratorAggregate
     {
         return new self(...array_filter(
             $this->problems,
-            static fn (Problem $problem): bool => $problem->severity->isAtLeast($minimum),
+            static fn(Problem $problem): bool => $problem->severity->isAtLeast($minimum),
         ));
     }
 
@@ -92,7 +92,7 @@ final readonly class ProblemReport implements \Countable, \IteratorAggregate
     {
         return new self(...array_filter(
             $this->problems,
-            static fn (Problem $problem): bool => $area === self::area($problem->code),
+            static fn(Problem $problem): bool => $area === self::area($problem->code),
         ));
     }
 

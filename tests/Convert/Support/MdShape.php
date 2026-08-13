@@ -39,9 +39,7 @@ use Alto\Rst\Convert\Markdown\MdThematicBreak;
  */
 final readonly class MdShape
 {
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @return array<string, mixed>
@@ -86,7 +84,7 @@ final readonly class MdShape
             $node instanceof MdParagraph => ['p', self::inline($node->children())],
             $node instanceof MdCodeBlock => ['code', self::language($node), rtrim($node->content, "\n")],
             $node instanceof MdBlockQuote => ['quote', self::nodes($node->children())],
-            $node instanceof MdList => ['list', $node->ordered, $node->ordered ? ($node->delimiter->value ?? '.') : ($node->bulletMarker ?? '-'), $node->start, array_map(static fn (MdListItem $item): array => self::nodes($item->children()), $node->children())],
+            $node instanceof MdList => ['list', $node->ordered, $node->ordered ? ($node->delimiter->value ?? '.') : ($node->bulletMarker ?? '-'), $node->start, array_map(static fn(MdListItem $item): array => self::nodes($item->children()), $node->children())],
             $node instanceof MdTable => ['table', self::row($node->header), array_map(self::row(...), $node->rows())],
             $node instanceof MdThematicBreak => ['hr'],
             $node instanceof MdHtmlBlock => ['html', trim($node->content)],

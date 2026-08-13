@@ -41,8 +41,7 @@ final readonly class Line
         public int $indentWidth,
         private ByteSpan $contentSpan,
         private bool $blank,
-    ) {
-    }
+    ) {}
 
     /**
      * Builds a line by scanning $bytes over the content range [start, end).

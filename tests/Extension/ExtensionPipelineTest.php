@@ -92,7 +92,7 @@ final class ExtensionPipelineTest extends TestCase
                 Profile $profile,
                 HtmlPolicy $htmlPolicy,
             ): string {
-                return '<mark>'.htmlspecialchars($role->text, \ENT_QUOTES | \ENT_SUBSTITUTE, 'UTF-8').'</mark>';
+                return '<mark>' . htmlspecialchars($role->text, \ENT_QUOTES | \ENT_SUBSTITUTE, 'UTF-8') . '</mark>';
             }
 
             public function convertToMarkdown(
@@ -102,18 +102,17 @@ final class ExtensionPipelineTest extends TestCase
                 ConversionOptions $options,
             ): ConversionResult {
                 return new ConversionResult(
-                    '**'.$role->text.'**',
+                    '**' . $role->text . '**',
                     new ConversionReport([
                         ConversionIssue::lossy('role:badge', 'Badge styling was flattened.', $role->span()),
                     ]),
                 );
             }
         };
-        $extension = new readonly class($handler) extends AbstractExtension {
+        $extension = new readonly class ($handler) extends AbstractExtension {
             public function __construct(
                 private RoleHandler $handler,
-            ) {
-            }
+            ) {}
 
             public function name(): string
             {
@@ -168,11 +167,10 @@ final class ExtensionPipelineTest extends TestCase
                 ));
             }
         };
-        $extension = new readonly class($rule) extends AbstractExtension {
+        $extension = new readonly class ($rule) extends AbstractExtension {
             public function __construct(
                 private DocumentRule $rule,
-            ) {
-            }
+            ) {}
 
             public function name(): string
             {
@@ -196,7 +194,7 @@ final class ExtensionPipelineTest extends TestCase
         );
         $matching = array_values(array_filter(
             $report->problems(),
-            static fn (Problem $problem): bool => 'lint/trailing-whitespace' === $problem->code,
+            static fn(Problem $problem): bool => 'lint/trailing-whitespace' === $problem->code,
         ));
 
         self::assertCount(1, $matching);
@@ -216,11 +214,10 @@ final class ExtensionPipelineTest extends TestCase
                 return [new SourcePatch(ByteSpan::of(0, 3), 'the')];
             }
         };
-        $extension = new readonly class($pass) extends AbstractExtension {
+        $extension = new readonly class ($pass) extends AbstractExtension {
             public function __construct(
                 private FixPass $pass,
-            ) {
-            }
+            ) {}
 
             public function name(): string
             {
@@ -278,13 +275,12 @@ final class ExtensionPipelineTest extends TestCase
                 return [new SourcePatch(ByteSpan::of(8, 9), '* other')];
             }
         };
-        $extension = new readonly class($empty, $safe, $structural) extends AbstractExtension {
+        $extension = new readonly class ($empty, $safe, $structural) extends AbstractExtension {
             public function __construct(
                 private FormatterPass $empty,
                 private FormatterPass $safe,
                 private FormatterPass $structural,
-            ) {
-            }
+            ) {}
 
             public function name(): string
             {
@@ -336,7 +332,7 @@ final class ExtensionPipelineTest extends TestCase
             $profile,
         );
         self::assertContains('lint/test-extension', array_map(
-            static fn (Problem $problem): string => $problem->code,
+            static fn(Problem $problem): string => $problem->code,
             $lint->problems(),
         ));
 
@@ -380,7 +376,7 @@ final class ExtensionPipelineTest extends TestCase
                 Profile $profile,
                 HtmlPolicy $htmlPolicy,
             ): string {
-                return '<mark>'.htmlspecialchars($role->text, \ENT_QUOTES | \ENT_SUBSTITUTE, 'UTF-8').'</mark>';
+                return '<mark>' . htmlspecialchars($role->text, \ENT_QUOTES | \ENT_SUBSTITUTE, 'UTF-8') . '</mark>';
             }
 
             public function convertToMarkdown(
@@ -389,7 +385,7 @@ final class ExtensionPipelineTest extends TestCase
                 Profile $profile,
                 ConversionOptions $options,
             ): ConversionResult {
-                return new ConversionResult('**'.$role->text.'**', new ConversionReport());
+                return new ConversionResult('**' . $role->text . '**', new ConversionReport());
             }
         };
         $lintRule = new class implements SourceRule {
@@ -449,15 +445,14 @@ final class ExtensionPipelineTest extends TestCase
                 return ['bytes' => \strlen($source->bytes)];
             }
         };
-        $extension = new readonly class($roleHandler, $lintRule, $fixPass, $formatterPass, $statistics) extends AbstractExtension {
+        $extension = new readonly class ($roleHandler, $lintRule, $fixPass, $formatterPass, $statistics) extends AbstractExtension {
             public function __construct(
                 private readonly RoleHandler $roleHandler,
                 private readonly SourceRule $lintRule,
                 private readonly FixPass $fixPass,
                 private readonly FormatterPass $formatterPass,
                 private readonly StatisticsProvider $statistics,
-            ) {
-            }
+            ) {}
 
             public function name(): string
             {

@@ -18,6 +18,4 @@ namespace Alto\Rst\Exception;
  *
  * @author Simon André <smn.andre@gmail.com>
  */
-interface RstExceptionInterface extends \Throwable
-{
-}
+interface RstExceptionInterface extends \Throwable {}

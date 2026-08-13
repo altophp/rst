@@ -29,8 +29,7 @@ final class LineCursor
     public function __construct(
         private readonly array $lines,
         private int $pos = 0,
-    ) {
-    }
+    ) {}
 
     public function atEnd(): bool
     {

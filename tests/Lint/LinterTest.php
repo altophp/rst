@@ -64,8 +64,8 @@ final class LinterTest extends TestCase
 
         $report = new Linter()->lint($document, LintConfig::recommended());
 
-        $codes = array_map(static fn (Problem $problem): string => $problem->code, $report->problems());
-        $starts = array_map(static fn (Problem $problem): ?int => $problem->span?->start, $report->problems());
+        $codes = array_map(static fn(Problem $problem): string => $problem->code, $report->problems());
+        $starts = array_map(static fn(Problem $problem): ?int => $problem->span?->start, $report->problems());
 
         self::assertSame(['lint/transition-placement', 'lint/empty-section', 'lint/duplicate-target'], $codes);
         self::assertSame([0, 6, 45], $starts);
@@ -110,7 +110,7 @@ final class LinterTest extends TestCase
 
         $report = new Linter()->lint($document, $config, Source::fromString(''));
 
-        $codes = array_map(static fn (Problem $problem): string => $problem->code, $report->problems());
+        $codes = array_map(static fn(Problem $problem): string => $problem->code, $report->problems());
 
         self::assertContains('custom/source-always', $codes);
     }
@@ -136,7 +136,7 @@ final class LinterTest extends TestCase
 
         $report = new Linter()->lint($document, LintConfig::recommended(), Source::fromString($rst));
 
-        $codes = array_map(static fn (Problem $problem): string => $problem->code, $report->problems());
+        $codes = array_map(static fn(Problem $problem): string => $problem->code, $report->problems());
 
         self::assertSame(['lint/transition-placement', 'lint/trailing-whitespace'], $codes);
     }

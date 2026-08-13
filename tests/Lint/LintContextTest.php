@@ -49,14 +49,13 @@ final class LintContextTest extends TestCase
         $cached = $result->references()->inlineNodes($paragraph->text, false);
         self::assertNotNull($cached);
 
-        $rule = new readonly class($cached) implements ContextRule {
+        $rule = new readonly class ($cached) implements ContextRule {
             /**
              * @param list<Node> $expected
              */
             public function __construct(
                 private array $expected,
-            ) {
-            }
+            ) {}
 
             public function code(): string
             {
@@ -80,11 +79,11 @@ final class LintContextTest extends TestCase
     public function testTraversalUsesSegmentedTableCacheWithoutCrossCellMarkup(): void
     {
         $rst = "========  ==========\n"
-            ."col       text\n"
-            ."========  ==========\n"
-            ."first     `target\n"
-            ."          link`_\n"
-            ."========  ==========\n";
+            . "col       text\n"
+            . "========  ==========\n"
+            . "first     `target\n"
+            . "          link`_\n"
+            . "========  ==========\n";
         $result = Rst::docutils()->parse($rst);
         $nodes = iterator_to_array(
             new InlineNodeTraversal()->walk($result->document(), $result->references()),
@@ -93,7 +92,7 @@ final class LintContextTest extends TestCase
 
         self::assertSame(
             [],
-            array_values(array_filter($nodes, static fn (Node $node): bool => $node instanceof HyperlinkReference)),
+            array_values(array_filter($nodes, static fn(Node $node): bool => $node instanceof HyperlinkReference)),
         );
     }
 
@@ -109,15 +108,14 @@ final class LintContextTest extends TestCase
         $cached = $result->references()->inlineNodes($paragraph->text, false);
         self::assertNotNull($cached);
 
-        $rule = new readonly class($result->references(), $cached) implements ContextRule {
+        $rule = new readonly class ($result->references(), $cached) implements ContextRule {
             /**
              * @param list<Node> $expected
              */
             public function __construct(
                 private ReferenceGraph $graph,
                 private array $expected,
-            ) {
-            }
+            ) {}
 
             public function code(): string
             {
@@ -142,18 +140,18 @@ final class LintContextTest extends TestCase
     public function testTraversalKeepsByteSpansForReferencesInTableSegments(): void
     {
         $rst = "========  ==========\n"
-            ."col       text\n"
-            ."========  ==========\n"
-            ."first     one_\n"
-            ."          two_\n"
-            ."========  ==========\n";
+            . "col       text\n"
+            . "========  ==========\n"
+            . "first     one_\n"
+            . "          two_\n"
+            . "========  ==========\n";
         $result = Rst::docutils()->parse($rst);
         $links = array_values(array_filter(
             iterator_to_array(
                 new InlineNodeTraversal()->walk($result->document(), $result->references()),
                 false,
             ),
-            static fn (Node $node): bool => $node instanceof HyperlinkReference,
+            static fn(Node $node): bool => $node instanceof HyperlinkReference,
         ));
 
         self::assertCount(2, $links);
@@ -179,7 +177,7 @@ final class LintContextTest extends TestCase
             false,
         );
 
-        self::assertTrue((bool) array_filter($nodes, static fn (Node $node): bool => $node instanceof Emphasis));
-        self::assertTrue((bool) array_filter($nodes, static fn (Node $node): bool => $node instanceof HyperlinkReference));
+        self::assertTrue((bool) array_filter($nodes, static fn(Node $node): bool => $node instanceof Emphasis));
+        self::assertTrue((bool) array_filter($nodes, static fn(Node $node): bool => $node instanceof HyperlinkReference));
     }
 }

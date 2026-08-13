@@ -76,7 +76,7 @@ final readonly class ForbiddenDirectiveRule implements DocumentRule
                 : sprintf(
                     'Directive "%s" is forbidden; use %s instead.',
                     $name,
-                    implode(' or ', array_map(static fn (string $replacement): string => sprintf('"%s"', $replacement), $replacements)),
+                    implode(' or ', array_map(static fn(string $replacement): string => sprintf('"%s"', $replacement), $replacements)),
                 );
 
             $problems->add(new Problem(

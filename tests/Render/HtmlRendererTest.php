@@ -279,11 +279,11 @@ final class HtmlRendererTest extends TestCase
     public function testScriptInjectionComesOutInert(): void
     {
         $payload = '<script>alert("xss")</script>';
-        $rst = $payload."\n".$payload."\n====\n\n::\n\n    ".$payload."\n";
+        $rst = $payload . "\n" . $payload . "\n====\n\n::\n\n    " . $payload . "\n";
         $source = Source::fromString($rst);
 
         $title = new Title(self::span($rst, $payload), self::text($rst, $payload));
-        $literalContent = ByteSpan::of(\strlen($rst) - \strlen('    '.$payload."\n"), \strlen('    '.$payload."\n"));
+        $literalContent = ByteSpan::of(\strlen($rst) - \strlen('    ' . $payload . "\n"), \strlen('    ' . $payload . "\n"));
         $section = new Section(ByteSpan::of(0, \strlen($rst)), 1, $title, [
             new Paragraph(self::span($rst, $payload), self::text($rst, $payload)),
             new LiteralBlock($literalContent, $literalContent),

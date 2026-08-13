@@ -25,9 +25,7 @@ namespace Alto\Rst\Convert\Writer;
  */
 final readonly class Lines
 {
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Splits into lines, normalizing CRLF and CR terminators to LF first.
@@ -83,7 +81,7 @@ final readonly class Lines
 
         foreach ($lines as $index => $line) {
             $head = 0 === $index ? $first : $rest;
-            $prefixed[] = '' === $line ? rtrim($head) : $head.$line;
+            $prefixed[] = '' === $line ? rtrim($head) : $head . $line;
         }
 
         return implode("\n", $prefixed);

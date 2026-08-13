@@ -75,7 +75,7 @@ final readonly class InlineParser
      * matchConstruct. Every other byte can never begin a construct when its
      * predecessor is plain text, so whole words are copied in one substr.
      */
-    private const string PLAIN_STOP = '\\'.self::WHITESPACE.self::START_BEFORE;
+    private const string PLAIN_STOP = '\\' . self::WHITESPACE . self::START_BEFORE;
 
     /**
      * The end-string context, as a lookahead.
@@ -86,7 +86,7 @@ final readonly class InlineParser
      * Suffixes a closing backquote accepts: a trailing role, or a reference
      * marker. Longest alternative first.
      */
-    private const string BACKQUOTE_SUFFIX = '(?::'.self::NAME.':|__|_)';
+    private const string BACKQUOTE_SUFFIX = '(?::' . self::NAME . ':|__|_)';
 
     private const array SCHEMES = ['https://', 'http://', 'ftp://', 'mailto:'];
 
@@ -103,8 +103,7 @@ final readonly class InlineParser
 
     public function __construct(
         private ProblemCollector $problems,
-    ) {
-    }
+    ) {}
 
     /**
      * @return list<Node>
@@ -342,7 +341,7 @@ final readonly class InlineParser
      */
     private function matchRolePrefix(string $text, int $offset, int $baseOffset, array &$noEnd): ?array
     {
-        if (1 !== preg_match('~:('.self::NAME.'):(?=`)~A', $this->wordWindow($text, $offset), $matches)) {
+        if (1 !== preg_match('~:(' . self::NAME . '):(?=`)~A', $this->wordWindow($text, $offset), $matches)) {
             return null;
         }
 
@@ -452,7 +451,7 @@ final readonly class InlineParser
     private function matchBracket(string $text, int $offset, int $baseOffset): ?array
     {
         $window = $this->wordWindow($text, $offset);
-        $footnote = '~\[([0-9]+|#'.self::NAME.'?|\*)\]_'.self::END.'~A';
+        $footnote = '~\[([0-9]+|#' . self::NAME . '?|\*)\]_' . self::END . '~A';
 
         if (1 === preg_match($footnote, $window, $matches)) {
             $next = $offset + \strlen($matches[0]);
@@ -461,7 +460,7 @@ final readonly class InlineParser
             return [new FootnoteReference($span, $matches[1]), $next];
         }
 
-        $citation = '~\[('.self::NAME.')\]_'.self::END.'~A';
+        $citation = '~\[(' . self::NAME . ')\]_' . self::END . '~A';
 
         if (1 === preg_match($citation, $window, $matches)) {
             $next = $offset + \strlen($matches[0]);
@@ -509,7 +508,7 @@ final readonly class InlineParser
             return null;
         }
 
-        if (1 !== preg_match('~'.self::NAME.'(__?)'.self::END.'~A', $window, $matches)) {
+        if (1 !== preg_match('~' . self::NAME . '(__?)' . self::END . '~A', $window, $matches)) {
             return null;
         }
 
@@ -649,7 +648,7 @@ final readonly class InlineParser
      */
     private function findEndString(string $text, int $from, string $mark, array &$noEnd, string $suffix = '', bool $escapes = true): ?array
     {
-        $key = $mark.'|'.$suffix.'|'.($escapes ? 'e' : 'r');
+        $key = $mark . '|' . $suffix . '|' . ($escapes ? 'e' : 'r');
 
         if (isset($noEnd[$key]) && $from >= $noEnd[$key]) {
             return null;
@@ -699,7 +698,7 @@ final readonly class InlineParser
             return [''];
         }
 
-        if (1 === preg_match('~'.$pattern.'~A', $this->wordWindow($text, $offset), $matches) && '' !== $matches[0]) {
+        if (1 === preg_match('~' . $pattern . '~A', $this->wordWindow($text, $offset), $matches) && '' !== $matches[0]) {
             return [$matches[0], ''];
         }
 
@@ -785,7 +784,7 @@ final readonly class InlineParser
                 continue;
             }
 
-            $run = strcspn($raw, '\\'.self::WHITESPACE, $offset);
+            $run = strcspn($raw, '\\' . self::WHITESPACE, $offset);
             $decoded .= substr($raw, $offset, $run);
             $offset += $run;
         }

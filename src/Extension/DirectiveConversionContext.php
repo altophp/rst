@@ -33,8 +33,7 @@ final readonly class DirectiveConversionContext
      */
     public function __construct(
         private \Closure $bodyConverter,
-    ) {
-    }
+    ) {}
 
     public function convertBody(Directive $directive): ConversionResult
     {

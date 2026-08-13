@@ -1,9 +1,9 @@
 {
     "name": "alto/rst",
-    "description": "reStructuredText document engine: parse, query, lint, build, render, translate, and safely edit RST with minimal diffs",
+    "description": "Parse, query, lint, render, convert, and edit reStructuredText with minimal diffs.",
     "license": "MIT",
     "type": "library",
-    "homepage": "https://github.com/altophp/rst",
+    "homepage": "https://altophp.com/rst",
     "keywords": [
         "rst",
         "restructuredtext",
@@ -14,7 +14,8 @@
     ],
     "support": {
         "issues": "https://github.com/altophp/rst/issues",
-        "source": "https://github.com/altophp/rst"
+        "source": "https://github.com/altophp/rst",
+        "docs": "https://altophp.com/rst"
     },
     "authors": [
         {
@@ -22,13 +23,18 @@
             "email": "smn.andre@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/smnandre"
+        }
+    ],
     "require": {
-        "php": ">=8.4"
+        "php": "^8.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.94",
-        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan": "^2.2",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^12.5"
     },
@@ -51,14 +57,14 @@
             "@coverage:check"
         ],
         "coverage:check": "php tests/coverage-check.php .phpunit.cache/clover.xml 97",
-        "cs": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "cs-fix": "vendor/bin/php-cs-fixer fix",
+        "cs": "vendor/bin/php-cs-fixer fix --dry-run --diff --sequential",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --sequential",
         "qa": [
-            "@sa",
             "@cs",
-            "@tests"
+            "@sa",
+            "@test"
         ],
         "sa": "vendor/bin/phpstan analyse --memory-limit=-1",
-        "tests": "vendor/bin/phpunit"
+        "test": "phpunit"
     }
 }

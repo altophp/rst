@@ -20,9 +20,13 @@ namespace Alto\Rst\Convert\Markdown;
  */
 enum MdCodeBlockStyle
 {
-    /** Fenced with a run of "`" or "~". */
+    /**
+     * Fenced with a run of "`" or "~".
+     */
     case Fenced;
 
-    /** Every line indented at least four columns. */
+    /**
+     * Every line indented at least four columns.
+     */
     case Indented;
 }

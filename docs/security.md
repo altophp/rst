@@ -1,6 +1,6 @@
 # Security
 
-Alto treats every RST input as untrusted.
+ALTO RST treats every RST input as untrusted.
 
 ## Safe defaults
 
@@ -70,7 +70,7 @@ occurrence unresolved.
 
 ## Caller responsibilities
 
-Alto does not own:
+ALTO RST does not own:
 
 - file discovery outside the explicit include policy;
 - network retrieval;

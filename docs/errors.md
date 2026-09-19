@@ -1,4 +1,4 @@
-# Exceptions
+# Errors
 
 Malformed RST is normally represented by parser, reference, lint, or conversion
 problems. Exceptions are reserved for invalid API use and unsafe I/O or patch
@@ -14,7 +14,7 @@ operations.
 | `FileConflictException` | A file changed after it was opened. |
 
 All package exceptions implement `RstExceptionInterface`, allowing an
-application boundary to catch Alto failures without catching unrelated runtime
+application boundary to catch ALTO RST failures without catching unrelated runtime
 exceptions.
 
 Do not convert parser or conversion problems into exceptions merely to stop a

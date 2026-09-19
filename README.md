@@ -65,8 +65,8 @@ Rst::sphinx();
 Rst::symfony();
 ```
 
-See [Installation](docs/installation.md), [Parsing](docs/parsing/index.md),
-[Rendering](docs/rendering/index.md), and [Security](docs/security.md) for
+See [Installation](docs/installation.md), [Parsing](docs/parsing.md),
+[Rendering](docs/rendering.md), and [Security](docs/security.md) for
 setup, profile, and rendering policies.
 
 ## Parse a document when you need more
@@ -107,25 +107,31 @@ Resolved footnotes, citations, and substitutions have explicit Markdown
 mappings, including collision-safe anchors across expanded include files.
 Code fence language names such as `html+twig` remain unchanged.
 
-The documentation covers this in more depth: [Linting](docs/linting/index.md)
-to run and configure the recommended rules, [Conversion](docs/conversion/index.md)
+The documentation covers this in more depth: [Linting](docs/linting.md)
+to run and configure the recommended rules, [Conversion](docs/conversion.md)
 to convert individual documents or complete projects between RST and Markdown,
-and [Editing](docs/editing/index.md) for conservative fixes,
+and [Editing](docs/editing.md) for conservative fixes,
 formatting, typed edits, diffs, and conflict-safe file persistence.
 
 ## Extend
 
 Trusted extensions add directives, roles, lint rules, fixes, formatter
 passes, statistics, and conversion mappings through compiled profile
-contracts. Read [Extensions](docs/extensions/index.md) for the extension contracts
-and [Reference](docs/reference/index.md) for how local and project-wide
+contracts. Read [Extensions](docs/extensions.md) for the extension contracts
+and [References](docs/references.md) for how local and project-wide
 targets, links, notes, citations, and substitutions resolve.
 
 ## Documentation
 
-- [Documentation index](docs/index.md): browse the complete guide set.
-- [Security](docs/security.md): control URLs, raw HTML, includes, and other
-  file-reading constructs.
+- [Installation](docs/installation.md) and [Getting started](docs/getting-started.md)
+- [Parsing](docs/parsing.md) and [Rendering](docs/rendering.md)
+- [Linting](docs/linting.md) and [Editing](docs/editing.md)
+- [Conversion](docs/conversion.md) and [References](docs/references.md)
+- [Extensions](docs/extensions.md), [Security](docs/security.md), and
+  [Errors](docs/errors.md)
+
+The [documentation index](docs/index.md) lists these pages in site navigation
+order and links their focused guides.
 
 ## Contributing
 

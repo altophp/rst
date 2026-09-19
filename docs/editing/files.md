@@ -27,3 +27,8 @@ refuses an existing unopened target by default.
 `SaveOptions` can explicitly alter compare-before-write or atomicity. The
 application remains responsible for path authorization, backups, and recovery.
 See [Security](../security.md) for caller responsibilities.
+
+After a conflict, preserve the pending diff, reopen the current file, and
+reapply the intended change to the new source. Review the new diff before
+saving. Disabling comparison to force a stale write can discard another
+editor's work.

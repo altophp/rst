@@ -1,4 +1,26 @@
-# Conversion API
+# Conversion
+
+ALTO RST converts RST to Markdown and a supported Markdown subset back to RST.
+Every conversion returns output plus a report of unsupported, lossy, or
+approximate mappings.
+
+| Input | API |
+| --- | --- |
+| Parsed RST document | `RstToMarkdown` |
+| Supported Markdown | `MarkdownReader` then `MarkdownToRst` |
+| RST documentation tree | `ProjectConverter` |
+
+Conversion does not hide fidelity gaps. A source construct without an exact
+target degrades conservatively and becomes a `ConversionIssue`.
+
+Continue with:
+
+- [To Markdown](conversion/to-markdown.md) to convert RST safely.
+- [To RST](conversion/to-rst.md) to convert supported Markdown.
+- [Projects](conversion/projects.md) when links cross file boundaries.
+- [Reports](conversion/reports.md) before publishing migrated content.
+
+## Public contract
 
 Conversion APIs return `ConversionResult`, which contains `output`, a
 `ConversionReport`, resolved-reference spans, and status helpers.
@@ -18,6 +40,3 @@ defaults.
 `ConversionReport` provides status, exactness helpers, issue filters, and
 counts grouped by kind or construct. Project results add file lookup, output
 maps, and parser and reference diagnostics.
-
-See [Conversion](../conversion/index.md), [Projects](../conversion/projects.md),
-and [Reports](../conversion/reports.md).

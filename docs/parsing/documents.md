@@ -27,5 +27,5 @@ declare one of four body models:
 - `None` declares that the directive accepts no body.
 
 Nodes are immutable views over the parsed source. Use the typed
-[Editing](../editing/index.md) API to plan changes rather than mutating the tree.
+[Editing](../editing.md) API to plan changes rather than mutating the tree.
 See [Positions](positions.md) for byte-span semantics.

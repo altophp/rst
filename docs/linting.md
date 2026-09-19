@@ -28,5 +28,20 @@ Document rules need only the tree. Source rules also need original bytes.
 Context rules use the reference graph. Omitting optional inputs means rules
 that require those inputs cannot run.
 
-Read [Configuration](configuration.md) to derive a policy, [Rules](rules.md)
-to browse the built-in set, and [Fixes](fixes.md) for safe corrections.
+Continue with:
+
+- [Configuration](linting/configuration.md) to derive a policy.
+- [Fixes](linting/fixes.md) for conservative corrections.
+- [Rules](linting/rules.md) to browse the built-in set.
+- [Custom rules](linting/custom.md) to add an application rule.
+
+## Public contract
+
+`Linter::lint(Document, LintConfig, ?Source, ?ReferenceGraph, ?Profile)` returns
+a `ProblemReport`. `LintConfig::recommended()` creates the built-in policy;
+`withRule()` and `withoutRule()` derive a new value.
+
+`FixEngine::fix(string $bytes, ?FixOptions, ?Profile)` returns a `FixResult`
+with changed bytes, patches, and reparsed state. `FixOptions` controls trailing
+whitespace, blank-line bounds, anchor and directive separators, and optional
+default-role normalization.

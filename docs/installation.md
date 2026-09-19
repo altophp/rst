@@ -1,6 +1,6 @@
 # Installation
 
-Install Alto RST in a PHP 8.4 or newer application, then render one document to
+Install ALTO RST in a PHP 8.4 or newer application, then render one document to
 verify the Composer autoloader and runtime.
 
 ## Install the package

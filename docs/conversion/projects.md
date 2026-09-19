@@ -26,4 +26,4 @@ skips symbolic links.
 The two-pass map resolves `:ref:` and `:doc:` links, including optional
 implicit section labels. The result keeps per-file parse, reference, and
 conversion diagnostics. See [Reports](reports.md) and
-[Project references](../reference/projects.md).
+[Project references](../references/projects.md).

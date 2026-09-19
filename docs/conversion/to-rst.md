@@ -1,6 +1,6 @@
 # To RST
 
-`MarkdownReader` reads the subset Alto writes plus constructs required by its
+`MarkdownReader` reads the subset ALTO RST writes plus constructs required by its
 documentation workload. It is not a general CommonMark implementation.
 
 ```php

@@ -23,4 +23,4 @@ operations.
 
 `Profile::withExtension()` returns a new profile. Later extensions replace a
 handler, pass, rule, or statistics provider with the same normalized name.
-Read [Extensions](../extensions/index.md) before installing trusted behavior.
+Read [Extensions](../extensions.md) before installing trusted behavior.

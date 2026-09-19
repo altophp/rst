@@ -36,3 +36,7 @@ assert([] === $second->patches);
 
 Extension passes use the same parse guard. See [Patches](patches.md) to preview
 the accepted changes.
+
+`Formatter::format(string $bytes, ?FormatOptions, ?Profile)` returns a
+`FormatResult`. Formatting candidates pass a semantic reparse guard before
+their patches are accepted.

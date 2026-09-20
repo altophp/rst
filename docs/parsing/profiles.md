@@ -13,9 +13,9 @@ $symfony = Rst::symfony();
 
 | Profile | Use for |
 | --- | --- |
-| `docutils` | Portable reStructuredText. |
-| `sphinx` | Sphinx roles, directives, and cross-document conventions. |
-| `symfony` | Symfony documentation and its public extension behavior. |
+| [Docutils](profiles/docutils.md) | Portable reStructuredText. |
+| [Sphinx](profiles/sphinx.md) | Sphinx roles, directives, and cross-document conventions. |
+| [Symfony](profiles/symfony.md) | Symfony documentation and its public extension behavior. |
 
 Choose the narrowest profile that recognizes the source. The selected profile
 stays attached to parse, render, lint, fix, format, statistics, and conversion

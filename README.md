@@ -148,23 +148,22 @@ Before submitting code, run:
 composer qa
 ```
 
-Changes to public behavior should include tests and documentation. Run
-`composer coverage` separately to enforce the 97% line-coverage floor.
+Changes to public behavior should include tests and documentation.
 
-The suite runs against a pinned docutils 0.23 fixture corpus committed to the
-repository. No Python or Sphinx process is involved, at runtime or at test time.
-
-Set `ALTO_RST_UX_CORPUS` to a Symfony UX checkout to also run the corpus
-conversion tests; they skip when it is unset.
+Run `composer coverage` separately to enforce the 97% line-coverage floor.
+The suite uses a pinned docutils 0.23 fixture corpus and does not run Python or
+Sphinx. Set `ALTO_RST_UX_CORPUS` to a Symfony UX checkout to enable the optional
+corpus conversion tests.
 
 ## Support
 
-ALTO RST is open source. You can support its continued development through
+ALTO RST is open source and independently maintained by
+[Simon André](https://smnandre.dev). If it is useful to your work, you can
+support its continued development through
 [GitHub Sponsors](https://github.com/sponsors/smnandre).
 
-Sharing this package with others or
-[starring it on GitHub](https://github.com/altophp/rst) is also much
-appreciated.
+Sharing the package or
+[starring it on GitHub](https://github.com/altophp/rst) also helps.
 
 ## License
 

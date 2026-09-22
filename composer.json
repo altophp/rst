@@ -3,7 +3,6 @@
     "description": "Parse, query, lint, render, convert, and edit reStructuredText with minimal diffs.",
     "license": "MIT",
     "type": "library",
-    "homepage": "https://altophp.com/rst",
     "keywords": [
         "rst",
         "restructuredtext",
@@ -12,17 +11,18 @@
         "linter",
         "converter"
     ],
-    "support": {
-        "issues": "https://github.com/altophp/rst/issues",
-        "source": "https://github.com/altophp/rst",
-        "docs": "https://altophp.com/rst"
-    },
     "authors": [
         {
             "name": "Simon André",
             "email": "smn.andre@gmail.com"
         }
     ],
+    "homepage": "https://altophp.com/rst",
+    "support": {
+        "issues": "https://github.com/altophp/rst/issues",
+        "source": "https://github.com/altophp/rst",
+        "docs": "https://altophp.com/rst"
+    },
     "funding": [
         {
             "type": "github",
